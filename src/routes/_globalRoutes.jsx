@@ -2,6 +2,7 @@ import Layout from '@/layouts/public/homeLayout'
 import React, { Suspense } from 'react'
 
 const HomePage = React.lazy(() => import('@/pages/globalPages/homePage/index'))
+const IntroducePage = React.lazy(() => import('@/pages/globalPages/introducePage/index'))
 const NotFound = React.lazy(() => import('@/pages/globalPages/notFound/index'))
 
 const globalRoutes = {
@@ -15,6 +16,14 @@ const globalRoutes = {
     {
       index: true,
       element: <HomePage />,
+    },
+    {
+      path: '/introduce',
+      element: <IntroducePage />,
+    },
+    {
+      path: '*',
+      element: <NotFound />,
     },
   ],
 }
