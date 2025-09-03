@@ -7,7 +7,7 @@ import { signOut } from '@/sagas/users/userSlice'
 
 import { SideBarLogoStyle, SideBarStyle } from './styled'
 import ROLES from '@/constants/roles'
-import { ADMIN_MENU, STAFF_MENU } from '@/constants/privateMenu'
+import { ADMIN_MENU, MANAGER_MENU } from '@/components/menu/privateMenu'
 import { useSelector } from 'react-redux'
 
 const PrivateSidebar = ({ collapsed, setCollapsed }) => {
@@ -16,7 +16,7 @@ const PrivateSidebar = ({ collapsed, setCollapsed }) => {
   const location = useLocation()
   const dispatch = useDispatch()
 
-  const sidebarList = user?.role === ROLES.ADMIN ? ADMIN_MENU : STAFF_MENU
+  const sidebarList = user?.role === ROLES.ADMIN ? ADMIN_MENU : MANAGER_MENU
 
   const handleMenuClick = async ({ key }) => {
     if (key === 'signout') {

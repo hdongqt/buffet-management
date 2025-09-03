@@ -1,4 +1,4 @@
-import { ROLE_PERMISSIONS } from '@/routes/listRoutes'
+import { ROLE_PERMISSIONS } from '@/constants/listRoutes'
 
 const checkRouterAccess = (path, role) => {
   if (!role || !path) return false
