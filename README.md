@@ -44,6 +44,7 @@ Dự án **Restaurant Ordering System** giúp quản lý toàn bộ hoạt độ
 - 📡 [Axios](https://axios-http.com/) – gọi API
 - 🎭 [Ant design](https://ant.design/) + [Styled Component](https://styled-components.com/docs) – ui & styling
 - ✅ [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup) – form & validation
+- 🎨 [Framer-motion](https://motion.dev/docs/react) – animation
 
 ## 🚀 Cách chạy dự án (cho Developer mới)
 
