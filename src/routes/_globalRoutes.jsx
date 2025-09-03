@@ -16,11 +16,13 @@ const globalRoutes = {
       index: true,
       element: <HomePage />,
     },
-    {
-      path: '*',
-      element: <NotFound />,
-    },
   ],
 }
 
+const forbiddenRoutes = {
+  path: '*',
+  element: <NotFound />,
+}
+
+export { forbiddenRoutes }
 export default globalRoutes
