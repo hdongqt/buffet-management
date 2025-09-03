@@ -1,4 +1,7 @@
-@use './variables' as *;
+#root {
+  height: 100%;
+  width: 100%;
+}
 
 *,
 *::before,
@@ -29,18 +32,10 @@ html,
 body {
   height: 100%;
   font-family: 'Quicksand', sans-serif;
-  color: $color-text;
-  background-color: $color-background;
+  color: var(--ant-white);
+  background-color: var(--ant-white);
   line-height: 1.6;
   font-size: 62.5%;
-
-  @media only screen and (max-width: $bp-medium) {
-    font-size: 50%;
-  }
-
-  @media only screen and (max-width: $bp-small) {
-    font-size: 50%;
-  }
 }
 
 h1 {
@@ -98,17 +93,3 @@ small {
   line-height: 1.4;
   letter-spacing: 0.02em;
 }
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-.message-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
-  width: 100%;
-}
-

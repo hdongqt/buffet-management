@@ -1,9 +1,16 @@
 export const theme = {
   colors: {
-    colorBackground: 'oklch(14.1% 0.005 285.823)',
-    colorForeground: 'oklch(97% 0 0)',
-    colorText: 'oklch(98.5% 0 0)',
-    colorPrimary: 'oklch(60% 0.25 320)',
-    colorBorder: 'oklch(97% 0 0)',
+    textPrimaryColor: '#000000',
+    mainPrimaryColor: '#FF0000',
+    mainSecondaryColor: '#D52031',
+    white: '#FFFFFF',
+  },
+  breakpoints: {
+    xs: '480px',
+    sm: '576px',
+    md: '768px',
+    lg: '992px',
+    xl: '1200px',
+    xxl: '1600px',
   },
 }
