@@ -14,3 +14,4 @@ export const theme = {
     xxl: '1600px',
   },
 }
+

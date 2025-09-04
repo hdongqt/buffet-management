@@ -2,7 +2,7 @@ import AuthLayout from '@/layouts/public/authLayout/AuthLayout'
 import React, { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { ADMIN_ROUTES, MANAGER_ROUTES } from '../constants/listRoutes'
+import { ADMIN_ROUTES, STAFF_ROUTES } from './listRoutes'
 import ROLES from '@/constants/roles'
 
 const RegisterPage = React.lazy(() =>
@@ -17,7 +17,7 @@ const AuthRoute = ({ children }) => {
   if (user) {
     const role = user?.role
     const urlRedirect =
-      role === ROLES.ADMIN ? ADMIN_ROUTES.ROOT : MANAGER_ROUTES.ROOT
+      role === ROLES.ADMIN ? ADMIN_ROUTES.ROOT : STAFF_ROUTES.ROOT
     return <Navigate to={urlRedirect} replace />
   }
   return children

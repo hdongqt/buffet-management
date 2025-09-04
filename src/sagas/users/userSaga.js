@@ -5,7 +5,7 @@ import { signInSuccess, signInFailure, signInRequest } from './userSlice'
 import { AUTH_API } from '@/services/index'
 import getErrorMessage from '@/utils/getMessage'
 import ROLES from '@/constants/roles'
-import { ADMIN_ROUTES, MANAGER_ROUTES } from '@/constants/listRoutes'
+import { ADMIN_ROUTES, STAFF_ROUTES } from '@/routes/listRoutes'
 import { showMessage } from '../appMessage/appMessageSlice'
 
 function* handleSignIn(action) {
@@ -19,7 +19,7 @@ function* handleSignIn(action) {
     if (callback) {
       const role = data.user?.role ?? null
       const urlRedirect =
-        role === ROLES.ADMIN ? ADMIN_ROUTES.ROOT : MANAGER_ROUTES.ROOT
+        role === ROLES.ADMIN ? ADMIN_ROUTES.ROOT : STAFF_ROUTES.ROOT
       callback(urlRedirect)
     }
   } catch (error) {

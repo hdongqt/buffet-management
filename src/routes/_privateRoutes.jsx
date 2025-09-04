@@ -3,8 +3,8 @@ import { checkRouterAccess } from '@/utils/checkRoule'
 import React, { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { ADMIN_ROUTES, MANAGER_ROUTES } from '../constants/listRoutes'
-import { ManagerTableManagement } from '@/pages/privatePages/manager'
+import { ADMIN_ROUTES, STAFF_ROUTES } from './listRoutes'
+import { StaffTableManagement } from '@/pages/privatePages/staff'
 import { AdminDashboard } from '@/pages/privatePages/admin'
 
 const ProtectedRoute = ({ children }) => {
@@ -21,8 +21,8 @@ const ProtectedRoute = ({ children }) => {
   return children
 }
 
-const managerRoutes = {
-  path: MANAGER_ROUTES.ROOT,
+const staffRoutes = {
+  path: STAFF_ROUTES.ROOT,
   element: (
     <Suspense fallback={<div>Loading...</div>}>
       <ProtectedRoute>
@@ -32,8 +32,12 @@ const managerRoutes = {
   ),
   children: [
     {
-      index: MANAGER_ROUTES.ROOT,
-      element: <ManagerTableManagement />,
+      index: STAFF_ROUTES.ROOT,
+      element: <StaffTableManagement />,
+    },
+    {
+      path: `${STAFF_ROUTES.ROOT}/:id`,
+      element: <StaffTableManagement />,
     },
   ],
 }
@@ -55,6 +59,6 @@ const adminRoutes = {
   ],
 }
 
-const privateRoutes = [managerRoutes, adminRoutes]
+const privateRoutes = [staffRoutes, adminRoutes]
 
 export default privateRoutes

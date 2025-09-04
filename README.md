@@ -13,15 +13,15 @@ Dự án **Restaurant Ordering System** giúp quản lý toàn bộ hoạt độ
 
 🍽️ Đặt món qua điện thoại: quét QR trên bàn → xem menu → đặt món.
 
-👩‍🍳 Quản lý (Manager)
+🧾 Thanh toán: hỗ trợ offline tại bàn.
+
+👩‍🍳 Nhân viên (Staff)
 
 📋 Quản lý order theo bàn: theo dõi order được gửi từ khách.
 
 🚶 Cập nhật trạng thái order: đang chuẩn bị → đã phục vụ.
 
 📊 Theo dõi bàn: biết bàn nào trống, bàn nào đã đặt.
-
-🪑 Quản lý bàn: CRUD bàn, sinh QR code riêng cho mỗi bàn.
 
 🧾Thanh toán cho khách
 
@@ -30,6 +30,8 @@ Dự án **Restaurant Ordering System** giúp quản lý toàn bộ hoạt độ
 🪑 Quản lý bàn: CRUD bàn, sinh QR code riêng cho mỗi bàn.
 
 🍛 Quản lý menu: thêm/sửa/xóa món ăn, giá, hình ảnh.
+
+👨‍🍳 Quản lý nhân viên & ca làm việc.
 
 📈 Thống kê & báo cáo: doanh thu, số order, món bán chạy.
 
@@ -75,10 +77,10 @@ Fix bug: bugfix/<mã-bug>
 Hotfix: hotfix/<mã-lỗi>
 
 2. Commit Message Format
-   [yyyy-MM-dd]-[type]: [mô tả]
+   [yyyy-MM-dd][type]: [mô tả]
 
    - Ví dụ:
-     2025-09-01-feature: thêm chức năng đặt món tại bàn
+     [2025-09-01][feature]: thêm chức năng đặt món tại bàn
 
 3. Pull Request (PR)
 
