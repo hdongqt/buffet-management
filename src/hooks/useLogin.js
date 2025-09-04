@@ -6,10 +6,12 @@ import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object({
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  username: Yup.string()
+    .min(5, 'Tên đăng nhập có ít nhất 5 ký tự.')
+    .required('Tên đăng nhập là bắt buộc'),
   password: Yup.string()
-    .min(6, 'Password needs to be at least 6 characters.')
-    .required('Password is required'),
+    .min(6, 'Mật khẩu có ít nhất 6 ký tự.')
+    .required('Mật khẩu là bắt buộc'),
 })
 
 const useLogIn = () => {
@@ -18,8 +20,12 @@ const useLogIn = () => {
   const navigate = useNavigate()
 
   const initialValues = {
-    email: '',
+    username: '',
     password: '',
+  }
+
+  const onChangeFormItem = (name, event) => {
+    formik.setFieldValue(name, event.target.value)
   }
 
   const onSubmit = (data) => {
@@ -41,7 +47,7 @@ const useLogIn = () => {
     onSubmit,
   })
 
-  return { formik, loading }
+  return { formik, loading, onChangeFormItem }
 }
 
 export default useLogIn

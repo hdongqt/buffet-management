@@ -5,11 +5,8 @@ import { Navigate } from 'react-router-dom'
 import { ADMIN_ROUTES, MANAGER_ROUTES } from '../constants/listRoutes'
 import ROLES from '@/constants/roles'
 
-const RegisterPage = React.lazy(() =>
-  import('@/pages/publicPages/register/RegisterPage')
-)
 const LoginPage = React.lazy(() =>
-  import('@/pages/publicPages/signin/LoginPage')
+  import('@/pages/publicPages/login/LoginPage')
 )
 
 const AuthRoute = ({ children }) => {
