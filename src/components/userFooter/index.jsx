@@ -6,7 +6,7 @@ export default function UserFooter() {
     <footer>
       <FooterContentStyled justify='space-between'>
         <div className='footer-logo'>
-          <img src={Logo} alt='Yen Yakiniku' />
+          <img src={Logo} alt='Sakura Buffet' />
         </div>
 
         <div className='footer-contact'>
@@ -24,3 +24,4 @@ export default function UserFooter() {
     </footer>
   )
 }
+
