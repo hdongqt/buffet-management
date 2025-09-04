@@ -1,34 +1,34 @@
-import { StyleCard, StyleForm } from '@/pages/publicPages/register/styled'
-import { Button, Grid, Typography, Form, Input } from 'antd'
-import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
+import { Button, Grid, Typography, Input } from 'antd'
+import { LockOutlined, MailOutlined } from '@ant-design/icons'
 import { getWidthCard } from '@/utils/getWidthCard'
 import useLogIn from '@/hooks/useLogin'
 import FormItemControl from '@/components/common/formItemControl'
+import { StyleCard, StyleForm } from './styled'
 
 const { useBreakpoint } = Grid
-const { Text, Title, Link } = Typography
+const { Text, Title } = Typography
 
 const LoginPage = () => {
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens)
 
-  const { formik, loading } = useLogIn()
+  const { formik, loading, onChangeFormItem } = useLogIn()
 
   return (
     <StyleCard $width={widthCard}>
-      <Title>Sign In</Title>
-      <Text>Welcome back to Sakura Buffet!</Text>
+      <Title>Đăng nhập</Title>
+      <Text>Chào mừng bạn đặng nhập với Sakura Buffet!</Text>
 
       <StyleForm onFinish={formik.handleSubmit} labelCol={{ span: 6 }}>
-        <FormItemControl name='email' formik={formik}>
+        <FormItemControl name='username' formik={formik}>
           <Input
-            name='email'
-            value={formik.values.email}
-            type='email'
+            name='username'
+            value={formik.values.username}
+            type='text'
             size='large'
             prefix={<MailOutlined />}
-            placeholder='Email'
-            onChange={formik.handleChange}
+            placeholder='Tên đăng nhập'
+            onChange={(event) => onChangeFormItem('username', event)}
             onBlur={formik.handleBlur}
           />
         </FormItemControl>
@@ -39,8 +39,8 @@ const LoginPage = () => {
             type='password'
             size='large'
             prefix={<LockOutlined />}
-            placeholder='Password'
-            onChange={formik.handleChange}
+            placeholder='Mật khẩu'
+            onChange={(event) => onChangeFormItem('password', event)}
             onBlur={formik.handleBlur}
           />
         </FormItemControl>
@@ -52,13 +52,9 @@ const LoginPage = () => {
           block
           size='medium'
         >
-          {loading ? 'Submitting...' : 'Sign in'}
+          {loading ? 'Xác nhận...' : 'Đăng nhập'}
         </Button>
       </StyleForm>
-      {/* <div>
-        <Text>Don't have an account?</Text>
-        <Link onClick={() => navigate('/register')}> Sign up now</Link>
-      </div> */}
     </StyleCard>
   )
 }

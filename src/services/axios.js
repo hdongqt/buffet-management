@@ -28,25 +28,16 @@ instance.interceptors.response.use(
     const originalRequest = error.config
 
     if (
-      error.response.status === 404 &&
-      originalRequest.url.includes('/public')
-    ) {
-      window.location.href = '/not-found'
-      return Promise.reject(error)
-    }
-
-    if (
       error.response.status === 401 &&
       !originalRequest._retry &&
-      (!originalRequest.url.includes('/login') ||
-        !originalRequest.url.includes('/register'))
+      !originalRequest.url.includes('/login')
     ) {
       originalRequest._retry = true // Mark the request as retried to avoid infinite loops.
       try {
         const refreshToken = localStorage.getItem('refreshToken') // Retrieve the stored refresh accessToken.
         // Make a request to your auth server to refresh the accessToken.
         const response = await axios.post(
-          `${import.meta.env.VITE_API}/users/refresh-token`,
+          `${import.meta.env.VITE_API}/auth/refresh-token`,
           {
             refreshToken: refreshToken,
           }
@@ -61,7 +52,6 @@ instance.interceptors.response.use(
         return instance(originalRequest) // Retry the original request with the new access token.
       } catch (refreshError) {
         // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
-        // console.error('accessToken refresh failed:', refreshError)
         localStorage.clear()
         window.location.href = '/login'
         return Promise.reject(refreshError)
