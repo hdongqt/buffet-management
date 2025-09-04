@@ -11,10 +11,7 @@ function App() {
       theme={{
         cssVar: true,
         token: {
-          colorPrimary: '#0463e8',
-          colorComplete: '#52c41a',
-          colorInProgress: '#faad14',
-          colorInComplete: '#f5222d',
+          ...theme.colors,
           fontFamily: "'Quicksand', 'Segoe UI', Roboto, sans-serif",
         },
         components: {

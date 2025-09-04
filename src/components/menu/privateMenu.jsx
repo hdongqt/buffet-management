@@ -1,9 +1,9 @@
-import { ADMIN_ROUTES, STAFF_ROUTES } from '@/routes/listRoutes'
+import { ADMIN_ROUTES, MANAGER_ROUTES } from '@/constants/listRoutes'
 import { IdcardOutlined, LogoutOutlined } from '@ant-design/icons'
 
-const STAFF_MENU = [
+const MANAGER_MENU = [
   {
-    key: STAFF_ROUTES.ROOT,
+    key: MANAGER_ROUTES.ROOT,
     label: 'Table Management',
     icon: <IdcardOutlined />,
   },
@@ -33,4 +33,4 @@ const ADMIN_MENU = [
   },
 ]
 
-export { STAFF_MENU, ADMIN_MENU }
+export { MANAGER_MENU, ADMIN_MENU }
