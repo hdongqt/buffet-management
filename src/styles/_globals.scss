@@ -93,3 +93,11 @@ small {
   line-height: 1.4;
   letter-spacing: 0.02em;
 }
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
