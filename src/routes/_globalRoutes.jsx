@@ -1,8 +1,12 @@
+import { USER_ROUTES } from '@/constants/listRoutes'
 import Layout from '@/layouts/public/homeLayout'
 import React, { Suspense } from 'react'
 
 const HomePage = React.lazy(() => import('@/pages/globalPages/homePage/index'))
 const NotFound = React.lazy(() => import('@/pages/globalPages/notFound/index'))
+const MenuPage = React.lazy(
+  () => import('@/pages/globalPages/menuPage/MenuPage')
+)
 
 const globalRoutes = {
   path: '/',
@@ -15,6 +19,10 @@ const globalRoutes = {
     {
       index: true,
       element: <HomePage />,
+    },
+    {
+      path: USER_ROUTES.MENU,
+      element: <MenuPage />,
     },
   ],
 }
