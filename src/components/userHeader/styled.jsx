@@ -24,7 +24,7 @@ const HeaderStyled = styled.header`
     position: fixed;
     background-color: transparent;
     transition: all 0.2s linear;
-
+    z-index: 100;
     &.scroll-large {
       background-color: #292626aa;
     }
@@ -127,3 +127,4 @@ const NavLinkStyled = styled(NavLink)`
 `
 
 export { HeaderStyled, NavLinkStyled }
+
