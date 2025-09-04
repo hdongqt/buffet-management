@@ -10,14 +10,14 @@ import { Divider } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import ROLES from '@/constants/roles'
-import { ADMIN_MENU, STAFF_MENU } from '@/constants/privateMenu'
+import { ADMIN_MENU, MANAGER_MENU } from '@/components/menu/privateMenu'
 
 function PrivateLayout() {
   const { user } = useSelector((state) => state.user)
   const [collapsed, setCollapsed] = useState(false)
   const pathname = useLocation().pathname
 
-  const LIST_TITLE = user?.role === ROLES.ADMIN ? ADMIN_MENU : STAFF_MENU
+  const LIST_TITLE = user?.role === ROLES.ADMIN ? ADMIN_MENU : MANAGER_MENU
   const currentPath = LIST_TITLE.find((item) => item.key === pathname)
 
   return (

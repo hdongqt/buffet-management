@@ -4,33 +4,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { useScroll } from '@/hooks/useScroll'
 import { HeaderStyled, NavLinkStyled } from './styled'
-
-const listHeader = [
-  {
-    name: 'Trang chủ',
-    path: '/',
-  },
-  {
-    name: 'Giới thiệu',
-    path: '/about',
-  },
-  {
-    name: 'Menu',
-    path: '/menu',
-  },
-  {
-    name: 'Đặt bàn',
-    path: '/reservation',
-  },
-  {
-    name: 'Liên hệ',
-    path: '/contact',
-  },
-  {
-    name: 'Tin tức',
-    path: '/news',
-  },
-]
+import { USER_MENU } from '@/components/menu/userMenu'
 
 export default function UserHeader() {
   const [openMenuMobile, setOpenMenuMobile] = useState(false)
@@ -60,7 +34,7 @@ export default function UserHeader() {
       </button>
       <nav className='header__nav'>
         <ul className={`header__nav-list ${openMenuMobile && 'mobile-open'}`}>
-          {listHeader.map((item) => (
+          {USER_MENU.map((item) => (
             <li key={`header-${item.name}`}>
               <NavLinkStyled
                 to={item.path}
