@@ -4,8 +4,11 @@ import React, { Suspense } from 'react'
 
 const HomePage = React.lazy(() => import('@/pages/globalPages/homePage/index'))
 const NotFound = React.lazy(() => import('@/pages/globalPages/notFound/index'))
-const MenuPage = React.lazy(
-  () => import('@/pages/globalPages/menuPage/MenuPage')
+const AboutPage = React.lazy(() =>
+  import('@/pages/globalPages/aboutPage/index')
+)
+const MenuPage = React.lazy(() =>
+  import('@/pages/globalPages/menuPage/MenuPage')
 )
 
 const globalRoutes = {
@@ -19,6 +22,10 @@ const globalRoutes = {
     {
       index: true,
       element: <HomePage />,
+    },
+    {
+      path: USER_ROUTES.ABOUT,
+      element: <AboutPage />,
     },
     {
       path: USER_ROUTES.MENU,
