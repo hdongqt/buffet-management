@@ -4,8 +4,7 @@ import React, { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { ADMIN_ROUTES, MANAGER_ROUTES } from '../constants/listRoutes'
-import { ManagerTableManagement } from '@/pages/privatePages/manager'
-import { AdminDashboard } from '@/pages/privatePages/admin'
+import { TableManagement, AdminDashboard } from '@/pages/privatePages'
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((state) => state.user)
@@ -33,7 +32,7 @@ const managerRoutes = {
   children: [
     {
       index: MANAGER_ROUTES.ROOT,
-      element: <ManagerTableManagement />,
+      element: <TableManagement />,
     },
   ],
 }
