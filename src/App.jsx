@@ -1,9 +1,10 @@
 import './App.css'
 import { BrowserRouter } from 'react-router-dom'
 import AppRoutes from '@/routes/routes'
-import { ConfigProvider, App as AppAnt } from 'antd'
+import { ConfigProvider } from 'antd'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './constants/theme'
+import MessageListener from '@/components/messageListener'
 
 function App() {
   return (
@@ -25,11 +26,10 @@ function App() {
       }}
     >
       <ThemeProvider theme={theme}>
-        <AppAnt>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-        </AppAnt>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+        <MessageListener />
       </ThemeProvider>
     </ConfigProvider>
   )

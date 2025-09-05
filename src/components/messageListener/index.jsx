@@ -8,10 +8,8 @@ const MessageListener = () => {
   const [messageApi, contextHolder] = message.useMessage()
 
   const msg = useSelector((state) => state.appMessage)
-
   useEffect(() => {
     if (msg) {
-      console.log(msg)
       messageApi.open({
         type: msg.type || 'info',
         content: msg.content,
