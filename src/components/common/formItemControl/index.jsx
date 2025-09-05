@@ -1,5 +1,5 @@
 import { Form } from 'antd'
-import Typography from 'antd/es/typography/Typography'
+import { Typography } from 'antd'
 import React from 'react'
 
 const FormItemControl = ({
@@ -8,6 +8,7 @@ const FormItemControl = ({
   help,
   validateStatus,
   formik,
+  emptyLabel,
   label,
   ...props
 }) => {
@@ -17,7 +18,6 @@ const FormItemControl = ({
       ? 'error'
       : undefined
   }
-
   const getHelp = (nameValue) => {
     if (!formik || !name) return undefined
     return formik.touched[nameValue] && formik.errors[nameValue]
@@ -26,6 +26,9 @@ const FormItemControl = ({
   }
 
   const getLabel = () => {
+    if (emptyLabel) {
+      return ' '
+    }
     return label ? <Typography.Text strong>{label}</Typography.Text> : undefined
   }
 
