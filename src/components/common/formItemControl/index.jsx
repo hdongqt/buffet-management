@@ -1,4 +1,5 @@
 import { Form } from 'antd'
+import Typography from 'antd/es/typography/Typography'
 import React from 'react'
 
 const FormItemControl = ({
@@ -7,6 +8,7 @@ const FormItemControl = ({
   help,
   validateStatus,
   formik,
+  label,
   ...props
 }) => {
   const getStatus = (nameValue) => {
@@ -24,6 +26,7 @@ const FormItemControl = ({
   return (
     <Form.Item
       help={help || getHelp(name)}
+      label={<Typography.Text strong>{label ?? ''}</Typography.Text>}
       validateStatus={validateStatus || getStatus(name)}
       {...props}
     >
