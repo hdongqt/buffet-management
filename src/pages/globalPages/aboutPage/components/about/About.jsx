@@ -3,25 +3,21 @@ import { motion } from 'framer-motion'
 import { theme } from '@/constants/theme'
 import {
   AboutWrapper,
-  AboutContent,
-  AboutTitle,
-  AboutSubtitle,
-  AboutDesc,
-  AboutButton,
-  AboutImage,
+  About,
 } from '@/pages/globalPages/aboutPage/components/about/styled'
 import { ABOUT_IMAGES } from '@/constants/images/aboutUserImage'
+import { AnimatedButton } from '@/components/common'
 
 const { animations } = theme
 
 const MotionWrapper = motion(AboutWrapper)
-const MotionTitle = motion(AboutTitle)
-const MotionSubtitle = motion(AboutSubtitle)
-const MotionDesc = motion(AboutDesc)
-const MotionButton = motion(AboutButton)
-const MotionImage = motion(AboutImage)
+const MotionTitle = motion(About.Title)
+const MotionSubtitle = motion(About.Subtitle)
+const MotionDesc = motion(About.Desc)
+const MotionButton = motion(About.Button)
+const MotionImage = motion(About.Image)
 
-const About = () => {
+const AboutSection = () => {
   const gutterConfig = [
     { lg: 32, xl: 48, xxl: 64 },
     { xs: 32, sm: 48, md: 64 },
@@ -35,7 +31,7 @@ const About = () => {
     >
       <Row justify='space-between' gutter={gutterConfig}>
         <Col xs={24} lg={12}>
-          <AboutContent align='center' vertical>
+          <About.Content align='center' vertical>
             <MotionTitle variants={animations.fadeRightLeft}>
               Sakura Buffet
             </MotionTitle>
@@ -73,15 +69,10 @@ const About = () => {
               </p>
             </MotionDesc>
 
-            <MotionButton
-              variants={animations.fadeInUp}
-              initial='hidden'
-              whileInView='visible'
-              viewport={{ once: true }}
-            >
-              thực đơn
-            </MotionButton>
-          </AboutContent>
+            <AnimatedButton type='primary' shape='round' danger>
+              THỰC ĐƠN
+            </AnimatedButton>
+          </About.Content>
         </Col>
 
         <Col xs={24} lg={12}>
@@ -96,4 +87,4 @@ const About = () => {
   )
 }
 
-export default About
+export default AboutSection

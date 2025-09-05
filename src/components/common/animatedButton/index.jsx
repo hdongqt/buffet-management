@@ -1,28 +1,36 @@
 import { motion } from 'framer-motion'
 import { Button } from 'antd'
+import styled from 'styled-components'
 
 const MotionButton = motion(Button)
 
+const StyledMotionButton = styled(MotionButton)`
+  &.ant-btn {
+    transition: none;
+  }
+`
+
 export default function AnimatedButton({
   children,
-  whileHover = { scale: 1.2 },
-  whileTap = { scale: 0.9 },
+  whileHover = {
+    scale: 1.1,
+  },
   type = 'primary',
   shape = 'round',
   size = 'large',
+  danger,
   ...rest
 }) {
   return (
-    <MotionButton
+    <StyledMotionButton
       whileHover={whileHover}
-      whileTap={whileTap}
       type={type}
       shape={shape}
       size={size}
-      danger
+      danger={danger}
       {...rest}
     >
       {children}
-    </MotionButton>
+    </StyledMotionButton>
   )
 }

@@ -2,6 +2,8 @@ import banner1 from '@/assets/images/menu/banner/Banner-sakura-1.jpg'
 import banner2 from '@/assets/images/menu/banner/Banner-sakura-2.jpg'
 import banner3 from '@/assets/images/menu/banner/Banner-sakura-3.jpg'
 
+import bgMenu from '@/assets/images/menu/menu/Background.jpg'
+
 import regulations from '@/assets/images/menu/menu/comboA/quy-dinh-su-dung-mon.jpg'
 import prices from '@/assets/images/menu/menu/comboA/gia-ve-buffet.jpg'
 import buffetCombo from '@/assets/images/menu/menu/comboA/buffet-299K.png'
@@ -41,6 +43,7 @@ const IMAGES_MENU = {
   meat,
   drink,
   dessert,
+  bgMenu,
 }
 
 const CUSTOM_FOOD = {

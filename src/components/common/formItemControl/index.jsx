@@ -17,12 +17,14 @@ const FormItemControl = ({
       ? 'error'
       : undefined
   }
+
   const getHelp = (nameValue) => {
     if (!formik || !name) return undefined
     return formik.touched[nameValue] && formik.errors[nameValue]
       ? formik.errors[nameValue]
       : undefined
   }
+
   return (
     <Form.Item
       help={help || getHelp(name)}

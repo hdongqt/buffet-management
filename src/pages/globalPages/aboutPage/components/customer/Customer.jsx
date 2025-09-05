@@ -2,10 +2,7 @@ import { Carousel, Col, Row, Flex } from 'antd'
 import { motion } from 'framer-motion'
 import {
   CustomerWrapper,
-  CustomerLabel,
-  CustomerDesc,
-  CustomerCarousel,
-  Image,
+  Customer,
 } from '@/pages/globalPages/aboutPage/components/customer/styled'
 import { CAROUSELS } from '@/constants/images/aboutUserImage'
 import { theme } from '@/constants/theme'
@@ -25,10 +22,10 @@ const carouselProps = {
 }
 
 const MotionWrapper = motion(CustomerWrapper)
-const MotionLabel = motion(CustomerLabel)
-const MotionDesc = motion(CustomerDesc)
+const MotionLabel = motion(Customer.Label)
+const MotionDesc = motion(Customer.Desc)
 
-const Customer = () => {
+const CustomerSection = () => {
   const variants = [animations.fadeRightLeft, animations.fadeLeftRight]
 
   return (
@@ -79,15 +76,15 @@ const Customer = () => {
 }
 
 const CustomerCarousels = ({ images }) => (
-  <CustomerCarousel>
+  <Customer.Carousel>
     <Carousel {...carouselProps}>
       {images.map((image, idx) => (
         <div key={idx}>
-          <Image src={image} alt={`Khách hàng ${idx + 1}`} />
+          <Customer.Image src={image} alt={`Khách hàng ${idx + 1}`} />
         </div>
       ))}
     </Carousel>
-  </CustomerCarousel>
+  </Customer.Carousel>
 )
 
-export default Customer
+export default CustomerSection

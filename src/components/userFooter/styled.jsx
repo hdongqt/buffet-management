@@ -17,7 +17,7 @@ const FooterContentStyled = styled(Flex)`
   }
 
   .footer-logo img {
-    width: 16rem;
+    width: 160px;
   }
 
   .footer-contact {
@@ -25,14 +25,14 @@ const FooterContentStyled = styled(Flex)`
       color: var(--ant-main-secondary-color);
       margin-bottom: 12px;
       font-weight: 600;
-      font-size: 2.8rem;
+      font-size: 28px;
     }
 
     ul {
       list-style: none;
       line-height: 1.8;
       li {
-        font-size: 1.6rem;
+        font-size: 16px;
       }
     }
   }

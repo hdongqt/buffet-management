@@ -8,22 +8,22 @@ const SideBarStyle = styled(Layout.Sider)`
 `
 
 const SideBarLogoStyle = styled.div`
-  font-size: 2.5rem;
+  font-size: 25px;
   font-weight: bold;
   text-align: center;
-  height: 6.4rem;
-  padding: 1rem;
+  height: 64px;
+  padding: 10px;
   border-bottom: 1px solid #f0f0f0;
   font-weight: bold;
   text-align: center;
   white-space: nowrap;
   color: #165dc0;
   & .sidebar__logo-icon {
-    margin-right: 0.5rem;
+    margin-right: 5px;
     color: #165dc0;
     &.collapsed {
       margin-right: 0;
-      margin-left: 0.2rem;
+      margin-left: 2px;
     }
   }
 `

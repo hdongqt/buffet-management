@@ -1,14 +1,10 @@
 import { BANNER_MENU } from '@/constants/images/menuUserImage'
-import {
-  StyledImage,
-  StyledBanner,
-  StyledCarousel,
-} from '@/pages/globalPages/menuPage/components/banner/styled'
+import { Banner } from '@/pages/globalPages/menuPage/components/banner/styled'
 
 const BannerMenu = () => {
   return (
-    <StyledBanner>
-      <StyledCarousel
+    <Banner.Section>
+      <Banner.Carousel
         effect='fade'
         autoplaySpeed={5000}
         autoplay={{ dotDuration: false }}
@@ -16,15 +12,15 @@ const BannerMenu = () => {
         {Object.values(BANNER_MENU).map((banner, index) => {
           return (
             <div key={index}>
-              <StyledImage
+              <Banner.Image
                 src={banner}
                 alt={`Banner Sakura Buffet ${index + 1}`}
               />
             </div>
           )
         })}
-      </StyledCarousel>
-    </StyledBanner>
+      </Banner.Carousel>
+    </Banner.Section>
   )
 }
 export default BannerMenu

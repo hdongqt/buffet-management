@@ -32,60 +32,62 @@ const CustomerWrapper = styled.section`
   }
 `
 
-const CustomerLabel = styled.img`
-  width: 60vw;
-  margin-bottom: 24px;
+const Customer = {
+  Label: styled.img`
+    width: 60vw;
+    margin-bottom: 24px;
 
-  @media screen and (max-width: ${breakpoints.md}) {
-    width: 90vw;
-  }
-`
+    @media screen and (max-width: ${breakpoints.md}) {
+      width: 90vw;
+    }
+  `,
 
-const CustomerDesc = styled.p`
-  font-size: 20px;
-  padding: 0 60px;
-  text-align: center;
-  margin-bottom: 94px;
-
-  @media screen and (max-width: ${breakpoints.lg}) {
+  Desc: styled.p`
     font-size: 20px;
-    padding: 0 40px;
-    margin-bottom: 64px;
-  }
+    padding: 0 60px;
+    text-align: center;
+    margin-bottom: 94px;
 
-  @media screen and (max-width: ${breakpoints.md}) {
-    font-size: 16px;
-    padding: 0 20px;
-    margin-bottom: 48px;
-  }
+    @media screen and (max-width: ${breakpoints.lg}) {
+      font-size: 20px;
+      padding: 0 40px;
+      margin-bottom: 64px;
+    }
 
-  @media screen and (max-width: ${breakpoints.sm}) {
-    font-size: 14px;
-    padding: 0 10px;
-    margin-bottom: 32px;
-  }
-`
+    @media screen and (max-width: ${breakpoints.md}) {
+      font-size: 16px;
+      padding: 0 20px;
+      margin-bottom: 48px;
+    }
 
-const CustomerCarousel = styled.div`
-  width: 40vw;
-  min-height: 200px;
+    @media screen and (max-width: ${breakpoints.sm}) {
+      font-size: 14px;
+      padding: 0 10px;
+      margin-bottom: 32px;
+    }
+  `,
 
-  @media screen and (max-width: ${breakpoints.md}) {
+  Carousel: styled.div`
+    width: 40vw;
+    min-height: 200px;
+
+    @media screen and (max-width: ${breakpoints.md}) {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    @media screen and (max-width: ${breakpoints.sm}) {
+      width: 90vw;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  `,
+
+  Image: styled.img`
     width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-  }
+    display: block;
+  `,
+}
 
-  @media screen and (max-width: ${breakpoints.sm}) {
-    width: 90vw;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-`
-
-const Image = styled.img`
-  width: 100%;
-  display: block;
-`
-
-export { CustomerWrapper, CustomerLabel, CustomerDesc, CustomerCarousel, Image }
+export { CustomerWrapper, Customer }

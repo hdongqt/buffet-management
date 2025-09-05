@@ -50,6 +50,7 @@ const Slider = {
       font-size: 24px;
     }
   `,
+
   Description: styled.p`
     text-align: left;
     font-size: 18px;

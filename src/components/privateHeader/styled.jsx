@@ -18,13 +18,13 @@ const UserTextStyle = styled(Typography.Text)`
   display: -webkit-box;
   &.profile__name {
     font-weight: 600;
-    font-size: 1.6rem;
+    font-size: 16px;
     line-height: 1.2;
     height: 2.4;
   }
   &.profile__email {
     color: #666;
-    font-size: 1.4rem;
+    font-size: 14px;
     line-height: 1.4;
     height: 1.4;
     -webkit-line-clamp: 1;

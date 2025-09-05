@@ -3,25 +3,28 @@ import styled from 'styled-components'
 import { theme } from '@/constants/theme'
 const { breakpoints } = theme
 
-const StyleCard = styled(Card)`
-  width: ${(props) => props.$width}px;
+const Login = {
+  Card: styled(Card)`
+    width: ${(props) => props.$width}px;
 
-  .ant-card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 4rem 10rem;
+    .ant-card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 100px;
 
-    @media screen and (max-width: ${breakpoints.md}) {
-      padding: 2rem 5rem;
+      @media screen and (max-width: ${breakpoints.md}) {
+        padding: 20px 50px;
+      }
     }
-  }
-`
+  `,
 
-const StyleForm = styled(Form)`
-  margin: 4rem 0 2rem;
-  width: 100%;
-`
-export { StyleCard, StyleForm }
+  Form: styled(Form)`
+    margin: 40px 0 20px;
+    width: 100%;
+  `,
+}
+
+export { Login }

@@ -4,23 +4,24 @@ import { theme } from '@/constants/theme'
 
 const { breakpoints } = theme
 
-const StyledBanner = styled.section`
-  position: relative;
-`
-const StyledCarousel = styled(Carousel)`
-  width: 100%;
-  .slick-slide {
-    text-align: center;
-  }
-`
-const StyledImage = styled.img`
-  width: 100%;
-  height: 35vh;
-  object-fit: cover;
+const Banner = {
+  Section: styled.section`
+    position: relative;
+  `,
 
-  @media screen and (max-width: ${breakpoints.md}) {
-    height: 50vh;
-  }
-`
+  Carousel: styled(Carousel)`
+    width: 100%;
+  `,
 
-export { StyledBanner, StyledCarousel, StyledImage }
+  Image: styled.img`
+    width: 100%;
+    height: 35vh;
+    object-fit: cover;
+
+    @media screen and (max-width: ${breakpoints.md}) {
+      height: 50vh;
+    }
+  `,
+}
+
+export { Banner }
