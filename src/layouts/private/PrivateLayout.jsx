@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { Typography, Layout } from 'antd'
+import { Typography, Layout, Divider } from 'antd'
 import { Private } from './styled'
 
 import { ADMIN_MENU, MANAGER_MENU } from '@/components/menu/privateMenu'

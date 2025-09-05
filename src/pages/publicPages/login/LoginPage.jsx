@@ -1,5 +1,5 @@
 import { Button, Grid, Typography, Input } from 'antd'
-import { LockOutlined, MailOutlined } from '@ant-design/icons'
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { getWidthCard } from '@/utils/getWidthCard'
 import useLogIn from '@/hooks/useLogin'
 import FormItemControl from '@/components/common/formItemControl'
@@ -26,7 +26,7 @@ const LoginPage = () => {
             value={formik.values.username}
             type='text'
             size='large'
-            prefix={<MailOutlined />}
+            prefix={<UserOutlined />}
             placeholder='Tên đăng nhập'
             onChange={(event) => onChangeFormItem('username', event)}
             onBlur={formik.handleBlur}
