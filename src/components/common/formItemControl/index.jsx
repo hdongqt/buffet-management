@@ -25,10 +25,14 @@ const FormItemControl = ({
       : undefined
   }
 
+  const getLabel = () => {
+    return label ? <Typography.Text strong>{label}</Typography.Text> : undefined
+  }
+
   return (
     <Form.Item
       help={help || getHelp(name)}
-      label={<Typography.Text strong>{label ?? ''}</Typography.Text>}
+      label={getLabel()}
       validateStatus={validateStatus || getStatus(name)}
       {...props}
     >
