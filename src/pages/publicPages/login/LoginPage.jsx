@@ -3,7 +3,7 @@ import { LockOutlined, MailOutlined } from '@ant-design/icons'
 import { getWidthCard } from '@/utils/getWidthCard'
 import useLogIn from '@/hooks/useLogin'
 import FormItemControl from '@/components/common/formItemControl'
-import { StyleCard, StyleForm } from './styled'
+import { Login } from './styled'
 
 const { useBreakpoint } = Grid
 const { Text, Title } = Typography
@@ -15,11 +15,11 @@ const LoginPage = () => {
   const { formik, loading, onChangeFormItem } = useLogIn()
 
   return (
-    <StyleCard $width={widthCard}>
+    <Login.Card $width={widthCard}>
       <Title>Đăng nhập</Title>
       <Text>Chào mừng bạn đặng nhập với Sakura Buffet!</Text>
 
-      <StyleForm onFinish={formik.handleSubmit} labelCol={{ span: 6 }}>
+      <Login.Form onFinish={formik.handleSubmit} labelCol={{ span: 6 }}>
         <FormItemControl name='username' formik={formik}>
           <Input
             name='username'
@@ -54,8 +54,8 @@ const LoginPage = () => {
         >
           {loading ? 'Xác nhận...' : 'Đăng nhập'}
         </Button>
-      </StyleForm>
-    </StyleCard>
+      </Login.Form>
+    </Login.Card>
   )
 }
 

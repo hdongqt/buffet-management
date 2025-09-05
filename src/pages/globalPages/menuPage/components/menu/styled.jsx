@@ -1,34 +1,36 @@
 import styled from 'styled-components'
-import background from '@/assets/images/Background.jpg'
 import { Flex } from 'antd'
+import { IMAGES_MENU } from '@/constants/images/menuUserImage'
 
-const StyledMenu = styled.section`
-  position: relative;
-  z-index: 1;
-  padding: 8rem 2rem 2rem;
+const Menu = {
+  Section: styled.section`
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px 20px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url(${background});
-    background-position: 50% -10%;
-    background-size: 110%;
-    z-index: -1;
-  }
-`
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url(${IMAGES_MENU.bgMenu});
+      background-position: 50% -10%;
+      background-size: 110%;
+      z-index: -1;
+    }
+  `,
 
-const StyledFlex = styled(Flex)`
-  height: 100%;
-`
+  Flex: styled(Flex)`
+    height: 100%;
+  `,
 
-const StyledImage = styled.img`
-  width: 100%;
-  height: auto;
-`
+  Image: styled.img`
+    width: 100%;
+    height: auto;
+  `,
+}
 
-export { StyledMenu, StyledFlex, StyledImage }
+export { Menu }

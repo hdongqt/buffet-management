@@ -3,34 +3,11 @@ import {
   IMAGES_MENU,
   SASHIMI_FOOD,
 } from '@/constants/images/menuUserImage'
-import {
-  StyledMenu,
-  StyledImage,
-  StyledFlex,
-} from '@/pages/globalPages/menuPage/components/menu/styled'
+import { Menu } from '@/pages/globalPages/menuPage/components/menu/styled'
 import { Col, Row, Flex, Carousel } from 'antd'
 import { motion } from 'framer-motion'
 import { theme } from '@/constants/theme'
 const { animations } = theme
-
-function MenuCarousel({ images, title }) {
-  return (
-    <Carousel
-      autoplay
-      arrows
-      infinite
-      effect='fade'
-      autoplaySpeed={3000}
-      dots={false}
-    >
-      {images.map((img, idx) => (
-        <div key={idx}>
-          <StyledImage src={img} alt={`${title} ${idx + 1}`} />
-        </div>
-      ))}
-    </Carousel>
-  )
-}
 
 const MenuSection = () => {
   const gutterConfig = [
@@ -66,7 +43,7 @@ const MenuSection = () => {
   ]
 
   return (
-    <StyledMenu>
+    <Menu.Section>
       <section>
         <Row gutter={gutterConfig}>
           {menuData.map((item, idx) => (
@@ -103,7 +80,7 @@ const MenuSection = () => {
                       whileInView='visible'
                       viewport={{ once: true, amount: 0 }}
                     >
-                      <StyledImage src={src} alt={`food-${idx}`} />
+                      <Menu.Image src={src} alt={`food-${idx}`} />
                     </motion.div>
                   </Col>
                 )
@@ -119,7 +96,7 @@ const MenuSection = () => {
                 whileInView='visible'
                 viewport={{ once: true, amount: 0 }}
               >
-                <StyledImage src={IMAGES_MENU.hotpot} alt='hotpot' />
+                <Menu.Image src={IMAGES_MENU.hotpot} alt='hotpot' />
               </motion.div>
             </Col>
             <Col xs={24} md={12}>
@@ -129,7 +106,7 @@ const MenuSection = () => {
                 whileInView='visible'
                 viewport={{ once: true, amount: 0 }}
               >
-                <StyledImage src={IMAGES_MENU.meat} alt='meat' />
+                <Menu.Image src={IMAGES_MENU.meat} alt='meat' />
               </motion.div>
             </Col>
           </Row>
@@ -145,11 +122,11 @@ const MenuSection = () => {
               whileInView='visible'
               viewport={{ once: true, amount: 0 }}
             >
-              <StyledImage src={CUSTOM_FOOD.customMain} alt='custom-main' />
+              <Menu.Image src={CUSTOM_FOOD.customMain} alt='custom-main' />
             </motion.div>
           </Col>
           <Col xs={24} md={6}>
-            <StyledFlex vertical justify='space-between'>
+            <Menu.Flex vertical justify='space-between'>
               {[CUSTOM_FOOD.carousel1, CUSTOM_FOOD.carousel2].map(
                 (carousel, idx) => (
                   <motion.div
@@ -166,13 +143,13 @@ const MenuSection = () => {
                       effect='fade'
                       autoplaySpeed={3000}
                     >
-                      <StyledImage src={carousel.custom1} alt='c1' />
-                      <StyledImage src={carousel.custom2} alt='c2' />
+                      <Menu.Image src={carousel.custom1} alt='c1' />
+                      <Menu.Image src={carousel.custom2} alt='c2' />
                     </Carousel>
                   </motion.div>
                 )
               )}
-            </StyledFlex>
+            </Menu.Flex>
           </Col>
         </Row>
       </section>
@@ -186,12 +163,31 @@ const MenuSection = () => {
         >
           <Carousel autoplay arrows infinite effect='fade' autoplaySpeed={3000}>
             {Object.values(SASHIMI_FOOD).map((src, idx) => (
-              <StyledImage src={src} alt={`sashimi-${idx}`} key={idx} />
+              <Menu.Image src={src} alt={`sashimi-${idx}`} key={idx} />
             ))}
           </Carousel>
         </motion.div>
       </section>
-    </StyledMenu>
+    </Menu.Section>
+  )
+}
+
+function MenuCarousel({ images, title }) {
+  return (
+    <Carousel
+      autoplay
+      arrows
+      infinite
+      effect='fade'
+      autoplaySpeed={3000}
+      dots={false}
+    >
+      {images.map((img, idx) => (
+        <div key={idx}>
+          <Menu.Image src={img} alt={`${title} ${idx + 1}`} />
+        </div>
+      ))}
+    </Carousel>
   )
 }
 

@@ -31,7 +31,7 @@ const HeaderStyled = styled.header`
 
     & .header__logo {
       img {
-        width: 16rem;
+        width: 160px;
       }
     }
 
@@ -53,7 +53,7 @@ const HeaderStyled = styled.header`
         display: block;
       }
       &-icon {
-        font-size: 2rem;
+        font-size: 20px;
       }
     }
   }
@@ -99,7 +99,7 @@ const HeaderStyled = styled.header`
 const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.8rem;
+  font-size: 18px;
   transition: color 0.3s;
   padding: 8px 17px;
   display: flex;
@@ -119,7 +119,7 @@ const NavLinkStyled = styled(NavLink)`
   @media screen and (max-width: ${breakpoints.md}) {
     color: #333;
     padding: 10px 0px;
-    font-size: 1.6rem;
+    font-size: 16px;
     &.active {
       color: var(--ant-white);
     }

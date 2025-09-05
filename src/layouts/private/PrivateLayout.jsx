@@ -1,16 +1,13 @@
-import { Outlet } from 'react-router-dom'
-import { Layout } from 'antd'
+import { Outlet, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { Typography, Layout } from 'antd'
+import { Private } from './styled'
 
+import { ADMIN_MENU, MANAGER_MENU } from '@/components/menu/privateMenu'
 import PrivateHeader from '@/components/privateHeader/index'
 import PrivateSidebar from '@/components/privateSidebar/index'
-import { ContentStyle, PrivateLayoutStyle } from './styled'
-import { Typography } from 'antd'
-import { Divider } from 'antd'
-import { useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import ROLES from '@/constants/roles'
-import { ADMIN_MENU, MANAGER_MENU } from '@/components/menu/privateMenu'
 
 function PrivateLayout() {
   const { user } = useSelector((state) => state.user)
@@ -21,19 +18,19 @@ function PrivateLayout() {
   const currentPath = LIST_TITLE.find((item) => item.key === pathname)
 
   return (
-    <PrivateLayoutStyle>
+    <Private.Layout>
       <PrivateSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout>
         <PrivateHeader collapsed={collapsed} setCollapsed={setCollapsed} />
         <Layout.Content className='home-layout__content'>
-          <ContentStyle>
+          <Private.Content>
             <Typography.Title level={3}>{currentPath?.title}</Typography.Title>
             <Divider />
             <Outlet />
-          </ContentStyle>
+          </Private.Content>
         </Layout.Content>
       </Layout>
-    </PrivateLayoutStyle>
+    </Private.Layout>
   )
 }
 export default PrivateLayout
