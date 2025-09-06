@@ -2,13 +2,14 @@ import { USER_ROUTES } from '@/constants/listRoutes'
 import Layout from '@/layouts/public/homeLayout'
 import React, { Suspense } from 'react'
 
-const HomePage = React.lazy(() => import('@/pages/globalPages/homePage/index'))
-const NotFound = React.lazy(() => import('@/pages/globalPages/notFound/index'))
-const AboutPage = React.lazy(() =>
-  import('@/pages/globalPages/aboutPage/index')
-)
+const HomePage = React.lazy(() => import('@/pages/globalPages/homePage'))
+const NotFound = React.lazy(() => import('@/pages/globalPages/notFound'))
+const AboutPage = React.lazy(() => import('@/pages/globalPages/aboutPage'))
 const MenuPage = React.lazy(() =>
   import('@/pages/globalPages/menuPage/MenuPage')
+)
+const ReservationPage = React.lazy(() =>
+  import('@/pages/globalPages/reservationPage')
 )
 
 const globalRoutes = {
@@ -31,6 +32,11 @@ const globalRoutes = {
       path: USER_ROUTES.MENU,
       element: <MenuPage />,
     },
+
+    {
+      path: USER_ROUTES.RESERVATION,
+      element: <ReservationPage />,
+    },
   ],
 }
 
@@ -41,3 +47,4 @@ const forbiddenRoutes = {
 
 export { forbiddenRoutes }
 export default globalRoutes
+

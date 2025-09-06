@@ -1,5 +1,4 @@
-import { Form } from 'antd'
-import { Typography } from 'antd'
+import { Form, Typography } from 'antd'
 import React from 'react'
 
 const FormItemControl = ({
@@ -45,3 +44,4 @@ const FormItemControl = ({
 }
 
 export default FormItemControl
+

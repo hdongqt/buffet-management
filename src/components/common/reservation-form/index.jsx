@@ -11,28 +11,23 @@ import DatePickerStyled from '../ui/DatePicker'
 import SelectStyled from '../ui/Select'
 import TextAreaStyled from '../ui/TextArea'
 import ButtonStyled from '../ui/Button'
+import { useEffect } from 'react'
 
 const format = 'HH:mm'
 
 export default function ReservationForm() {
-  const { formik } = useReservationForm()
+  const { formik, onChangeFormItem, loading, success } = useReservationForm()
 
-  const listOptionSeat = [
-    { value: '1', label: '1 chỗ ngồi' },
-    { value: '2', label: '2 chỗ ngồi' },
-    { value: '3', label: '3 chỗ ngồi' },
-    { value: '4', label: '4 chỗ ngồi' },
-    { value: '5', label: '5 chỗ ngồi' },
-    { value: '6', label: '6 chỗ ngồi' },
-  ]
+  const listOptionSeat = Array.from({ length: 30 }, (_, i) => ({
+    value: i + 1,
+    label: `${i + 1} chỗ ngồi`,
+  }))
 
-  const listOptionTable = [
-    { value: 0, label: 'Không yêu cầu' },
-    { value: 4, label: 'Bàn 4 người' },
-    { value: 6, label: 'Bàn 6 người' },
-    { value: 8, label: 'Bàn 8 người' },
-    { value: 10, label: 'Bàn 10 người' },
-  ]
+  useEffect(() => {
+    if (success) {
+      formik.resetForm()
+    }
+  }, [success])
 
   return (
     <Reservation.Wrapper>
@@ -42,52 +37,104 @@ export default function ReservationForm() {
       <Reservation.Background>
         <Reservation.FormBox>
           <h3>Đặt bàn</h3>
-          <Form>
-            <FormItemControl formik={formik}>
-              <Reservation.Row gutter={20}>
-                <Col xs={24} md={12}>
-                  <InputStyled name='name' placeholder='Nhập tên của bạn' />
-                </Col>
-                <Col xs={24} md={12}>
-                  <InputStyled name='phone' placeholder='Số điện thoại' />
-                </Col>
-              </Reservation.Row>
-            </FormItemControl>
-
-            <FormItemControl formik={formik}>
-              <Reservation.Row gutter={20}>
-                <Col xs={24} md={12}>
-                  <DatePickerStyled size='large' placeholder='Chọn ngày' />
-                </Col>
-                <Col xs={24} md={12}>
-                  <TimePickerStyled placeholder='Chọn giờ' format={format} />
-                </Col>
-              </Reservation.Row>
-            </FormItemControl>
-
-            <FormItemControl>
-              <Reservation.Row gutter={20}>
-                <Col xs={24} md={12}>
-                  <SelectStyled
-                    showSearch
-                    placeholder='Loại bàn'
-                    options={listOptionTable}
+          <Form layout='vertical' onFinish={formik.handleSubmit}>
+            <Reservation.Row gutter={20}>
+              <Col xs={24} md={12}>
+                <FormItemControl
+                  label='Họ và tên'
+                  formik={formik}
+                  name='fullname'
+                >
+                  <InputStyled
+                    name='fullname'
+                    placeholder='Nhập tên của bạn'
+                    value={formik.values.fullname}
+                    onChange={(e) =>
+                      onChangeFormItem('fullname', e.target.value)
+                    }
+                    onBlur={formik.handleBlur}
                   />
-                </Col>
-                <Col xs={24} md={12}>
+                </FormItemControl>
+              </Col>
+              <Col xs={24} md={12}>
+                <FormItemControl
+                  label='Số điện thoại'
+                  formik={formik}
+                  name='phone'
+                >
+                  <InputStyled
+                    name='phone'
+                    value={formik.values.phone}
+                    onChange={(e) => onChangeFormItem('phone', e.target.value)}
+                    onBlur={formik.handleBlur}
+                    placeholder='Số điện thoại'
+                  />
+                </FormItemControl>
+              </Col>
+            </Reservation.Row>
+
+            <Reservation.Row gutter={20}>
+              <Col xs={24} md={8}>
+                <FormItemControl
+                  label={'Ngày'}
+                  formik={formik}
+                  name='dateBooking'
+                >
+                  <DatePickerStyled
+                    name='dateBooking'
+                    value={formik.values.dateBooking}
+                    onChange={(value) => onChangeFormItem('dateBooking', value)}
+                    onBlur={formik.handleBlur}
+                    placeholder='Chọn ngày'
+                  />
+                </FormItemControl>
+              </Col>
+              <Col xs={24} md={8}>
+                <FormItemControl
+                  label={'Giờ'}
+                  formik={formik}
+                  name='timeBooking'
+                >
+                  <TimePickerStyled
+                    value={formik.values.timeBooking}
+                    onChange={(value) => onChangeFormItem('timeBooking', value)}
+                    onBlur={formik.handleBlur}
+                    placeholder='Chọn giờ'
+                    name='timeBooking'
+                    format={format}
+                  />
+                </FormItemControl>
+              </Col>
+              <Col xs={24} md={8}>
+                <FormItemControl
+                  label={'Số khách'}
+                  formik={formik}
+                  name='numPeople'
+                >
                   <SelectStyled
                     showSearch
                     placeholder='Số khách'
                     options={listOptionSeat}
+                    value={formik.values.numPeople}
+                    onChange={(value) => onChangeFormItem('numPeople', value)}
                   />
-                </Col>
-              </Reservation.Row>
+                </FormItemControl>
+              </Col>
+            </Reservation.Row>
+
+            <FormItemControl label={'Ghi chú'} formik={formik} name='note'>
+              <TextAreaStyled
+                value={formik.values.note}
+                onChange={(event) =>
+                  onChangeFormItem('note', event.target.value)
+                }
+                placeholder='Ghi chú'
+              />
             </FormItemControl>
 
-            <FormItemControl>
-              <TextAreaStyled placeholder='Ghi chú' />
-            </FormItemControl>
-            <ButtonStyled type='primary'>ĐẶT BÀN NGAY</ButtonStyled>
+            <ButtonStyled type='primary' htmlType='submit' loading={loading}>
+              ĐẶT BÀN NGAY
+            </ButtonStyled>
           </Form>
         </Reservation.FormBox>
       </Reservation.Background>
