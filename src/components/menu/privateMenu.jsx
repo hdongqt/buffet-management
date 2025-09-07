@@ -1,18 +1,22 @@
 import { ADMIN_ROUTES, MANAGER_ROUTES } from '@/constants/listRoutes'
-import { IdcardOutlined, LogoutOutlined } from '@ant-design/icons'
+import {
+  IdcardOutlined,
+  LogoutOutlined,
+  TableOutlined,
+} from '@ant-design/icons'
 
 const MANAGER_MENU = [
   {
     key: MANAGER_ROUTES.ROOT,
-    label: 'Table Management',
-    icon: <IdcardOutlined />,
+    label: 'Quản lý bàn',
+    icon: <TableOutlined />,
   },
   {
     type: 'divider',
   },
   {
     key: 'signout',
-    label: 'Sign out',
+    label: 'Đăng xuất',
     icon: <LogoutOutlined />,
   },
 ]

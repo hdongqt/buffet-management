@@ -23,10 +23,10 @@ export default function SliderSection() {
 
         <Slider.Description>
           Sau hơn 5 năm hoạt động, Sakura Buffet đã trở thành một trong những
-          nhà hàng buffet nướng Nhật Bản hàng đầu tại Đà Nẵng. Luôn theo đuổi
-          một tôn chỉ duy nhất “mang ẩm thực Nhật Bản chuẩn chỉnh với mức giá
-          hợp lý đến gần hơn với mọi người”, Sakura Buffet đặt ra những yêu cầu
-          kỹ lưỡng từ không gian, món ăn cho đến phong cách phục vụ.
+          nhà hàng buffet nướng Nhật Bản hàng đầu tại Huế. Luôn theo đuổi một
+          tôn chỉ duy nhất “mang ẩm thực Nhật Bản chuẩn chỉnh với mức giá hợp lý
+          đến gần hơn với mọi người”, Sakura Buffet đặt ra những yêu cầu kỹ
+          lưỡng từ không gian, món ăn cho đến phong cách phục vụ.
         </Slider.Description>
 
         <Slider.Description>
