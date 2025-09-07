@@ -24,7 +24,7 @@ function PrivateLayout() {
         <PrivateHeader collapsed={collapsed} setCollapsed={setCollapsed} />
         <Layout.Content className='home-layout__content'>
           <Private.Content>
-            <Typography.Title level={3}>{currentPath?.title}</Typography.Title>
+            <Typography.Title level={3}>{currentPath?.label}</Typography.Title>
             <Divider />
             <Outlet />
           </Private.Content>

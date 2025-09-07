@@ -87,5 +87,9 @@ export const useReservationForm = () => {
     formik.setFieldValue(fieldName, value)
   }
 
-  return { formik, onChangeFormItem, loading, success }
+  const disabledDate = (current) => {
+    return current && current < dayjs().startOf('day')
+  }
+
+  return { formik, onChangeFormItem, disabledDate, loading, success }
 }

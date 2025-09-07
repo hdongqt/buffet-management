@@ -16,7 +16,8 @@ import { useEffect } from 'react'
 const format = 'HH:mm'
 
 export default function ReservationForm() {
-  const { formik, onChangeFormItem, loading, success } = useReservationForm()
+  const { formik, onChangeFormItem, disabledDate, loading, success } =
+    useReservationForm()
 
   const listOptionSeat = Array.from({ length: 30 }, (_, i) => ({
     value: i + 1,
@@ -82,6 +83,7 @@ export default function ReservationForm() {
                 >
                   <DatePickerStyled
                     name='dateBooking'
+                    disabledDate={disabledDate}
                     value={formik.values.dateBooking}
                     onChange={(value) => onChangeFormItem('dateBooking', value)}
                     onBlur={formik.handleBlur}
@@ -132,7 +134,12 @@ export default function ReservationForm() {
               />
             </FormItemControl>
 
-            <ButtonStyled type='primary' htmlType='submit' loading={loading}>
+            <ButtonStyled
+              type='primary'
+              size='large'
+              htmlType='submit'
+              loading={loading}
+            >
               ĐẶT BÀN NGAY
             </ButtonStyled>
           </Form>
