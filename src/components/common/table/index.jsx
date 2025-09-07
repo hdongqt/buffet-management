@@ -9,6 +9,13 @@ const TableCustom = ({
   ...props
 }) => {
   const { page, limit, total } = pagination
+
+  const handlePaginationChange = (page, pageSize) => {
+    if (onPaginationChange) {
+      onPaginationChange({ page, limit: pageSize })
+    }
+  }
+
   return (
     <Table
       rowKey='id'
@@ -23,11 +30,7 @@ const TableCustom = ({
         total: total,
         showSizeChanger: true,
         pageSizeOptions: ['5', '10', '20', '50'],
-        onChange: (page, pageSize) => {
-          if (onPaginationChange) {
-            onPaginationChange({ page, limit: pageSize })
-          }
-        },
+        onChange: handlePaginationChange,
       }}
     />
   )
