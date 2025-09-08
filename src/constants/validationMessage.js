@@ -5,6 +5,10 @@ const VALIDATION_MESSAGE = {
   INVALID_DATE: 'Ngày không hợp lệ',
   TIME_PAST: 'Không được chọn giờ nhỏ hơn giờ hiện tại',
   MIN_PEOPLE: (min) => `Số khách tối thiểu là ${min}`,
+  INVALID_TABLE_NUMBER: 'Số bàn không hợp lệ',
+  INVALID_TABLE_CAPACITY: 'Chỗ ngồi không hợp lệ',
+  MIN_NUMBER: (fieldName, min) => `${fieldName} phải ≥ ${min}`,
+  MAX_NUMBER: (fieldName, max) => `${fieldName} phải ≤ ${max}`,
 }
 
 export default VALIDATION_MESSAGE

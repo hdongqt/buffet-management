@@ -1,0 +1,98 @@
+import { useState } from 'react'
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  fetchTablesRequest,
+  updateStatusTableRequest,
+} from '@/sagas/tableManager/tableManagerSlice'
+
+import { RESTAURANT_TABLE_STATUS } from '@/constants/status'
+
+import { useDebounceCallback } from '@/hooks'
+
+const useTableManager = () => {
+  const { tables, loading, filters, pagination } = useSelector(
+    (state) => state.tableManager
+  )
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [editingTable, setEditingTable] = useState(null)
+
+  const dispatch = useDispatch()
+
+  const formikSearch = useFormik({
+    initialValues: {
+      tableNumber: '',
+      status: '',
+    },
+  })
+
+  const fetchTables = async (newFilters) => {
+    await dispatch(fetchTablesRequest({ params: newFilters || filters }))
+  }
+
+  const debouncedSearchInput = useDebounceCallback((value) => {
+    fetchTables({
+      ...filters,
+      search: value,
+    })
+  }, 500)
+
+  const handleChangeStatus = (record) => {
+    const newStatus =
+      record.status === RESTAURANT_TABLE_STATUS.AVAILABLE
+        ? RESTAURANT_TABLE_STATUS.DISABLED
+        : RESTAURANT_TABLE_STATUS.AVAILABLE
+    dispatch(
+      updateStatusTableRequest({
+        id: record.id,
+        status: newStatus,
+        callback: async () => {
+          await fetchTables()
+        },
+      })
+    )
+  }
+
+  const onChangeFilter = (name, value) => {
+    formikSearch.setFieldValue(name, value)
+
+    if (name === 'tableNumber') {
+      debouncedSearchInput(value)
+    } else {
+      fetchTables({ ...filters, [name]: value })
+    }
+  }
+
+  const onChangePagination = (newPagination) => {
+    fetchTables({
+      ...filters,
+      page: newPagination.page,
+      limit: newPagination.limit,
+    })
+  }
+
+  const getTitleActionStatus = (record) => {
+    const textAction = record?.status === 'disabled' ? 'Khôi phục' : 'Tạm dừng'
+    return `${textAction} hoạt động bàn số ${record?.tableNumber} !`
+  }
+
+  return {
+    tables,
+    loading,
+    filters,
+    pagination,
+    isModalOpen,
+    setIsModalOpen,
+    editingTable,
+    setEditingTable,
+    formikSearch,
+    fetchTables,
+    handleChangeStatus,
+    debouncedSearchInput,
+    onChangeFilter,
+    onChangePagination,
+    getTitleActionStatus,
+  }
+}
+
+export default useTableManager

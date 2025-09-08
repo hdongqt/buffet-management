@@ -2,12 +2,13 @@ import { combineReducers } from 'redux'
 import userReducer from '@/sagas/users/userSlice'
 import appMessageReducer from '@/sagas/appMessage/appMessageSlice'
 import reservationReducer from '@/sagas/reservation/reservationSlice'
+import tableManagerReducer from '@/sagas/tableManager/tableManagerSlice'
 
 const rootReducer = combineReducers({
   appMessage: appMessageReducer,
   user: userReducer,
   reservation: reservationReducer,
+  tableManager: tableManagerReducer,
 })
 
 export default rootReducer
-
