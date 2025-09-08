@@ -1,6 +1,17 @@
-export const WIDTH_CARD = {
-  PC: 700,
+const WIDTH_CARD_LOGIN = {
+  PC: 1200,
+  LAPTOP: 700,
   TABLET: 600,
   MOBILE: 450,
   MOBILE_XS: 350,
 }
+
+const WIDTH_CARD_MODAL = {
+  PC: 1200,
+  LAPTOP: 960,
+  TABLET: 600,
+  MOBILE: 450,
+  MOBILE_XS: 350,
+}
+
+export { WIDTH_CARD_LOGIN, WIDTH_CARD_MODAL }
