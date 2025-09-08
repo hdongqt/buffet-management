@@ -39,6 +39,13 @@ const Reservation = {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    @media (max-width: ${breakpoints.md}) {
+      padding: 20px;
+      button {
+        width: 100%;
+      }
+    }
   `,
 
   Row: styled(Row)`

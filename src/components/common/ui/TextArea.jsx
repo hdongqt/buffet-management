@@ -1,11 +1,11 @@
 import { Input } from 'antd'
 import styled from 'styled-components'
 
-const CustomTextArea = styled(Input.TextArea)`
+const TextAreaStyled = styled(Input.TextArea)`
   width: 100%;
   resize: none;
 `
 
-export default function TextAreaStyled({ rows = 5, ...props }) {
-  return <CustomTextArea rows={rows} {...props} />
+export default function CustomTextArea({ rows = 5, ...props }) {
+  return <TextAreaStyled rows={rows} {...props} />
 }

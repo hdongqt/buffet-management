@@ -1,10 +1,10 @@
 import { DatePicker } from 'antd'
 import styled from 'styled-components'
 
-const CustomDatePicker = styled(DatePicker)`
+const DatePickerStyled = styled(DatePicker)`
   width: 100%;
 `
 
-export default function DatePickerStyled({ size = 'large', ...props }) {
-  return <CustomDatePicker size={size} {...props} />
+export default function CustomDatePicker({ size = 'large', ...props }) {
+  return <DatePickerStyled size={size} {...props} />
 }

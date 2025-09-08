@@ -1,14 +1,10 @@
 import { Button } from 'antd'
 import styled from 'styled-components'
 
-const CustomButton = styled(Button)`
+const ButtonStyled = styled(Button)`
   font-weight: 600;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 `
 
-export default function ButtonStyled({ children, ...props }) {
-  return <CustomButton {...props}>{children}</CustomButton>
+export default function CustomButton({ children, ...props }) {
+  return <ButtonStyled {...props}>{children}</ButtonStyled>
 }
