@@ -29,7 +29,7 @@ const TableCustom = ({
         pageSize: limit,
         total: total,
         showSizeChanger: true,
-        pageSizeOptions: ['5', '10', '20', '50'],
+        pageSizeOptions: ['20', '30', '40'],
         onChange: handlePaginationChange,
       }}
     />

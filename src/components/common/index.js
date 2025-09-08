@@ -5,6 +5,8 @@ import SliderSection from './slider'
 import PriceSection from './price'
 import TableCustom from './table'
 
+import * as CommonUI from './ui'
+
 export {
   AnimatedButton,
   FormItemControl,
@@ -12,4 +14,5 @@ export {
   SliderSection,
   PriceSection,
   TableCustom,
+  CommonUI,
 }
