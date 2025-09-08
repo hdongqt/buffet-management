@@ -1,10 +1,10 @@
 import { TimePicker } from 'antd'
 import styled from 'styled-components'
 
-const CustomTimePicker = styled(TimePicker)`
+const TimePickerStyled = styled(TimePicker)`
   width: 100%;
 `
 
-export default function TimePickerStyled({ size = 'large', ...props }) {
-  return <CustomTimePicker size={size} {...props} />
+export default function CustomTimePicker({ size = 'large', ...props }) {
+  return <TimePickerStyled size={size} {...props} />
 }

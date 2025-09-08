@@ -1,19 +1,19 @@
 import { Form, Col } from 'antd'
-
-import { Reservation } from './styled'
-import FormItemControl from '../formItemControl'
-import { useReservationForm } from '@/hooks/useFormReservation'
-import { HOME_RESERVATION } from '@/constants/images/homeUserImage'
-
-import InputStyled from '../ui/Input'
-import TimePickerStyled from '../ui/TimePicker'
-import DatePickerStyled from '../ui/DatePicker'
-import SelectStyled from '../ui/Select'
-import TextAreaStyled from '../ui/TextArea'
-import ButtonStyled from '../ui/Button'
 import { useEffect } from 'react'
 
-const format = 'HH:mm'
+import DATE_FORMAT from '@/constants/dateTimeFormat'
+import { HOME_RESERVATION } from '@/constants/images/homeUserImage'
+
+import FormItemControl from '../formItemControl'
+import CustomInput from '../ui/Input'
+import CustomButton from '../ui/Button'
+import CustomDatePicker from '../ui/DatePicker'
+import CustomTimePicker from '../ui/TimePicker'
+import CustomSelect from '../ui/Select'
+import CustomTextArea from '../ui/TextArea'
+
+import { useReservationForm } from '@/hooks/useFormReservation'
+import { Reservation } from './styled'
 
 export default function ReservationForm() {
   const { formik, onChangeFormItem, disabledDate, loading, success } =
@@ -46,7 +46,7 @@ export default function ReservationForm() {
                   formik={formik}
                   name='fullname'
                 >
-                  <InputStyled
+                  <CustomInput
                     name='fullname'
                     placeholder='Nhập tên của bạn'
                     value={formik.values.fullname}
@@ -63,7 +63,7 @@ export default function ReservationForm() {
                   formik={formik}
                   name='phone'
                 >
-                  <InputStyled
+                  <CustomInput
                     name='phone'
                     value={formik.values.phone}
                     onChange={(e) => onChangeFormItem('phone', e.target.value)}
@@ -81,7 +81,7 @@ export default function ReservationForm() {
                   formik={formik}
                   name='dateBooking'
                 >
-                  <DatePickerStyled
+                  <CustomDatePicker
                     name='dateBooking'
                     disabledDate={disabledDate}
                     value={formik.values.dateBooking}
@@ -97,13 +97,13 @@ export default function ReservationForm() {
                   formik={formik}
                   name='timeBooking'
                 >
-                  <TimePickerStyled
+                  <CustomTimePicker
                     value={formik.values.timeBooking}
                     onChange={(value) => onChangeFormItem('timeBooking', value)}
                     onBlur={formik.handleBlur}
                     placeholder='Chọn giờ'
                     name='timeBooking'
-                    format={format}
+                    format={DATE_FORMAT.TIME}
                   />
                 </FormItemControl>
               </Col>
@@ -113,7 +113,7 @@ export default function ReservationForm() {
                   formik={formik}
                   name='numPeople'
                 >
-                  <SelectStyled
+                  <CustomSelect
                     showSearch
                     placeholder='Số khách'
                     options={listOptionSeat}
@@ -125,7 +125,7 @@ export default function ReservationForm() {
             </Reservation.Row>
 
             <FormItemControl label={'Ghi chú'} formik={formik} name='note'>
-              <TextAreaStyled
+              <CustomTextArea
                 value={formik.values.note}
                 onChange={(event) =>
                   onChangeFormItem('note', event.target.value)
@@ -134,14 +134,14 @@ export default function ReservationForm() {
               />
             </FormItemControl>
 
-            <ButtonStyled
+            <CustomButton
               type='primary'
               size='large'
               htmlType='submit'
               loading={loading}
             >
               ĐẶT BÀN NGAY
-            </ButtonStyled>
+            </CustomButton>
           </Form>
         </Reservation.FormBox>
       </Reservation.Background>
