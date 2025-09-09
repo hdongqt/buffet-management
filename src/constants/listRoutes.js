@@ -10,6 +10,7 @@ const USER_ROUTES = {
 const MANAGER_ROUTES = {
   ROOT: '/manager',
   MENUS: '/manager/menus',
+  RESERVATION: '/manager/reservation',
 }
 
 const ADMIN_ROUTES = {
@@ -24,3 +25,4 @@ const ROLE_PERMISSIONS = {
 }
 
 export { USER_ROUTES, MANAGER_ROUTES, ADMIN_ROUTES, ROLE_PERMISSIONS }
+

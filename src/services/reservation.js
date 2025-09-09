@@ -6,7 +6,33 @@ const RESERVATION_API = {
       const res = await instance.post(`reservations`, reservationForm)
       return res.data
     } catch (error) {
-      throw error.response?.data || error.message
+      throw error
+    }
+  },
+  get: async (params) => {
+    try {
+      const res = await instance.get(`reservations`, { params })
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  },
+  put: async (id, values) => {
+    try {
+      const res = await instance.put(`reservations/${id}`, values)
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  },
+  getTableAvailable: async (dateBooking, timeBooking, numPeople) => {
+    try {
+      const res = await instance.get(`reservations/table-available`, {
+        params: { dateBooking, timeBooking, numPeople },
+      })
+      return res.data
+    } catch (error) {
+      throw error
     }
   },
 }
