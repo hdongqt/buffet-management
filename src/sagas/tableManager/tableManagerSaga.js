@@ -16,8 +16,9 @@ import {
 } from './tableManagerSlice'
 
 import { TABLES_API } from '@/services'
-import getErrorMessage from '@/utils/getMessage'
 import { showMessage } from '@/sagas/appMessage/appMessageSlice'
+
+import getErrorMessage from '@/utils/getMessage'
 
 function* handleFetchTables(action) {
   try {
