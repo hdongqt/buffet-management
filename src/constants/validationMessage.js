@@ -9,6 +9,10 @@ const VALIDATION_MESSAGE = {
   INVALID_TABLE_CAPACITY: 'Chỗ ngồi không hợp lệ',
   MIN_NUMBER: (fieldName, min) => `${fieldName} phải ≥ ${min}`,
   MAX_NUMBER: (fieldName, max) => `${fieldName} phải ≤ ${max}`,
+  MIN_LENGTH: (fieldName, min) => `${fieldName} phải có ít nhất ${min} ký tự`,
+  MAX_LENGTH: (fieldName, max) =>
+    `${fieldName} phải có nhiều nhất ${max} ký tự`,
+  INVALID_URL: 'URL không hợp lệ',
 }
 
 export default VALIDATION_MESSAGE
