@@ -3,6 +3,7 @@ import { HOME_SLIDER } from '@/constants/images/homeUserImage'
 import { Slider } from './styled'
 import { Link } from 'react-router-dom'
 import { AnimatedButton } from '@/components/common/'
+import { USER_ROUTES } from '@/constants/listRoutes'
 
 export default function SliderSection() {
   return (
@@ -40,12 +41,16 @@ export default function SliderSection() {
         </Slider.Description>
 
         <Slider.Buttons>
-          <AnimatedButton type='primary' danger shape='round'>
-            ĐẶT BÀN NGAY
-          </AnimatedButton>
-          <AnimatedButton type='primary' shape='round' danger>
-            <Link to='tel:+84903559447'>Hotline: 0903559447</Link>
-          </AnimatedButton>
+          <Slider.Link to={USER_ROUTES.RESERVATION}>
+            <AnimatedButton type='primary' danger shape='round'>
+              Đặt bàn
+            </AnimatedButton>
+          </Slider.Link>
+          <Slider.Link to='tel:+84999888888'>
+            <AnimatedButton type='primary' shape='round' danger isWaving={true}>
+              Hotline: 0999.888.888
+            </AnimatedButton>
+          </Slider.Link>
         </Slider.Buttons>
       </Slider.Content>
     </Slider.Wrapper>

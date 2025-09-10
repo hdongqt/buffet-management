@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom'
-import { StyledLayout } from './styled'
 import UserHeader from '@/components/userHeader'
 import UserFooter from '@/components/userFooter'
+import ScrollTop from '@/components/scrollTop'
+
+import { StyledLayout } from './styled'
 
 export default function Layout() {
   return (
@@ -9,6 +11,7 @@ export default function Layout() {
       <UserHeader />
       <Outlet />
       <UserFooter />
+      <ScrollTop />
     </StyledLayout>
   )
 }

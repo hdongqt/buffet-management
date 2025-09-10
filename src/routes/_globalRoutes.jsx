@@ -5,9 +5,7 @@ import React, { Suspense } from 'react'
 const HomePage = React.lazy(() => import('@/pages/globalPages/homePage'))
 const NotFound = React.lazy(() => import('@/pages/globalPages/notFound'))
 const AboutPage = React.lazy(() => import('@/pages/globalPages/aboutPage'))
-const MenuPage = React.lazy(() =>
-  import('@/pages/globalPages/menuPage/MenuPage')
-)
+const MenuPage = React.lazy(() => import('@/pages/globalPages/menuPage'))
 const ReservationPage = React.lazy(() =>
   import('@/pages/globalPages/reservationPage')
 )
@@ -47,4 +45,3 @@ const forbiddenRoutes = {
 
 export { forbiddenRoutes }
 export default globalRoutes
-

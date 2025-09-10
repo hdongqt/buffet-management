@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const MotionButton = motion(Button)
 
 const StyledMotionButton = styled(MotionButton)`
+  width: 100%;
   &.ant-btn {
     transition: none;
   }
@@ -12,18 +13,28 @@ const StyledMotionButton = styled(MotionButton)`
 
 export default function AnimatedButton({
   children,
-  whileHover = {
-    scale: 1.1,
-  },
+  isWaving = false,
+  whileHover = { scale: 1.1 },
   type = 'primary',
   shape = 'round',
   size = 'large',
   danger,
   ...rest
 }) {
+  const animateProps = isWaving
+    ? {
+        scale: [1, 1.05, 1, 1.05, 1],
+        transition: {
+          duration: 1,
+          repeat: Infinity,
+        },
+      }
+    : undefined
+
   return (
     <StyledMotionButton
-      whileHover={whileHover}
+      animate={animateProps}
+      whileHover={!isWaving ? whileHover : undefined}
       type={type}
       shape={shape}
       size={size}

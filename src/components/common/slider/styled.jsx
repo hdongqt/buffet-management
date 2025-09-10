@@ -1,4 +1,5 @@
 import { theme } from '@/constants/theme'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const { breakpoints } = theme
@@ -62,7 +63,7 @@ const Slider = {
 
   Buttons: styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     gap: 20px;
     align-items: center;
 
@@ -77,6 +78,10 @@ const Slider = {
         width: 100%;
       }
     }
+  `,
+
+  Link: styled(Link)`
+    flex: 1;
   `,
 }
 
