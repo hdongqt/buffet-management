@@ -17,14 +17,6 @@ const USER_MENU = [
     name: 'Đặt bàn',
     path: USER_ROUTES.RESERVATION,
   },
-  {
-    name: 'Liên hệ',
-    path: USER_ROUTES.CONTACT,
-  },
-  {
-    name: 'Tin tức',
-    path: USER_ROUTES.NEWS,
-  },
 ]
 
 export { USER_MENU }
