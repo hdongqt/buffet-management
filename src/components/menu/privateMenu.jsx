@@ -18,6 +18,11 @@ const MANAGER_MENU = [
     icon: <ReadOutlined />,
   },
   {
+    key: MANAGER_ROUTES.RESERVATION,
+    label: 'Quản lý đặt bàn',
+    icon: <IdcardOutlined />,
+  },
+  {
     type: 'divider',
   },
   {
@@ -44,3 +49,4 @@ const ADMIN_MENU = [
 ]
 
 export { MANAGER_MENU, ADMIN_MENU }
+

@@ -8,6 +8,7 @@ import {
   TableManagement,
   AdminDashboard,
   MenuManagement,
+  TableReservationManagement,
 } from '@/pages/privatePages'
 
 const ProtectedRoute = ({ children }) => {
@@ -42,6 +43,10 @@ const managerRoutes = {
       path: MANAGER_ROUTES.MENUS,
       element: <MenuManagement />,
     },
+    {
+      path: MANAGER_ROUTES.RESERVATION,
+      element: <TableReservationManagement />,
+    },
   ],
 }
 
@@ -65,3 +70,4 @@ const adminRoutes = {
 const privateRoutes = [managerRoutes, adminRoutes]
 
 export default privateRoutes
+
