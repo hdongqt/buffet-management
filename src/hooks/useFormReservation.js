@@ -1,15 +1,15 @@
 import DATE_FORMAT from '@/constants/dateTimeFormat'
-import { reservationRequest } from '@/sagas/reservation/reservationSlice'
 import REGEX from '@/constants/regex'
 import VALIDATION_MESSAGE from '@/constants/validationMessage'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import { useSelector, useDispatch } from 'react-redux'
 import * as Yup from 'yup'
+import { reservationGuestRequest } from '@/sagas/reservationGuest/reservationGuestSlice'
 
 export const useReservationForm = () => {
   const dispatch = useDispatch()
-  const { loading, success } = useSelector((state) => state.reservation)
+  const { loading, success } = useSelector((state) => state.reservationGuest)
 
   const validationSchema = Yup.object({
     fullname: Yup.string().required(VALIDATION_MESSAGE.REQUIRED('Tên')),
@@ -72,7 +72,7 @@ export const useReservationForm = () => {
         : null,
     }
 
-    dispatch(reservationRequest({ values: payload }))
+    dispatch(reservationGuestRequest({ values: payload }))
   }
 
   const formik = useFormik({

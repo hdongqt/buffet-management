@@ -1,21 +1,23 @@
 import { Form, Col } from 'antd'
 import { useEffect } from 'react'
+import { motion } from 'framer-motion'
 
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 import { HOME_RESERVATION } from '@/constants/images/homeUserImage'
+import { theme } from '@/constants/theme'
 
-import FormItemControl from '../formItemControl'
-import CustomInput from '../ui/Input'
-import CustomButton from '../ui/Button'
-import CustomDatePicker from '../ui/DatePicker'
-import CustomTimePicker from '../ui/TimePicker'
-import CustomSelect from '../ui/Select'
-import CustomTextArea from '../ui/TextArea'
+import {
+  CustomInput,
+  CustomButton,
+  CustomDatePicker,
+  CustomTimePicker,
+  CustomSelect,
+  CustomTextArea,
+} from '@/components/common/ui'
+import { FormItemControl } from '@/components/common'
 
 import { useReservationForm } from '@/hooks/useFormReservation'
 import { Reservation } from './styled'
-import { theme } from '@/constants/theme'
-import { motion } from 'framer-motion'
 
 const { animations } = theme
 
