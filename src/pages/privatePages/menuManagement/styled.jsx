@@ -18,10 +18,6 @@ const FiltersRow = styled.div`
   }
 `
 
-const StyledTag = styled(Tag)`
-  text-transform: capitalize;
-`
-
 const StyledText = styled(Typography.Text)`
   max-width: 100%;
   display: inline-block;
@@ -33,4 +29,4 @@ const FilterInput = styled(CustomInput)`
   }
 `
 
-export { StyledRow, FiltersRow, StyledTag, StyledText, FilterInput }
+export { StyledRow, FiltersRow, StyledText, FilterInput }

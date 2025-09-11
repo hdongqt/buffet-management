@@ -1,5 +1,4 @@
 import * as Yup from 'yup'
-import { useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 
@@ -12,10 +11,12 @@ import {
 } from '@/sagas/menuManagement/menuSlice'
 
 import useMenuManagement from '@/hooks/useMenuManagement'
+import useCategoriesManagement from '@/hooks/useCategories'
 
 const useMenuForm = ({ initialValues, onClose }) => {
   const dispatch = useDispatch()
   const { menuList } = useMenuManagement()
+  const { categoriesList } = useCategoriesManagement()
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -30,33 +31,57 @@ const useMenuForm = ({ initialValues, onClose }) => {
       .required(VALIDATION_MESSAGE.REQUIRED('Giá'))
       .min(1, VALIDATION_MESSAGE.MIN_NUMBER('Giá', 1)),
     imageUrl: Yup.string().url(VALIDATION_MESSAGE.INVALID_URL),
-    status: Yup.string().required(VALIDATION_MESSAGE.REQUIRED('Trạng thái')),
+    categoryId: Yup.string().when('isCombo', {
+      is: false,
+      then: (schema) =>
+        schema.required(VALIDATION_MESSAGE.REQUIRED('Loại món ăn')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    status: Yup.string().when('isCombo', {
+      is: false,
+      then: (schema) =>
+        schema.required(VALIDATION_MESSAGE.REQUIRED('Trạng thái')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
     comboItems: Yup.array(),
   })
 
   const defaultValues = {
-    name: '',
-    description: '',
-    price: null,
-    imageUrl: '',
-    status: '',
-    comboItems: [],
+    name: initialValues?.name || '',
+    description: initialValues?.description || '',
+    price: initialValues?.price || '',
+    imageUrl: initialValues?.imageUrl || '',
+    status: initialValues?.status || '',
+    categoryId: initialValues?.categoryId || '',
+    comboItems: initialValues?.comboItems?.map((item) => item.id) || [],
+    isCombo: initialValues?.isCombo || false,
   }
 
-  const normalizedInitialValues = useMemo(() => {
-    if (!initialValues) return defaultValues
-
-    return {
-      ...initialValues,
-      comboItems: initialValues.comboItems?.map((item) => item.id) || [],
-    }
-  }, [initialValues])
-
   const handleSubmit = async (values) => {
-    if (initialValues?.id) {
-      await dispatch(putMenuRequest({ values, callback: commonCallback }))
+    const payload = { isCombo, ...values }
+
+    if (isCombo) {
+      delete payload.categoryId
+      delete payload.status
     } else {
-      await dispatch(postMenuRequest({ values, callback: commonCallback }))
+      delete payload.comboItems
+    }
+
+    if (initialValues?.id) {
+      await dispatch(
+        putMenuRequest({
+          id: initialValues?.id,
+          values: payload,
+          callback: commonCallback,
+        })
+      )
+    } else {
+      await dispatch(
+        postMenuRequest({
+          values: payload,
+          callback: commonCallback,
+        })
+      )
     }
   }
 
@@ -67,7 +92,7 @@ const useMenuForm = ({ initialValues, onClose }) => {
   }
 
   const formik = useFormik({
-    initialValues: normalizedInitialValues,
+    initialValues: defaultValues,
     validationSchema,
     validateOnChange: false,
     validateOnBlur: true,
@@ -78,6 +103,13 @@ const useMenuForm = ({ initialValues, onClose }) => {
   const onChangeFormItem = (fieldName, value) => {
     formik.setFieldValue(fieldName, value)
   }
+
+  const categoryItemList = categoriesList.map((item) => ({
+    label: item.name,
+    value: item.id,
+  }))
+
+  const isCombo = formik.values.isCombo
 
   const foodItemList = menuList
     .filter((item) => !item.isCombo && item.id !== initialValues?.id)
@@ -98,6 +130,8 @@ const useMenuForm = ({ initialValues, onClose }) => {
     formik,
     foodItemList,
     selectedComboItems,
+    categoryItemList,
+    isCombo,
     foodMap,
     onChangeFormItem,
   }

@@ -12,6 +12,7 @@ import {
   Flex,
 } from 'antd'
 import {
+  DeleteOutlined,
   EditOutlined,
   PauseCircleOutlined,
   PlusOutlined,
@@ -21,11 +22,12 @@ import {
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 import {
   MENU_COMBO_OPTIONS,
-  MENU_ORDER_BY,
+  ORDER_BY,
   MENU_SOFT_BY,
+  MENU_STATUS_TAGS,
 } from '@/constants/options'
 
-import { CustomButton, CustomSelect } from '@/components/common/ui'
+import { CustomButton, CustomSelect, CustomTag } from '@/components/common/ui'
 import { FormItemControl, TableCustom } from '@/components/common'
 import MenuFormModal from '@/pages/privatePages/menuManagement/components/formModal/MenuFormModal'
 
@@ -36,9 +38,9 @@ import { formatCurrency, getStatusConfig, truncateText } from '@/utils/format'
 import {
   FilterInput,
   StyledRow,
-  StyledTag,
   StyledText,
 } from '@/pages/privatePages/menuManagement/styled'
+import useCategoriesManagement from '@/hooks/useCategories'
 
 const MenuManagement = () => {
   const {
@@ -53,13 +55,17 @@ const MenuManagement = () => {
     formikSearch,
     handleFilter,
     handleTableChange,
+    handleResetFilters,
 
     fetchMenuList,
     deleteMenu,
   } = useMenuPage()
 
+  const { fetchCategories, categoryItemList } = useCategoriesManagement()
+
   useEffect(() => {
     fetchMenuList()
+    fetchCategories()
   }, [])
 
   const columns = [
@@ -97,8 +103,8 @@ const MenuManagement = () => {
       title: 'Status',
       dataIndex: 'status',
       render: (val) => {
-        const { color, label } = getStatusConfig(val)
-        return <StyledTag color={color}>{label}</StyledTag>
+        const { color, label } = getStatusConfig(val, MENU_STATUS_TAGS)
+        return <CustomTag color={color}>{label}</CustomTag>
       },
     },
     {
@@ -143,7 +149,7 @@ const MenuManagement = () => {
         <Col xs={24} md={24} lg={18}>
           <Form onFinish={formikSearch.handleSubmit}>
             <Row gutter={8}>
-              <Col xs={24} md={24} lg={8}>
+              <Col xs={24} md={24} lg={13}>
                 <FormItemControl
                   name='search'
                   label='Tìm kiếm'
@@ -161,72 +167,103 @@ const MenuManagement = () => {
                   />
                 </FormItemControl>
               </Col>
-              <Col xs={24} md={8} lg={4}>
-                <FormItemControl
-                  name='isCombo'
-                  label='Combo'
-                  formik={formikSearch}
-                  layout='vertical'
-                >
-                  <CustomSelect
-                    placeholder='Combo'
-                    value={formikSearch.values.isCombo}
-                    onChange={(val) => {
-                      handleFilter('isCombo', val)
-                    }}
-                    options={MENU_COMBO_OPTIONS}
-                    allowClear
-                  />
-                </FormItemControl>
-              </Col>
-              <Col xs={24} md={8} lg={6}>
-                <FormItemControl
-                  name='sortBy'
-                  formik={formikSearch}
-                  label='Sắp xếp'
-                  layout='vertical'
-                >
-                  <CustomSelect
-                    placeholder='Sắp xếp theo'
-                    value={formikSearch.values.sortBy}
-                    onChange={(val) => handleFilter('sortBy', val)}
-                    options={MENU_SOFT_BY}
-                    allowClear
-                  />
-                </FormItemControl>
-              </Col>
-              <Col xs={24} md={8} lg={5}>
-                <FormItemControl
-                  name='order'
-                  formik={formikSearch}
-                  label='Thứ tự'
-                  layout='vertical'
-                >
-                  <CustomSelect
-                    placeholder='Thứ tự'
-                    value={formikSearch.values.order}
-                    onChange={(val) => handleFilter('order', val)}
-                    options={MENU_ORDER_BY}
-                    allowClear
-                  />
-                </FormItemControl>
-              </Col>
             </Row>
           </Form>
         </Col>
         <Col xs={24} md={24} lg={6}>
           <Flex justify='end'>
-            <Tooltip title='Thêm món mới'>
-              <CustomButton
-                size='large'
-                type='primary'
-                icon={<PlusOutlined />}
-                onClick={() => openModal()}
-              >
-                Thêm món
-              </CustomButton>
-            </Tooltip>
+            <CustomButton
+              size='large'
+              type='primary'
+              icon={<PlusOutlined />}
+              onClick={() => openModal()}
+            >
+              Thêm món
+            </CustomButton>
           </Flex>
+        </Col>
+        <Col xs={24} md={24} lg={24}>
+          <Row gutter={8} align='middle'>
+            <Col xs={24} md={8} lg={5}>
+              <FormItemControl
+                name='categoryId'
+                label='Loại món ăn'
+                formik={formikSearch}
+                layout='vertical'
+              >
+                <CustomSelect
+                  placeholder='Loại món ăn'
+                  value={formikSearch.values.categoryId}
+                  onChange={(val) => {
+                    handleFilter('categoryId', val)
+                  }}
+                  options={categoryItemList}
+                  allowClear
+                />
+              </FormItemControl>
+            </Col>
+            <Col xs={24} md={8} lg={5}>
+              <FormItemControl
+                name='isCombo'
+                label='Combo'
+                formik={formikSearch}
+                layout='vertical'
+              >
+                <CustomSelect
+                  placeholder='Combo'
+                  value={formikSearch.values.isCombo}
+                  onChange={(val) => {
+                    handleFilter('isCombo', val)
+                  }}
+                  options={MENU_COMBO_OPTIONS}
+                  allowClear
+                />
+              </FormItemControl>
+            </Col>
+            <Col xs={24} md={8} lg={5}>
+              <FormItemControl
+                name='sortBy'
+                formik={formikSearch}
+                label='Sắp xếp'
+                layout='vertical'
+              >
+                <CustomSelect
+                  placeholder='Sắp xếp theo'
+                  value={formikSearch.values.sortBy}
+                  onChange={(val) => handleFilter('sortBy', val)}
+                  options={MENU_SOFT_BY}
+                  allowClear
+                />
+              </FormItemControl>
+            </Col>
+            <Col xs={24} md={8} lg={5}>
+              <FormItemControl
+                name='order'
+                formik={formikSearch}
+                label='Thứ tự'
+                layout='vertical'
+              >
+                <CustomSelect
+                  placeholder='Thứ tự'
+                  value={formikSearch.values.order}
+                  onChange={(val) => handleFilter('order', val)}
+                  options={ORDER_BY}
+                  allowClear
+                />
+              </FormItemControl>
+            </Col>
+            <Col xs={24} md={8} lg={4}>
+              <Flex justify='end'>
+                <CustomButton
+                  onClick={handleResetFilters}
+                  icon={<DeleteOutlined />}
+                  size='large'
+                >
+                  Clear all
+                </CustomButton>
+              </Flex>
+            </Col>
+          </Row>
         </Col>
       </StyledRow>
 

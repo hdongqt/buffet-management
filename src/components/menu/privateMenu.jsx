@@ -2,6 +2,7 @@ import { ADMIN_ROUTES, MANAGER_ROUTES } from '@/constants/listRoutes'
 import {
   IdcardOutlined,
   LogoutOutlined,
+  OrderedListOutlined,
   ReadOutlined,
   TableOutlined,
   UnorderedListOutlined,
@@ -27,6 +28,11 @@ const MANAGER_MENU = [
     key: MANAGER_ROUTES.CATEGORIES,
     label: 'Quản lý danh mục',
     icon: <UnorderedListOutlined />,
+  },
+  {
+    key: MANAGER_ROUTES.ORDERS,
+    label: 'Quản lý Order',
+    icon: <OrderedListOutlined />,
   },
   {
     type: 'divider',
@@ -55,4 +61,3 @@ const ADMIN_MENU = [
 ]
 
 export { MANAGER_MENU, ADMIN_MENU }
-

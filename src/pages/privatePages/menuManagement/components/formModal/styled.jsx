@@ -22,7 +22,7 @@ const StyledModal = {
 const ImagePanel = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   max-height: calc(100vh - 200px);
   padding-right: 4px;
 `
@@ -53,12 +53,7 @@ const SectionHeader = styled.div`
     margin: 0;
     font-size: 16px;
     font-weight: 600;
-  }
-
-  p {
-    margin: 0;
-    color: #8c8c8c;
-    font-size: 12px;
+    color: #1890ff;
   }
 `
 

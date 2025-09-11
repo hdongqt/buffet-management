@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Grid, Radio, Typography, Empty, Tag } from 'antd'
+import { Grid, Radio, Switch, Empty, Tag } from 'antd'
 
 import { MENU_STATUS_OPTIONS } from '@/constants/options'
 
@@ -14,6 +14,9 @@ import UpdateImage from '@/components/common/updateImage'
 import useMenuManagement from '@/hooks/useMenuManagement'
 import useMenuForm from '@/hooks/useMenuForm'
 
+import { getWidthCard } from '@/utils/getWidthCard'
+import { formatNumber, parseNumber } from '@/utils/format'
+
 import {
   StyledModal,
   FieldGrid,
@@ -24,17 +27,20 @@ import {
   SelectedList,
   StyledInputNumber,
 } from '@/pages/privatePages/menuManagement/components/formModal/styled'
-import { getWidthCard } from '@/utils/getWidthCard'
-import { formatNumber, parseNumber } from '@/utils/format'
+import { useDispatch } from 'react-redux'
+import useCategoriesManagement from '@/hooks/useCategories'
 
 const { useBreakpoint } = Grid
 
 const MenuFormModal = ({ open, onClose, initialValues }) => {
   const { actionLoading } = useMenuManagement()
+  const { fetchCategories } = useCategoriesManagement()
   const {
     formik,
     foodItemList,
     selectedComboItems,
+    categoryItemList,
+    isCombo,
     foodMap,
     onChangeFormItem,
   } = useMenuForm({
@@ -46,7 +52,15 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
   const widthCard = getWidthCard(screens, 'modal')
 
   useEffect(() => {
-    if (!open) formik.resetForm()
+    if (!open) {
+      formik.resetForm()
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (open) {
+      fetchCategories()
+    }
   }, [open])
 
   return (
@@ -64,7 +78,6 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
           <Section>
             <SectionHeader>
               <h5>Ảnh món ăn</h5>
-              <p>JPEG/PNG/WebP • Tối đa 3MB</p>
             </SectionHeader>
             <UpdateImage
               name='imageUrl'
@@ -75,48 +88,49 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
             />
           </Section>
 
-          <Section>
-            <SectionHeader>
-              <h5>Món đã chọn trong combo</h5>
-              <p>{selectedComboItems.length} món</p>
-            </SectionHeader>
+          {isCombo && (
+            <Section>
+              <SectionHeader>
+                <h5>Món đã chọn trong combo</h5>
+                <p>{selectedComboItems.length} món</p>
+              </SectionHeader>
 
-            {selectedComboItems.length === 0 ? (
-              <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description='Chưa chọn món nào'
-              />
-            ) : (
-              <SelectedList>
-                {selectedComboItems.map((id) => {
-                  const label = foodMap(id) || `#${id}`
-                  return (
-                    <Tag
-                      key={id}
-                      color='blue'
-                      closable
-                      onClose={(e) => {
-                        e.preventDefault()
-                        onChangeFormItem(
-                          'comboItems',
-                          selectedComboItems.filter((item) => item !== id)
-                        )
-                      }}
-                    >
-                      {label}
-                    </Tag>
-                  )
-                })}
-              </SelectedList>
-            )}
-          </Section>
+              {selectedComboItems.length === 0 ? (
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description='Chưa chọn món nào'
+                />
+              ) : (
+                <SelectedList>
+                  {selectedComboItems.map((id) => {
+                    const label = foodMap(id) || `#${id}`
+                    return (
+                      <Tag
+                        key={id}
+                        color='blue'
+                        closable
+                        onClose={(e) => {
+                          e.preventDefault()
+                          onChangeFormItem(
+                            'comboItems',
+                            selectedComboItems.filter((item) => item !== id)
+                          )
+                        }}
+                      >
+                        {label}
+                      </Tag>
+                    )
+                  })}
+                </SelectedList>
+              )}
+            </Section>
+          )}
         </ImagePanel>
 
         <FormPanel>
           <Section>
             <SectionHeader>
               <h5>Thông tin cơ bản</h5>
-              <p>Điền đầy đủ giúp khách hiểu món ăn rõ hơn</p>
             </SectionHeader>
             <FormItemControl label='Tên món ăn' name='name' formik={formik}>
               <CustomInput
@@ -143,12 +157,19 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
                 maxLength={255}
               />
             </FormItemControl>
+
+            <FormItemControl label='Tạo combo' name='isCombo' formik={formik}>
+              <Switch
+                name='isCombo'
+                checked={formik.values.isCombo}
+                onChange={(checked) => onChangeFormItem('isCombo', checked)}
+              />
+            </FormItemControl>
           </Section>
 
           <Section>
             <SectionHeader>
-              <h5>Giá & Trạng thái</h5>
-              <p>Quy định mức giá và trạng thái món ăn</p>
+              <h5>{isCombo ? 'Giá' : 'Giá & Trạng thái'}</h5>
             </SectionHeader>
 
             <FieldGrid>
@@ -165,44 +186,72 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
                 />
               </FormItemControl>
 
-              <FormItemControl label='Trạng thái' name='status' formik={formik}>
-                <Radio.Group
+              {isCombo ? (
+                ''
+              ) : (
+                <FormItemControl
+                  label='Trạng thái'
                   name='status'
-                  value={formik.values.status}
-                  onChange={(e) => onChangeFormItem('status', e.target.value)}
-                  options={MENU_STATUS_OPTIONS}
-                  optionType='button'
-                  buttonStyle='solid'
-                />
-              </FormItemControl>
+                  formik={formik}
+                >
+                  <Radio.Group
+                    name='status'
+                    value={formik.values.status}
+                    onChange={(e) => onChangeFormItem('status', e.target.value)}
+                    options={MENU_STATUS_OPTIONS}
+                    optionType='button'
+                    buttonStyle='solid'
+                  />
+                </FormItemControl>
+              )}
             </FieldGrid>
           </Section>
 
-          <Section>
-            <SectionHeader>
-              <h5>Combo</h5>
-              <p>Chọn món để ghép combo</p>
-            </SectionHeader>
-            <FormItemControl
-              label='Món trong combo'
-              name='comboItems'
-              formik={formik}
-            >
-              <CustomSelect
+          {!isCombo && (
+            <Section>
+              <SectionHeader>
+                <h5>Loại món ăn</h5>
+              </SectionHeader>
+              <FormItemControl
+                label='Loại món ăn'
+                name='categoryId'
+                formik={formik}
+              >
+                <CustomSelect
+                  name='categoryId'
+                  placeholder='Chọn loại món'
+                  value={formik.values.categoryId || []}
+                  onChange={(value) => onChangeFormItem('categoryId', value)}
+                  options={categoryItemList}
+                  allowClear
+                />
+              </FormItemControl>
+            </Section>
+          )}
+
+          {isCombo && (
+            <Section>
+              <SectionHeader>
+                <h5>Combo</h5>
+              </SectionHeader>
+              <FormItemControl
+                label='Món trong combo'
                 name='comboItems'
-                mode='multiple'
-                placeholder='Chọn món trong combo'
-                value={formik.values.comboItems || []}
-                onChange={(value) => onChangeFormItem('comboItems', value)}
-                options={foodItemList}
-                allowClear
-                maxTagCount={1}
-              />
-            </FormItemControl>
-            <Typography.Paragraph type='secondary'>
-              Danh sách món đã chọn được hiển thị ở panel bên trái.
-            </Typography.Paragraph>
-          </Section>
+                formik={formik}
+              >
+                <CustomSelect
+                  name='comboItems'
+                  mode='multiple'
+                  placeholder='Chọn món trong combo'
+                  value={formik.values.comboItems || []}
+                  onChange={(value) => onChangeFormItem('comboItems', value)}
+                  options={foodItemList}
+                  allowClear
+                  maxTagCount={1}
+                />
+              </FormItemControl>
+            </Section>
+          )}
         </FormPanel>
       </StyledModal.Grid>
     </StyledModal.Wrap>
