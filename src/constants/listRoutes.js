@@ -11,6 +11,7 @@ const MANAGER_ROUTES = {
   ROOT: '/manager',
   MENUS: '/manager/menus',
   RESERVATION: '/manager/reservation',
+  CATEGORIES: '/manager/categories',
 }
 
 const ADMIN_ROUTES = {

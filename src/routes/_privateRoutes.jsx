@@ -9,6 +9,7 @@ import {
   AdminDashboard,
   MenuManagement,
   TableReservationManagement,
+  CategoriesManagement,
 } from '@/pages/privatePages'
 import LazyLoading from '@/components/lazyLoading'
 
@@ -47,6 +48,10 @@ const managerRoutes = {
     {
       path: MANAGER_ROUTES.RESERVATION,
       element: <TableReservationManagement />,
+    },
+    {
+      path: MANAGER_ROUTES.CATEGORIES,
+      element: <CategoriesManagement />,
     },
   ],
 }
