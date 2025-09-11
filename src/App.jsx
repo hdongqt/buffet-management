@@ -5,6 +5,7 @@ import { ConfigProvider } from 'antd'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './constants/theme'
 import MessageListener from '@/components/messageListener'
+import { SocketProvider } from '@/contexts/socket'
 
 function App() {
   return (
@@ -25,12 +26,14 @@ function App() {
         },
       }}
     >
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-        <MessageListener />
-      </ThemeProvider>
+      <SocketProvider>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+          <MessageListener />
+        </ThemeProvider>
+      </SocketProvider>
     </ConfigProvider>
   )
 }
