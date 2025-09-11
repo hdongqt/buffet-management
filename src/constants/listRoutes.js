@@ -5,6 +5,13 @@ const USER_ROUTES = {
   RESERVATION: '/reservation',
   CONTACT: '/contact',
   NEWS: '/news',
+  GUEST_TABLE: '/table/:token',
+}
+
+const GUEST_ORDER_ROUTES = {
+  ROOT: '/guest-order',
+  ORDER: '/guest-order/order',
+  CALL_STAFF: '/guest-order/call-staff',
 }
 
 const MANAGER_ROUTES = {
@@ -25,5 +32,10 @@ const ROLE_PERMISSIONS = {
   ADMIN: [...Object.values(ADMIN_ROUTES)],
 }
 
-export { USER_ROUTES, MANAGER_ROUTES, ADMIN_ROUTES, ROLE_PERMISSIONS }
-
+export {
+  USER_ROUTES,
+  GUEST_ORDER_ROUTES,
+  MANAGER_ROUTES,
+  ADMIN_ROUTES,
+  ROLE_PERMISSIONS,
+}
