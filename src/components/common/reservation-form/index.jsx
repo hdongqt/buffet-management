@@ -14,6 +14,12 @@ import CustomTextArea from '../ui/TextArea'
 
 import { useReservationForm } from '@/hooks/useFormReservation'
 import { Reservation } from './styled'
+import { theme } from '@/constants/theme'
+import { motion } from 'framer-motion'
+
+const { animations } = theme
+
+const MotionReservation = motion(Reservation.FormBox)
 
 export default function ReservationForm() {
   const { formik, onChangeFormItem, disabledDate, loading, success } =
@@ -36,7 +42,12 @@ export default function ReservationForm() {
         <img src={HOME_RESERVATION.logoReservation} alt='Reservation Logo' />
       </Reservation.Logo>
       <Reservation.Background>
-        <Reservation.FormBox>
+        <MotionReservation
+          variants={animations.fadeDropJump}
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <h3>Đặt bàn</h3>
           <Form layout='vertical' onFinish={formik.handleSubmit}>
             <Reservation.Row gutter={20}>
@@ -143,7 +154,7 @@ export default function ReservationForm() {
               ĐẶT BÀN NGAY
             </CustomButton>
           </Form>
-        </Reservation.FormBox>
+        </MotionReservation>
       </Reservation.Background>
     </Reservation.Wrapper>
   )

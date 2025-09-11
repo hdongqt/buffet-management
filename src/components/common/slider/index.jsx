@@ -1,13 +1,23 @@
 import { Carousel } from 'antd'
 import { HOME_SLIDER } from '@/constants/images/homeUserImage'
 import { Slider } from './styled'
-import { Link } from 'react-router-dom'
 import { AnimatedButton } from '@/components/common/'
 import { USER_ROUTES } from '@/constants/listRoutes'
+import { theme } from '@/constants/theme'
+import { motion } from 'framer-motion'
+
+const { animations } = theme
+
+const MotionSlider = motion(Slider.Wrapper)
+const MotionContent = motion(Slider.Content)
 
 export default function SliderSection() {
   return (
-    <Slider.Wrapper>
+    <MotionSlider
+      initial='hidden'
+      whileInView='visible'
+      viewport={{ once: true, amount: 0.3 }}
+    >
       <Carousel autoplay autoplaySpeed={3000}>
         {Object.values(HOME_SLIDER).map((img, i) => (
           <div key={i}>
@@ -15,7 +25,7 @@ export default function SliderSection() {
           </div>
         ))}
       </Carousel>
-      <Slider.Content>
+      <MotionContent variants={animations.fadeDropJump}>
         <Slider.Logo>Sakura Buffet</Slider.Logo>
 
         <Slider.Title>
@@ -52,7 +62,7 @@ export default function SliderSection() {
             </AnimatedButton>
           </Slider.Link>
         </Slider.Buttons>
-      </Slider.Content>
-    </Slider.Wrapper>
+      </MotionContent>
+    </MotionSlider>
   )
 }

@@ -10,6 +10,7 @@ import {
   MenuManagement,
   TableReservationManagement,
 } from '@/pages/privatePages'
+import LazyLoading from '@/components/lazyLoading'
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((state) => state.user)
@@ -28,7 +29,7 @@ const ProtectedRoute = ({ children }) => {
 const managerRoutes = {
   path: MANAGER_ROUTES.ROOT,
   element: (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LazyLoading />}>
       <ProtectedRoute>
         <PrivateLayout />
       </ProtectedRoute>
@@ -53,7 +54,7 @@ const managerRoutes = {
 const adminRoutes = {
   path: ADMIN_ROUTES.ROOT,
   element: (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LazyLoading />}>
       <ProtectedRoute>
         <PrivateLayout />
       </ProtectedRoute>

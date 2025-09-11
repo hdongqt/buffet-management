@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { ADMIN_ROUTES, MANAGER_ROUTES } from '../constants/listRoutes'
 import ROLES from '@/constants/roles'
+import LazyLoading from '@/components/lazyLoading'
 
 const LoginPage = React.lazy(() =>
   import('@/pages/publicPages/login/LoginPage')
@@ -22,7 +23,7 @@ const AuthRoute = ({ children }) => {
 
 const publicRoutes = {
   element: (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LazyLoading />}>
       <AuthRoute>
         <AuthLayout />
       </AuthRoute>
@@ -32,3 +33,4 @@ const publicRoutes = {
 }
 
 export default publicRoutes
+
