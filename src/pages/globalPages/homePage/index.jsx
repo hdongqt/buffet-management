@@ -16,14 +16,36 @@ import {
 } from '@/constants/images/homeUserImage'
 
 import { HomeWrapper, Menu, Introduce, Customer, Blog } from './styled'
+import AboutSection from '../aboutPage/components/about/About'
+import { theme } from '@/constants/theme'
+import { motion } from 'framer-motion'
+
+const { animations } = theme
+
+const MotionHome = motion(HomeWrapper)
+const MotionMenu = motion(Menu.Section)
+const MotionIntroduce = motion(Introduce.Section)
+const MotionCustomerLogo = motion(Customer.Logo)
+const MotionCustomerSliderLeft = motion(Customer.SliderLeft)
+const MotionCustomerSliderRight = motion(Customer.SliderRight)
+const MotionBlog = motion(Blog.Content)
 
 export default function HomePage() {
   return (
-    <HomeWrapper>
+    <MotionHome
+      initial='hidden'
+      whileInView='visible'
+      viewport={{ once: true, amount: 0.3 }}
+    >
       <SliderSection />
       <PriceSection />
 
-      <Menu.Section>
+      <MotionMenu
+        variants={animations.fadeInUp}
+        initial='hidden'
+        whileInView='visible'
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <Menu.Title src={HOME_MENU.menuTitleImg} alt='Menu Title' />
         <Menu.Banner src={HOME_MENU.menuBannerImg} alt='Menu Banner' />
         <Menu.Button>
@@ -31,9 +53,16 @@ export default function HomePage() {
             XEM CHI TIẾT
           </AnimatedButton>
         </Menu.Button>
-      </Menu.Section>
+      </MotionMenu>
 
-      <Introduce.Section>
+      <AboutSection />
+
+      <MotionIntroduce
+        initial='hidden'
+        whileInView='visible'
+        viewport={{ once: true, amount: 0.3 }}
+        variants={animations.staggerFadeUp}
+      >
         <Introduce.Content>
           <Introduce.Discount>
             ƯU ĐÃI TRONG THÁNG - SAKURA BUFFET
@@ -43,18 +72,27 @@ export default function HomePage() {
             alt='Discount Banner'
           />
         </Introduce.Content>
-      </Introduce.Section>
+      </MotionIntroduce>
 
       <Customer.Section>
-        <Customer.Logo
+        <MotionCustomerLogo
           src={HOME_CUSTOMER.customerLogoImg}
           alt='Customer Logo'
+          variants={animations.fadeDropJump}
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.8 }}
         />
         <Customer.Text>
           Sau lưng em không có ai cả. Nhưng trước mặt em là Sakura Buffet
         </Customer.Text>
         <Customer.SliderWrapper>
-          <Customer.SliderLeft>
+          <MotionCustomerSliderLeft
+            variants={animations.fadeRightLeft}
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <Carousel autoplay arrows>
               {HOME_CUSTOMER.customerCarousel01.map((image, index) => (
                 <div key={index}>
@@ -65,8 +103,13 @@ export default function HomePage() {
                 </div>
               ))}
             </Carousel>
-          </Customer.SliderLeft>
-          <Customer.SliderRight>
+          </MotionCustomerSliderLeft>
+          <MotionCustomerSliderRight
+            variants={animations.fadeLeftRight}
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <Carousel autoplay arrows>
               {HOME_CUSTOMER.customerCarousel02.map((image, index) => (
                 <div key={index}>
@@ -77,7 +120,7 @@ export default function HomePage() {
                 </div>
               ))}
             </Carousel>
-          </Customer.SliderRight>
+          </MotionCustomerSliderRight>
         </Customer.SliderWrapper>
       </Customer.Section>
 
@@ -87,7 +130,12 @@ export default function HomePage() {
         <Blog.Logo>
           <img src={HOME_BLOG.blogLogoImg} alt='Blog logo' />
         </Blog.Logo>
-        <Blog.Content>
+        <MotionBlog
+          variants={animations.fadeInUp}
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <h4>Bài viết mới</h4>
           <Blog.List>
             <Blog.Item>
@@ -100,9 +148,9 @@ export default function HomePage() {
               <Link to='/'>Khám phá buffet Sakura cùng gia đình</Link>
             </Blog.Item>
           </Blog.List>
-        </Blog.Content>
+        </MotionBlog>
       </Blog.Section>
-    </HomeWrapper>
+    </MotionHome>
   )
 }
 

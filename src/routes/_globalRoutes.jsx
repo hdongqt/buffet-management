@@ -1,3 +1,4 @@
+import LazyLoading from '@/components/lazyLoading'
 import { USER_ROUTES } from '@/constants/listRoutes'
 import Layout from '@/layouts/public/homeLayout'
 import React, { Suspense } from 'react'
@@ -13,7 +14,7 @@ const ReservationPage = React.lazy(() =>
 const globalRoutes = {
   path: '/',
   element: (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LazyLoading />}>
       <Layout />
     </Suspense>
   ),
@@ -45,3 +46,4 @@ const forbiddenRoutes = {
 
 export { forbiddenRoutes }
 export default globalRoutes
+

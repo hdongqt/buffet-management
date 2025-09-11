@@ -80,5 +80,18 @@ export const theme = {
         transition: { duration: 1, ease: 'easeOut' },
       },
     },
+    staggerFadeUp: {
+      hidden: { opacity: 0, y: 20 },
+      visible: (i = 1) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+          delay: i * 0.15,
+          duration: 0.6,
+          ease: 'easeOut',
+        },
+      }),
+    },
   },
 }
+
