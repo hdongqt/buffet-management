@@ -4,6 +4,7 @@ import appMessageReducer from '@/sagas/appMessage/appMessageSlice'
 import reservationReducer from '@/sagas/reservation/reservationSlice'
 import menuReducer from '@/sagas/menuManagement/menuSlice'
 import tableManagerReducer from '@/sagas/tableManager/tableManagerSlice'
+import categoriesReducer from '@/sagas/categories/categoriesSlice'
 
 const rootReducer = combineReducers({
   appMessage: appMessageReducer,
@@ -11,6 +12,8 @@ const rootReducer = combineReducers({
   reservation: reservationReducer,
   menu: menuReducer,
   tableManager: tableManagerReducer,
+  categories: categoriesReducer,
 })
 
 export default rootReducer
+
