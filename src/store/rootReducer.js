@@ -6,6 +6,8 @@ import reservationGuestReducer from '@/sagas/reservationGuest/reservationGuestSl
 import menuReducer from '@/sagas/menuManagement/menuSlice'
 import tableManagerReducer from '@/sagas/tableManager/tableManagerSlice'
 import categoriesReducer from '@/sagas/categories/categoriesSlice'
+import guestOrderReducer from '@/sagas/guestOrder/guestOrderSlice'
+import guestDishReducer from '@/sagas/guestDish/guestDishSlice'
 
 const rootReducer = combineReducers({
   appMessage: appMessageReducer,
@@ -15,7 +17,8 @@ const rootReducer = combineReducers({
   menu: menuReducer,
   tableManager: tableManagerReducer,
   categories: categoriesReducer,
+  guestOrder: guestOrderReducer,
+  guestDish: guestDishReducer,
 })
 
 export default rootReducer
-

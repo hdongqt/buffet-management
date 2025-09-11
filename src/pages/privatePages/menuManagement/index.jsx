@@ -22,7 +22,6 @@ import {
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 import {
   MENU_COMBO_OPTIONS,
-  ORDER_BY,
   MENU_SOFT_BY,
   MENU_STATUS_TAGS,
 } from '@/constants/options'

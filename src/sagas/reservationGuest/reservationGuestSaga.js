@@ -13,10 +13,8 @@ function* handleCreateReservationGuest(action) {
     const { values } = action.payload
     const response = yield call(RESERVATION_GUEST_API.post, values)
     yield put(reservationGuestSuccess(response))
-    console.log('API response:', response)
     yield put(showMessage.success('Đặt bàn thành công!'))
   } catch (error) {
-    console.error('Saga error:', error)
     const errorMessage = getErrorMessage(error)
     yield put(reservationGuestFailure(errorMessage))
     yield put(showMessage.error(errorMessage))

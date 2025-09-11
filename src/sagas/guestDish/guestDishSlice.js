@@ -3,6 +3,7 @@ import { DEFAULT_PAGINATION } from '@/constants/pagination'
 
 const initialState = {
   dishes: [],
+  comboList: [],
   categories: [],
   loadingDishes: false,
   loadingCategories: false,
@@ -46,6 +47,18 @@ const guestDishSlice = createSlice({
       state.loadingCategories = false
       state.error = action.payload
     },
+
+    fetchComboDishesRequest: (state) => {
+      state.loadingDishes = true
+    },
+    fetchComboDishesSuccess: (state, action) => {
+      state.loadingDishes = false
+      state.comboList = action.payload
+    },
+    fetchComboDishesFailure: (state, action) => {
+      state.loadingDishes = false
+      state.error = action.payload
+    },
   },
 })
 
@@ -53,9 +66,14 @@ export const {
   fetchDishesRequest,
   fetchDishesSuccess,
   fetchDishesFailure,
+
   fetchCategoriesRequest,
   fetchCategoriesSuccess,
   fetchCategoriesFailure,
+
+  fetchComboDishesRequest,
+  fetchComboDishesSuccess,
+  fetchComboDishesFailure,
 } = guestDishSlice.actions
 
 export default guestDishSlice.reducer

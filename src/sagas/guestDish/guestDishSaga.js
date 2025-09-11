@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import {
   fetchDishesRequest,
@@ -7,6 +7,9 @@ import {
   fetchCategoriesRequest,
   fetchCategoriesSuccess,
   fetchCategoriesFailure,
+  fetchComboDishesRequest,
+  fetchComboDishesSuccess,
+  fetchComboDishesFailure,
 } from './guestDishSlice'
 
 import { GUESTS_API } from '@/services'
@@ -40,7 +43,23 @@ export function* handleFetchCategories() {
   }
 }
 
+export function* handleFetchComboDishes() {
+  try {
+    const { dishes } = yield call(GUESTS_API.getComboList, {
+      page: 1,
+      limit: 50,
+      isCombo: true,
+    })
+    yield put(fetchComboDishesSuccess(dishes))
+  } catch (error) {
+    const message = getErrorMessage(error)
+    yield put(fetchComboDishesFailure(message))
+    yield put(showMessage.error(message))
+  }
+}
+
 export default function* guestDishSaga() {
   yield takeLatest(fetchDishesRequest.type, handleFetchDishes)
   yield takeLatest(fetchCategoriesRequest.type, handleFetchCategories)
+  yield takeEvery(fetchComboDishesRequest.type, handleFetchComboDishes)
 }
