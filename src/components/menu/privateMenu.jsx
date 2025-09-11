@@ -4,6 +4,7 @@ import {
   LogoutOutlined,
   ReadOutlined,
   TableOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons'
 
 const MANAGER_MENU = [
@@ -21,6 +22,11 @@ const MANAGER_MENU = [
     key: MANAGER_ROUTES.RESERVATION,
     label: 'Quản lý đặt bàn',
     icon: <IdcardOutlined />,
+  },
+  {
+    key: MANAGER_ROUTES.CATEGORIES,
+    label: 'Quản lý danh mục',
+    icon: <UnorderedListOutlined />,
   },
   {
     type: 'divider',

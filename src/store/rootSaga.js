@@ -4,6 +4,7 @@ import reservationSaga from '@/sagas/reservation/reservationSaga'
 import reservationGuestSaga from '@/sagas/reservationGuest/reservationGuestSaga'
 import tableManagerSaga from '../sagas/tableManager/tableManagerSaga'
 import menuSaga from '@/sagas/menuManagement/menuSaga'
+import categoriesSaga from '@/sagas/categories/categoriesSaga'
 
 // Root saga
 function* rootSaga() {
@@ -13,6 +14,7 @@ function* rootSaga() {
     tableManagerSaga(),
     menuSaga(),
     reservationGuestSaga(),
+    categoriesSaga(),
   ])
 }
 
