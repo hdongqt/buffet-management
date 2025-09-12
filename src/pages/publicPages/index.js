@@ -1,3 +1,4 @@
 import LoginPage from './signin/LoginPage'
+import TableQRPage from './tableQRPage'
 
-export default { LoginPage }
+export default { LoginPage, TableQRPage }

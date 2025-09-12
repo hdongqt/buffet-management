@@ -45,6 +45,15 @@ const GUESTS_API = {
       throw error
     }
   },
+
+  getComboList: async (params = {}) => {
+    try {
+      const res = await instance.get('/dishes', { params })
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  },
 }
 
 export default GUESTS_API
