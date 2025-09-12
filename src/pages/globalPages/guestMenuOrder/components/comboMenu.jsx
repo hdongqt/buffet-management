@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { MenuGrid } from '../styled'
-import DishItem from './dishItem'
 import { Spin } from 'antd'
+
+import DishItem from './dishItem'
+
+import { MenuGrid } from '../styled'
 
 const ComboMenu = () => {
   const { order, cart, loading } = useSelector((state) => state.guestOrder)

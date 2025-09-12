@@ -2,15 +2,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Button, Image, Card, Flex } from 'antd'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 
+import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
 import { setCart } from '@/sagas/guestOrder/guestOrderSlice'
 
 import { formatCurrency } from '@/utils/format'
-import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
+
 import { DishItemStyles } from '../styled'
 
 const DishItem = ({ dish, isDishOfCombo }) => {
   const dispatch = useDispatch()
-
   const { cart } = useSelector((state) => state.guestOrder)
 
   const updateCart = (dish, delta) => {
@@ -18,7 +18,8 @@ const DishItem = ({ dish, isDishOfCombo }) => {
     let newCart
 
     if (!exist && delta > 0) {
-      newCart = [...cart, { ...dish, quantity: 1 }]
+      const newDish = { ...dish, price: isDishOfCombo ? 0 : dish.price }
+      newCart = [...cart, { ...newDish, quantity: 1 }]
     } else if (exist) {
       const newQuantity = exist.quantity + delta
       if (newQuantity <= 0) {
@@ -31,7 +32,6 @@ const DishItem = ({ dish, isDishOfCombo }) => {
     } else {
       newCart = [...cart]
     }
-
     dispatch(setCart(newCart))
   }
 
@@ -75,7 +75,9 @@ const DishItem = ({ dish, isDishOfCombo }) => {
                   icon={<MinusOutlined />}
                   onClick={() => updateCart(dish, -1)}
                 />
-                <Quantity level={5}>{dish?.quantity}</Quantity>
+                <DishItemStyles.Quantity level={5}>
+                  {dish?.quantity}
+                </DishItemStyles.Quantity>
               </>
             )}
             <Button

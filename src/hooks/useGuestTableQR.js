@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import VALIDATION_MESSAGE from '@/constants/validationMessage'
+import { GUEST_ORDER_ROUTES } from '@/constants/listRoutes'
 
 import {
   checkTableQRRequest,
@@ -60,6 +61,12 @@ const useGuestTableQR = () => {
     if (table && !order) {
       setIsAlowShowForm(true)
       await dispatch(fetchComboDishesRequest())
+    } else if (order) {
+      if (order.status === 'pending') {
+        setIsWaitAccept(true)
+      } else {
+        navigate(GUEST_ORDER_ROUTES.ROOT)
+      }
     }
   }
 
@@ -78,8 +85,10 @@ const useGuestTableQR = () => {
   }
 
   return {
+    dispatch,
     token,
     isAlowShowForm,
+    setIsAlowShowForm,
     formik,
     loading,
     error,
