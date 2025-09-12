@@ -40,29 +40,53 @@ const MENU_STATUS_TAGS = {
 }
 
 const MENU_COMBO_OPTIONS = [
+  { value: '', label: 'Mặc định' },
   { value: true, label: 'Combo' },
   { value: false, label: 'Món lẻ' },
 ]
 
 const MENU_SOFT_BY = [
+  { value: '', label: 'Mặc định' },
   { value: 'name', label: 'Tên' },
   { value: 'price', label: 'Giá' },
   { value: 'createdAt', label: 'Ngày tạo' },
   { value: 'updatedAt', label: 'Ngày cập nhật' },
 ]
 
-const MENU_ORDER_BY = [
+const ORDER_BY = [
+  { value: '', label: 'Mặc định' },
   { value: 'asc', label: 'Tăng dần' },
   { value: 'desc', label: 'Giảm dần' },
 ]
 
+// order
+const ORDER_STATUS_OPTIONS = [
+  { value: '', label: 'Tất cả' },
+  { value: 'pending', label: 'Chờ xử lý' },
+  { value: 'confirmed', label: 'Đã Xác Nhận' },
+  { value: 'cancelled', label: 'Đã hủy' },
+]
+
+const ORDER_STATUS_TAGS = {
+  pending: { color: 'yellow', label: 'Chờ xử lý' },
+  confirmed: { color: 'green', label: 'Đã Xác Nhận' },
+  cancelled: { color: 'red', label: 'Đã hủy' },
+}
+
+const ORDER_SOFT_BY = [
+  { value: 'totalPrice', label: 'Tổng tiền' },
+  { value: 'createdAt', label: 'Ngày tạo' },
+]
+
 export {
+  RESTAURANT_TABLE_OPTION,
+  RESTAURANT_TABLE_TAG,
   MENU_STATUS_OPTIONS,
   MENU_STATUS_TAGS,
   MENU_COMBO_OPTIONS,
   MENU_SOFT_BY,
-  MENU_ORDER_BY,
+  ORDER_BY,
+  ORDER_STATUS_OPTIONS,
+  ORDER_SOFT_BY,
+  ORDER_STATUS_TAGS,
 }
-
-export { RESTAURANT_TABLE_OPTION, RESTAURANT_TABLE_TAG }
-
