@@ -65,10 +65,10 @@ function* createMenuSaga(action) {
 }
 
 function* updateMenuSaga(action) {
-  const { values, callback } = action.payload
+  const { id, values, callback } = action.payload
 
   try {
-    const { dish } = yield call(MENUS_API.put, values)
+    const { dish } = yield call(MENUS_API.put, id, values)
     yield put(putMenuSuccess(dish))
     yield put(showMessage.success('Cập nhật món ăn thành công'))
     if (typeof callback === 'function') {
@@ -83,10 +83,13 @@ function* updateMenuSaga(action) {
 
 function* deleteMenuSaga(action) {
   try {
-    const { id } = action.payload
+    const { id, callback } = action.payload
     yield call(MENUS_API.delete, id)
     yield put(deleteMenuSuccess(id))
     yield put(showMessage.success('Xóa món ăn thành công'))
+    if (typeof callback === 'function') {
+      yield call(callback)
+    }
   } catch (error) {
     const errorMessage = getErrorMessage(error, 'Xóa món ăn thất bại')
     yield put(deleteMenuFailure(errorMessage))

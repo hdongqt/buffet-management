@@ -55,6 +55,11 @@ const useMenuPage = () => {
     })
   }
 
+  const handleResetFilters = () => {
+    formikSearch.resetForm()
+    fetchMenuList()
+  }
+
   return {
     menuList,
     loading,
@@ -71,6 +76,7 @@ const useMenuPage = () => {
     formikSearch,
     handleFilter,
     handleTableChange,
+    handleResetFilters,
   }
 }
 

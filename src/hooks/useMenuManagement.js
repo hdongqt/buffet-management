@@ -16,11 +16,24 @@ const useMenuManagement = () => {
     await dispatch(fetchMenuListRequest({ params }))
 
   const deleteMenu = async (id) => {
-    await dispatch(deleteMenuRequest({ id }))
+    await dispatch(deleteMenuRequest({ id, callback: commonCallback }))
   }
+
+  const commonCallback = async () => {
+    await dispatch(fetchMenuListRequest({ params: {} }))
+  }
+
+  const listCombo = menuList
+    .filter((item) => item.isCombo)
+    .map((item) => ({
+      label: item.name,
+      value: item.id,
+      price: item.price,
+    }))
 
   return {
     menuList,
+    listCombo,
     loading,
     actionLoading,
     pagination,
