@@ -56,7 +56,7 @@ const Menu = {
 const Introduce = {
   Section: styled.section`
     background: url(${HOME_BACKGROUND.backgroundHome02}) no-repeat center/cover;
-    padding: 40px 0;
+    padding: 40px 20px;
 
     @media (max-width: ${breakpoints.md}) {
       padding: 0 20px;
@@ -161,7 +161,7 @@ const Customer = {
 const Blog = {
   Section: styled.section`
     background: url(${HOME_BACKGROUND.backgroundHome}) no-repeat center/cover;
-    padding: 40px 0;
+    padding: 40px 20px;
   `,
 
   Logo: styled.div`

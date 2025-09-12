@@ -10,11 +10,20 @@ const Slider = {
     z-index: 1;
   `,
 
-  Content: styled.div`
+  CenterContent: styled.div`
     position: absolute;
-    z-index: 2;
     top: 100px;
     left: 100px;
+
+    @media (max-width: ${breakpoints.md}) {
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+    }
+  `,
+
+  Content: styled.div`
     max-width: 500px;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 40px;
@@ -25,15 +34,13 @@ const Slider = {
     color: var(--ant-text-primary-color);
 
     @media (max-width: ${breakpoints.md}) {
-      top: 60px;
-      left: 50%;
-      transform: translateX(-50%);
       padding: 20px;
-      width: 90%;
     }
 
     @media (max-width: ${breakpoints.xs}) {
-      font-size: 120px;
+      a {
+        width: 100%;
+      }
     }
   `,
 
