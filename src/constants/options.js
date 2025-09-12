@@ -78,6 +78,11 @@ const ORDER_SOFT_BY = [
   { value: 'createdAt', label: 'Ngày tạo' },
 ]
 
+const ORDER_STATUS_UPDATE = [
+  { value: 'confirmed', label: 'Xác Nhận', color: 'green' },
+  { value: 'cancelled', label: 'Hủy', color: 'red' },
+]
+
 export {
   RESTAURANT_TABLE_OPTION,
   RESTAURANT_TABLE_TAG,
@@ -89,4 +94,5 @@ export {
   ORDER_STATUS_OPTIONS,
   ORDER_SOFT_BY,
   ORDER_STATUS_TAGS,
+  ORDER_STATUS_UPDATE,
 }

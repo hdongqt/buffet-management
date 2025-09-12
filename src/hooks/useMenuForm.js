@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 
 import VALIDATION_MESSAGE from '@/constants/validationMessage'
@@ -12,7 +12,6 @@ import {
 
 import useMenuManagement from '@/hooks/useMenuManagement'
 import useCategoriesManagement from '@/hooks/useCategories'
-import { useSelector } from 'react-redux'
 
 const useMenuForm = ({ initialValues, onClose }) => {
   const dispatch = useDispatch()
