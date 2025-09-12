@@ -35,6 +35,7 @@ export default function TableReservationManagement() {
     setIsModalOpen,
     showModal,
     handleEdit,
+    onCloseModal,
   } = useReservationFormAdmin()
 
   useEffect(() => {
@@ -121,7 +122,7 @@ export default function TableReservationManagement() {
 
       <ReservationFormAdmin
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={onCloseModal}
         setIsModalOpen={setIsModalOpen}
         loading={loading}
         editingRecord={editingRecord}

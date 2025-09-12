@@ -1,4 +1,5 @@
 import { Col, Form, Row } from 'antd'
+import dayjs from 'dayjs'
 
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 import LIST_OPTIONS_STATUS from '@/constants/listOptionStatus'
@@ -44,6 +45,20 @@ export default function ReservationFormAdmin({
     label: `Bàn  ${table.tableNumber} - ${table.capacity} chỗ ngồi`,
   }))
 
+  if (editingRecord && editingRecord.table) {
+    const isTableInList = listOptionTable.some(
+      (option) => option.value === editingRecord.table.id
+    )
+
+    if (!isTableInList) {
+      listOptionTable.unshift({
+        key: editingRecord.table.id,
+        value: editingRecord.table.id,
+        label: `Bàn ${editingRecord.table.tableNumber} - ${editingRecord.table.capacity} chỗ ngồi`,
+      })
+    }
+  }
+
   const [, ...listOptionStatus] = LIST_OPTIONS_STATUS
 
   return (
@@ -53,7 +68,10 @@ export default function ReservationFormAdmin({
       onOk={() => formik.submitForm()}
       onCancel={onCancel}
       okText={editingRecord ? 'Cập nhật' : 'Xác nhận'}
-      confirmLoading={loading}
+      okButtonProps={{
+        disabled: dayjs(editingRecord?.reservedAt).isBefore(dayjs()),
+        loading: loading,
+      }}
     >
       <Form layout='vertical' onFinish={formik.handleSubmit}>
         <FormItemControl label='Họ và tên' name='fullname' formik={formik}>
