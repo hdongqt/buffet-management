@@ -10,6 +10,10 @@ const AboutWrapper = styled.section`
   z-index: 1;
   padding: 140px 120px 80px;
 
+  a {
+    width: 100%;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -101,3 +105,4 @@ const About = {
 }
 
 export { AboutWrapper, About }
+

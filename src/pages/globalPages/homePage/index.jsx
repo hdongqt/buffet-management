@@ -22,7 +22,6 @@ import { motion } from 'framer-motion'
 
 const { animations } = theme
 
-const MotionHome = motion(HomeWrapper)
 const MotionMenu = motion(Menu.Section)
 const MotionIntroduce = motion(Introduce.Section)
 const MotionCustomerLogo = motion(Customer.Logo)
@@ -32,11 +31,7 @@ const MotionBlog = motion(Blog.Content)
 
 export default function HomePage() {
   return (
-    <MotionHome
-      initial='hidden'
-      whileInView='visible'
-      viewport={{ once: true, amount: 0.3 }}
-    >
+    <HomeWrapper>
       <SliderSection />
       <PriceSection />
 
@@ -150,7 +145,7 @@ export default function HomePage() {
           </Blog.List>
         </MotionBlog>
       </Blog.Section>
-    </MotionHome>
+    </HomeWrapper>
   )
 }
 

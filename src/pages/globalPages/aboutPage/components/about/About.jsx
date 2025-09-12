@@ -1,11 +1,13 @@
 import { Col, Row } from 'antd'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+
+import { ABOUT_IMAGES } from '@/constants/images/aboutUserImage'
 import { theme } from '@/constants/theme'
 import {
   AboutWrapper,
   About,
 } from '@/pages/globalPages/aboutPage/components/about/styled'
-import { ABOUT_IMAGES } from '@/constants/images/aboutUserImage'
 import { AnimatedButton } from '@/components/common'
 
 const { animations } = theme
@@ -27,7 +29,7 @@ const AboutSection = () => {
     <MotionWrapper
       initial='hidden'
       whileInView='visible'
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.2 }}
     >
       <Row justify='space-between' gutter={gutterConfig}>
         <Col xs={24} lg={12}>
@@ -69,9 +71,11 @@ const AboutSection = () => {
               </p>
             </MotionDesc>
 
-            <AnimatedButton type='primary' shape='round' danger>
-              THỰC ĐƠN
-            </AnimatedButton>
+            <Link to='/menu'>
+              <AnimatedButton type='primary' shape='round' danger>
+                THỰC ĐƠN
+              </AnimatedButton>
+            </Link>
           </About.Content>
         </Col>
 
@@ -88,3 +92,4 @@ const AboutSection = () => {
 }
 
 export default AboutSection
+
