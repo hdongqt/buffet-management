@@ -12,9 +12,11 @@ import {
 
 import useMenuManagement from '@/hooks/useMenuManagement'
 import useCategoriesManagement from '@/hooks/useCategories'
+import { useSelector } from 'react-redux'
 
 const useMenuForm = ({ initialValues, onClose }) => {
   const dispatch = useDispatch()
+  const { filters } = useSelector((state) => state.menu)
   const { menuList } = useMenuManagement()
   const { categoriesList } = useCategoriesManagement()
 
@@ -86,7 +88,7 @@ const useMenuForm = ({ initialValues, onClose }) => {
   }
 
   const commonCallback = async () => {
-    await dispatch(fetchMenuListRequest())
+    await dispatch(fetchMenuListRequest({ params: filters }))
     formik.resetForm()
     onClose()
   }

@@ -31,9 +31,9 @@ const MENUS_API = {
     }
   },
 
-  put: async (values) => {
+  put: async (id, values) => {
     try {
-      const res = await instance.put(`/dishes/${values.id}`, values)
+      const res = await instance.put(`/dishes/${id}`, values)
 
       return res.data
     } catch (error) {
