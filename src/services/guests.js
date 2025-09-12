@@ -54,6 +54,16 @@ const GUESTS_API = {
       throw error
     }
   },
+
+  addDish: async (data) => {
+    try {
+      const { orderId, dishes } = data
+      const res = await instance.post(`/guest/${orderId}/add-dish`, { dishes })
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  },
 }
 
 export default GUESTS_API

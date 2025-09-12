@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useDispatch } from 'react'
 import { Form, Select, Spin, Grid, Flex } from 'antd'
 
+import logo from '@/assets/images/main/logo.png'
 import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
-import { CustomButton, CustomInput, CustomSelect } from '@/components/common/ui'
-import { FormItemControl } from '@/components/common'
-
 import { GUEST_ORDER_ROUTES } from '@/constants/listRoutes'
+import { showMessage } from '@/sagas/appMessage/appMessageSlice'
+
+import { FormItemControl } from '@/components/common'
+import { CommonUI } from '@/components/common'
 
 import { useSocket } from '@/contexts/socket'
 import useGuestTableQR from '@/hooks/useGuestTableQR'
@@ -13,16 +15,18 @@ import useGuestTableQR from '@/hooks/useGuestTableQR'
 import { getWidthCard } from '@/utils/getWidthCard'
 import { formatCurrency } from '@/utils/format'
 
-import logo from '@/assets/images/main/logo.png'
-
 import { TableQR } from './styled'
 
+const { CustomButton, CustomInput, CustomSelect } = CommonUI
 const { useBreakpoint } = Grid
 
 const GuestTableQRPage = function () {
   const {
+    dispatch,
     token,
     isAlowShowForm,
+    setIsAlowShowForm,
+    setIsWaitAccept,
     formik,
     loading,
     error,
@@ -32,7 +36,6 @@ const GuestTableQRPage = function () {
     comboList,
     checkExistingOrder,
     navigate,
-    setIsWaitAccept,
     handleChangeFormData,
   } = useGuestTableQR()
 
@@ -41,36 +44,38 @@ const GuestTableQRPage = function () {
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens)
 
+  const handleConfirmed = useCallback(
+    (data) => {
+      if (data.status === 'confirmed') {
+        navigate(GUEST_ORDER_ROUTES.ROOT)
+      } else {
+        dispatch(showMessage.error('Đơn hàng bị từ chối'))
+        setIsAlowShowForm(true)
+        setIsWaitAccept(false)
+      }
+    },
+    [dispatch, navigate]
+  )
   useEffect(() => {
     checkExistingOrder()
   }, [token])
 
   useEffect(() => {
-    if (!order) return
+    if (!order?.id || !socket) return
 
-    const { id: orderId, status } = order
+    socket.emit('join_order', order.id)
+  }, [order?.id, socket])
 
-    if (status === 'pending') {
-      setIsWaitAccept(true)
-    }
+  // Listen ORDER_CONFIRMED
+  useEffect(() => {
+    if (!socket) return
 
-    if (status === 'confirmed') {
-      navigate(GUEST_ORDER_ROUTES.ROOT)
-    }
-
-    if (socket) {
-      socket.emit('join_order', orderId)
-      socket.on('ORDER_CONFIRMED', () => {
-        navigate(GUEST_ORDER_ROUTES.ROOT)
-      })
-    }
+    socket.on('ORDER_STATUS_UPDATED', handleConfirmed)
 
     return () => {
-      if (socket) {
-        socket.off('ORDER_CONFIRMED')
-      }
+      socket.off('ORDER_STATUS_UPDATED', handleConfirmed)
     }
-  }, [navigate, order, socket])
+  }, [socket, handleConfirmed])
 
   if (isWaitAccept) {
     return (

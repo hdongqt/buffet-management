@@ -15,16 +15,18 @@ const ProtectedGuestOrderRoute = ({ children }) => {
   }
 
   useEffect(() => {
-    dispatch(
-      getOrderDetailRequest({
-        id: orderId,
-        callback: (isSuccess) => {
-          if (!isSuccess) {
-            handleRedirect()
-          }
-        },
-      })
-    )
+    if (orderId) {
+      dispatch(
+        getOrderDetailRequest({
+          id: orderId,
+          callback: (isSuccess) => {
+            if (!isSuccess) {
+              handleRedirect()
+            }
+          },
+        })
+      )
+    }
   }, [dispatch, orderId])
 
   if (!orderId) {
