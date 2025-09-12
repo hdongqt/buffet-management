@@ -57,7 +57,7 @@ const useMenuPage = () => {
 
   const handleResetFilters = () => {
     formikSearch.resetForm()
-    fetchMenuList()
+    fetchMenuList({ params: {} })
   }
 
   return {

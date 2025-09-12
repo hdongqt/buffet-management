@@ -35,14 +35,14 @@ const MENU_STATUS_OPTIONS = [
 ]
 
 const MENU_STATUS_TAGS = {
-  available: { color: 'green', label: 'available' },
-  unavailable: { color: 'red', label: 'unavailable' },
+  available: { color: 'green', label: 'Có Sẵn' },
+  unavailable: { color: 'red', label: 'Hết món' },
 }
 
 const MENU_COMBO_OPTIONS = [
   { value: '', label: 'Mặc định' },
-  { value: true, label: 'Combo' },
-  { value: false, label: 'Món lẻ' },
+  { value: 'true', label: 'Combo' },
+  { value: 'false', label: 'Món lẻ' },
 ]
 
 const MENU_SOFT_BY = [

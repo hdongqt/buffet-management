@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { DEFAULT_PAGINATION } from '@/constants/pagination'
-import { menu } from 'framer-motion/client'
 
 const initialFilter = {
   search: '',
@@ -25,8 +24,9 @@ const menuSlice = createSlice({
   name: 'menu',
   initialState,
   reducers: {
-    fetchMenuListRequest: (state) => {
+    fetchMenuListRequest: (state, action) => {
       state.loading = true
+      state.filters = action.payload?.params || state.filters
       state.error = null
     },
     fetchMenuListSuccess: (state, action) => {
