@@ -1,17 +1,14 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Tabs } from 'antd'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
 import {
   fetchCategoriesRequest,
   fetchDishesRequest,
 } from '@/sagas/guestDish/guestDishSlice'
 
-import DishItem from './components/dishItem'
 import ComboMenu from './components/comboMenu'
 import ExtraMenu from './components/extraMenu'
+import { GuestMenuOrderStyles } from './styled'
 
 const GuestMenuOrder = () => {
   const [activeScreen, setActiveScreen] = useState('combo')
@@ -26,8 +23,8 @@ const GuestMenuOrder = () => {
   }, [])
 
   return (
-    <MenuContainer>
-      <Tabs
+    <GuestMenuOrderStyles.MenuContainer>
+      <GuestMenuOrderStyles.TagStyle
         activeKey={activeScreen}
         onChange={(key) => setActiveScreen(key)}
         items={[
@@ -42,12 +39,8 @@ const GuestMenuOrder = () => {
         ]}
       />
       <>{activeScreen === 'combo' ? <ComboMenu /> : <ExtraMenu />}</>
-    </MenuContainer>
+    </GuestMenuOrderStyles.MenuContainer>
   )
 }
 
 export default GuestMenuOrder
-
-const MenuContainer = styled.div`
-  padding: 0;
-`

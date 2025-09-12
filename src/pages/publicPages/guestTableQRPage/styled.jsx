@@ -37,13 +37,12 @@ const TableQR = {
 
   LogoWrapper: styled.div`
     width: 100%;
-    filter: drop-shadow(9px 0 11px rgba(0, 2, 0, 1.808));
+    filter: drop-shadow(1px 0 11px rgba(0, 2, 0, 1.808));
   `,
 
   Logo: styled.img`
     width: 160px;
     margin-bottom: 20px;
-    filter: drop-shadow(1px 0 17px rgba(0, 0, 0, 0.808));
   `,
 
   Title: styled(Title)`

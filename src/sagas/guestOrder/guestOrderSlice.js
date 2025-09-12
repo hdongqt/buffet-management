@@ -6,6 +6,9 @@ const guestOrderSlice = createSlice({
     orderId: localStorage.getItem('guestOrder'),
     order: null,
     cart: [],
+    comboDish: null,
+    extraDishes: [],
+    totalPrice: 0,
     loading: false,
     actionLoading: false,
     error: null,
@@ -47,14 +50,40 @@ const guestOrderSlice = createSlice({
       state.loading = true
     },
     getOrderDetailSuccess: (state, action) => {
-      const { order } = action.payload
+      const { order, extraDishes, comboDish, totalPrice } = action.payload
       state.loading = false
       state.order = order
+      state.extraDishes = extraDishes
+      state.comboDish = comboDish
+      state.totalPrice = totalPrice
       state.error = null
     },
     getOrderDetailFailure: (state, action) => {
       state.loading = false
       state.error = action.payload
+    },
+
+    addDishToOrderRequest: (state) => {
+      state.actionLoading = true
+    },
+    addDishToOrderSuccess: (state) => {
+      state.actionLoading = false
+      state.error = null
+    },
+    addDishToOrderFailure: (state, action) => {
+      state.actionLoading = false
+      state.error = action.payload
+    },
+
+    setComboDish: (state, action) => {
+      const { newComboDish, newPrice } = action.payload
+      state.comboDish = newComboDish
+      state.totalPrice = newPrice
+    },
+    setExtraDishes: (state, action) => {
+      const { newExtraDishes, newPrice } = action.payload
+      state.extraDishes = newExtraDishes
+      state.totalPrice = newPrice
     },
 
     setCart: (state, action) => {
@@ -75,6 +104,14 @@ export const {
   getOrderDetailRequest,
   getOrderDetailSuccess,
   getOrderDetailFailure,
+
+  addDishToOrderRequest,
+  addDishToOrderSuccess,
+  addDishToOrderFailure,
+
+  setComboDish,
+  setExtraDishes,
+  setNewPrice,
 
   setCart,
 } = guestOrderSlice.actions

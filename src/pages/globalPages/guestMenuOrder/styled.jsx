@@ -1,3 +1,5 @@
+import { Tag } from 'antd'
+import { Tabs } from 'antd'
 import { Card, Typography } from 'antd'
 import styled from 'styled-components'
 
@@ -13,6 +15,18 @@ const MenuGrid = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `
+
+const GuestMenuOrderStyles = {
+  MenuContainer: styled.div`
+    padding: 0;
+  `,
+  TagStyle: styled(Tabs)`
+    .ant-tabs-tab-btn {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  `,
+}
 
 const DishItemStyles = {
   StyledImageWrapper: styled.div`
@@ -90,4 +104,69 @@ const DishItemStyles = {
   `,
 }
 
-export { MenuGrid, DishItemStyles }
+const ExtraMenuStyles = {
+  Controls: styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  `,
+
+  CategoryWrapper: styled.div`
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 4px 2px 6px 2px;
+    margin-bottom: 8px;
+
+    @media (min-width: 1024px) {
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #d9d9d9;
+        border-radius: 3px;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -webkit-overflow-scrolling: touch;
+    }
+  `,
+
+  StyledCheckableTag: styled(Tag.CheckableTag)`
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #f0f0f0;
+    background: #fff;
+
+    &.ant-tag:hover {
+      border-color: #fc1010;
+      color: #fc1010;
+      background: #fff;
+    }
+
+    &.ant-tag-checkable-checked {
+      background: var(--ant-main-primary-color);
+      color: #fff;
+      border-color: var(--ant-main-primary-color);
+    }
+  `,
+}
+
+export { MenuGrid, GuestMenuOrderStyles, DishItemStyles, ExtraMenuStyles }

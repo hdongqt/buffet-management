@@ -9,11 +9,11 @@ const initialState = {
   loadingCategories: false,
   actionLoading: false,
   error: null,
-  pagination: DEFAULT_PAGINATION,
+  pagination: { ...DEFAULT_PAGINATION, limit: -1 },
   filters: {
     search: '',
     page: 1,
-    limit: 20,
+    limit: -1,
   },
 }
 
