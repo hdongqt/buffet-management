@@ -100,6 +100,7 @@ export const useReservationFormAdminAction = (
           values: payload,
           callback: () => {
             dispatch(getReservationRequest({ params: filters }))
+            dispatch(getTableAvailableSuccess([]))
             formik.resetForm()
             setIsModalOpen(false)
           },

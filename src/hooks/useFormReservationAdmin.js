@@ -4,7 +4,10 @@ import dayjs from 'dayjs'
 
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 
-import { getReservationRequest } from '@/sagas/reservation/reservationSlice'
+import {
+  getReservationRequest,
+  getTableAvailableRequest,
+} from '@/sagas/reservation/reservationSlice'
 import useDebounceCallback from '@/hooks/useDebounceCallback'
 import { useState } from 'react'
 
@@ -21,13 +24,26 @@ export const useReservationFormAdmin = () => {
     setIsModalOpen(true)
   }
 
+  const onCloseModal = () => {
+    setEditingRecord(null)
+    setIsModalOpen(false)
+  }
+
   const handleEdit = (record) => {
     setEditingRecord(record)
     setIsModalOpen(true)
+
+    dispatch(
+      getTableAvailableRequest({
+        dateBooking: dayjs(record.reservedAt).format(DATE_FORMAT.FULL_DATE),
+        timeBooking: dayjs(record.reservedAt).format(DATE_FORMAT.TIME),
+        numPeople: record.numPeople,
+      })
+    )
   }
 
-  const fetchReservations = async (params) => {
-    await dispatch(getReservationRequest({ params }))
+  const fetchReservations = async (newFilters) => {
+    await dispatch(getReservationRequest({ params: newFilters || filters }))
   }
 
   const handlePaginationChange = ({ page, limit }) => {
@@ -81,5 +97,6 @@ export const useReservationFormAdmin = () => {
     setIsModalOpen,
     showModal,
     handleEdit,
+    onCloseModal,
   }
 }

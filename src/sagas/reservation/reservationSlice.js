@@ -16,7 +16,6 @@ const reservationSlice = createSlice({
       status: '',
       search: '',
       reservedAt: null,
-      timeFilter: null,
       page: 1,
       limit: 20,
     },
@@ -40,10 +39,11 @@ const reservationSlice = createSlice({
     },
 
     // ==== GET LIST ====
-    getReservationRequest: (state) => {
+    getReservationRequest: (state, action) => {
       state.loading = true
       state.error = null
       state.success = false
+      state.filters = action.payload.params
     },
     getReservationSuccess: (state, action) => {
       const { reservationList, pagination } = action.payload

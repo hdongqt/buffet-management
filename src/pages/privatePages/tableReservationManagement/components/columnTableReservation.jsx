@@ -41,7 +41,12 @@ const columnTableReservation = ({ onEdit }) => [
     sorter: (a, b) => dayjs(a.reservedAt) - dayjs(b.reservedAt),
   },
   { title: 'Số khách', dataIndex: 'numPeople', key: 'numPeople' },
-  { title: 'Ghi chú', dataIndex: 'note', key: 'note' },
+  {
+    title: 'Số bàn',
+    key: 'tableNumber',
+    render: (_, record) =>
+      record.table?.tableNumber ? `Bàn ${record.table.tableNumber}` : 'Chưa có',
+  },
   {
     title: 'Trạng thái',
     dataIndex: 'status',
@@ -55,7 +60,9 @@ const columnTableReservation = ({ onEdit }) => [
   {
     title: 'Hành động',
     key: 'action',
-    render: (_, record) => <ActionButtons record={record} onEdit={onEdit} />,
+    render: (_, record) => {
+      return <ActionButtons record={record} onEdit={onEdit} />
+    },
   },
 ]
 
