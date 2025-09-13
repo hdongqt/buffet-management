@@ -21,7 +21,7 @@ const ExtraMenu = () => {
 
   return (
     <Spin spinning={loadingDishes}>
-      <Controls>
+      <ExtraMenuStyles.Controls>
         <CustomInput
           placeholder='Tìm kiếm món ăn...'
           defaultValue={filters?.search || ''}
@@ -41,7 +41,7 @@ const ExtraMenu = () => {
             </ExtraMenuStyles.StyledCheckableTag>
           ))}
         </ExtraMenuStyles.CategoryWrapper>
-      </Controls>
+      </ExtraMenuStyles.Controls>
 
       <MenuGrid>
         {dishesHandler &&

@@ -15,6 +15,7 @@ import useGuestOrder from '@/hooks/useGuestOrder'
 import { formatCurrency } from '@/utils/format'
 
 import { GuestOrderStyles } from './styled'
+import { CustomButton } from '@/components/common/ui'
 
 const { Title } = Typography
 
@@ -31,7 +32,7 @@ const OrdersPage = () => {
     totalPrice,
     updateCart,
     handleSubmitOrder,
-    handlePayment,
+    handleRequestPayment,
     totalAmount,
     handleUpdateStatusDish,
     getStatusColor,
@@ -287,44 +288,28 @@ const OrdersPage = () => {
             </>
           )}
           {order && (
-            <div
-              style={{
-                background: '#f0f8ff',
-                padding: '16px',
-                borderRadius: '8px',
-                marginTop: '20px',
-                border: '1px solid #d6e4ff',
-              }}
-            >
-              <Flex
-                justify='space-between'
-                align='center'
-                style={{ marginBottom: '16px' }}
-              >
-                <Title level={4} style={{ margin: 0, color: '#1890ff' }}>
+            <GuestOrderStyles.OrderSummary>
+              <GuestOrderStyles.SummaryHeader>
+                <GuestOrderStyles.SummaryTitle level={4}>
                   Tổng tiền:
-                </Title>
-                <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
+                </GuestOrderStyles.SummaryTitle>
+                <GuestOrderStyles.SummaryTitle level={3}>
                   {formatCurrency(totalPrice)}
-                </Title>
-              </Flex>
-              <Button
+                </GuestOrderStyles.SummaryTitle>
+              </GuestOrderStyles.SummaryHeader>
+              <CustomButton
                 type='primary'
                 size='large'
                 block
+                color='green'
+                variant='solid'
+                loading={actionLoading}
                 icon={<CreditCardOutlined />}
-                onClick={handlePayment}
-                style={{
-                  background: '#52c41a',
-                  borderColor: '#52c41a',
-                  height: '48px',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
-                }}
+                onClick={handleRequestPayment}
               >
                 Yêu cầu thanh toán
-              </Button>
-            </div>
+              </CustomButton>
+            </GuestOrderStyles.OrderSummary>
           )}
         </GuestOrderStyles.OrderedSection>
       </GuestOrderStyles.OrderContainer>

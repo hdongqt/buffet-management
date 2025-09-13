@@ -2,8 +2,9 @@ import styled from 'styled-components'
 import { Typography } from 'antd'
 
 import { theme } from '@/constants/theme'
+import { Flex } from 'antd'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 const { breakpoints } = theme
 
 const GuestOrderStyles = {
@@ -282,6 +283,27 @@ const GuestOrderStyles = {
     font-size: 14px;
     font-weight: 500;
     color: #333;
+  `,
+
+  OrderSummary: styled.div`
+    background: #f0f8ff;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #d6e4ff;
+  `,
+
+  SummaryHeader: styled(Flex)`
+    margin-bottom: 16px;
+    justify-content: space-between;
+    align-items: center;
+  `,
+
+  SummaryTitle: styled(Title)`
+    &.ant-typography {
+      margin: 0 !important;
+      color: #1890ff;
+    }
   `,
 }
 

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import {
   addDishToOrderRequest,
+  callStaffRequest,
   getOrderDetailRequest,
   setCart,
   setComboDish,
@@ -60,7 +61,9 @@ const useGuestOrder = () => {
     )
   }
 
-  const handlePayment = () => {}
+  const handleRequestPayment = async () => {
+    await dispatch(callStaffRequest({ orderId: order?.id, note: 'Thanh toán' }))
+  }
 
   const totalAmount = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0)
@@ -116,7 +119,7 @@ const useGuestOrder = () => {
     totalPrice,
     updateCart,
     handleSubmitOrder,
-    handlePayment,
+    handleRequestPayment,
     totalAmount,
     handleUpdateStatusDish,
     getStatusColor,
