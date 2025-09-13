@@ -64,6 +64,16 @@ const GUESTS_API = {
       throw error
     }
   },
+
+  callStaff: async (data) => {
+    try {
+      const { orderId, note } = data
+      const res = await instance.post(`/guest/call-staff`, { orderId, note })
+      return res.data
+    } catch (error) {
+      throw error
+    }
+  },
 }
 
 export default GUESTS_API

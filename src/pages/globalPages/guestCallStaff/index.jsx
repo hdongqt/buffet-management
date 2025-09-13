@@ -1,27 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Button, Input, Tag, Space } from 'antd'
-import { Typography } from 'antd'
-import { CustomButton } from '@/components/common/ui'
+import { Tag, Space, Typography } from 'antd'
 
-const { TextArea } = Input
+import { CommonUI } from '@/components/common'
+
+import useGuestCallStaff from '@/hooks/useGuestCallStaff'
+
+const { CustomButton, CustomTextArea } = CommonUI
 
 const CallStaffPage = () => {
-  const [customMessage, setCustomMessage] = useState('')
-
-  const suggestions = [
-    'Bát đũa',
-    'Thanh toán',
-    'Dọn bàn',
-    'Thêm nước',
-    'Tư vấn thực đơn',
-  ]
-
-  const handleAddSuggestion = (text) => {
-    setCustomMessage((prev) => (prev ? `${prev}, ${text}` : text))
-  }
-
-  const handleSubmit = () => {}
+  const {
+    customMessage,
+    actionLoading,
+    suggestions,
+    onChangeMessage,
+    handleAddSuggestion,
+    handleSubmit,
+  } = useGuestCallStaff()
 
   return (
     <Container>
@@ -30,28 +25,26 @@ const CallStaffPage = () => {
 
       <Space wrap>
         {suggestions.map((sug) => (
-          <Tag
+          <LargeTag
             key={sug}
             color='blue'
-            style={{ cursor: 'pointer' }}
             onClick={() => handleAddSuggestion(sug)}
           >
             {sug}
-          </Tag>
+          </LargeTag>
         ))}
       </Space>
-
-      <TextArea
+      <CustomTextArea
         rows={4}
         value={customMessage}
-        onChange={(e) => setCustomMessage(e.target.value)}
-        placeholder='VD: Cần thêm đũa, muốn đổi bàn, hỏi về món ăn...'
-        style={{ marginTop: 16 }}
+        onChange={onChangeMessage}
+        placeholder='VD: Cần thêm đũa, hỏi về món ăn...'
       />
 
       <CustomButton
         type='primary'
         block
+        loading={actionLoading}
         size='large'
         onClick={handleSubmit}
         style={{ marginTop: 16 }}
@@ -72,4 +65,12 @@ const Desc = styled.p`
   color: #666;
   font-size: 16px;
   margin-bottom: 12px;
+`
+
+const LargeTag = styled(Tag)`
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 8px;
 `
