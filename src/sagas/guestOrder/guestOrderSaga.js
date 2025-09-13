@@ -4,6 +4,9 @@ import {
   addDishToOrderFailure,
   addDishToOrderRequest,
   addDishToOrderSuccess,
+  callStaffFailure,
+  callStaffRequest,
+  callStaffSuccess,
   checkTableQRFailure,
   checkTableQRRequest,
   checkTableQRSuccess,
@@ -98,9 +101,26 @@ function* handleAddDishToOrder(action) {
   }
 }
 
+function* handleCallStaff(action) {
+  const { orderId, note, callback } = action.payload
+  try {
+    yield call(GUESTS_API.callStaff, { orderId, note })
+    yield put(callStaffSuccess())
+    yield put(showMessage.success('Gọi nhân viên thành công'))
+    if (callback) {
+      callback()
+    }
+  } catch (error) {
+    const errorMessage = getErrorMessage(error, 'Gọi nhân viên thất bại')
+    yield put(callStaffFailure(errorMessage))
+    yield put(showMessage.error(errorMessage))
+  }
+}
+
 export default function* guestOrderSaga() {
   yield takeEvery(checkTableQRRequest.type, handleCheckTableQR)
   yield takeEvery(guestCreateOrderRequest.type, handleCreateOrder)
   yield takeLatest(getOrderDetailRequest.type, handleGetOrderDetail)
   yield takeEvery(addDishToOrderRequest.type, handleAddDishToOrder)
+  yield takeLatest(callStaffRequest.type, handleCallStaff)
 }

@@ -75,6 +75,18 @@ const guestOrderSlice = createSlice({
       state.error = action.payload
     },
 
+    callStaffRequest: (state) => {
+      state.actionLoading = true
+    },
+    callStaffSuccess: (state) => {
+      state.actionLoading = false
+      state.error = null
+    },
+    callStaffFailure: (state, action) => {
+      state.actionLoading = false
+      state.error = action.payload
+    },
+
     setComboDish: (state, action) => {
       const { newComboDish, newPrice } = action.payload
       state.comboDish = newComboDish
@@ -108,6 +120,10 @@ export const {
   addDishToOrderRequest,
   addDishToOrderSuccess,
   addDishToOrderFailure,
+
+  callStaffRequest,
+  callStaffSuccess,
+  callStaffFailure,
 
   setComboDish,
   setExtraDishes,
