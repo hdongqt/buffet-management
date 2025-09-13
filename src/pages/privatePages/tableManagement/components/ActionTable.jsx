@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Col, Flex, Form, Row } from 'antd'
 
 import { RESTAURANT_TABLE_OPTION } from '@/constants/options'
@@ -14,6 +15,10 @@ const { CustomInput, CustomSelect, CustomSwitch, CustomModal } = CommonUI
 const ActionTable = ({ editingTable, isModalOpen, setIsModalOpen }) => {
   const { formik, actionLoading, onCloseForm, onChangeFormValue } =
     useTableManagerAction(editingTable, setIsModalOpen)
+
+  const URLTable = `${import.meta.env.VITE_CLIENT_URL}/table/${
+    editingTable?.token
+  }`
 
   return (
     <CustomModal
@@ -90,6 +95,13 @@ const ActionTable = ({ editingTable, isModalOpen, setIsModalOpen }) => {
                       alt='QR Code'
                     />
                   </Flex>
+                </FormItemControl>
+              </Col>
+              <Col xs={24}>
+                <FormItemControl label='URL Bàn'>
+                  <Link to={URLTable} target='_blank'>
+                    {URLTable}
+                  </Link>
                 </FormItemControl>
               </Col>
             </>
