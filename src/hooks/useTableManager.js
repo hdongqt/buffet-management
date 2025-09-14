@@ -76,8 +76,14 @@ const useTableManager = () => {
     return `${textAction} hoạt động bàn số ${record?.tableNumber} !`
   }
 
+  const listTableOptions = (tables || []).map((item) => ({
+    label: `Bàn ${item.tableNumber} - ${item.capacity} chỗ ngồi`,
+    value: item.id,
+  }))
+
   return {
     tables,
+    listTableOptions,
     loading,
     filters,
     pagination,

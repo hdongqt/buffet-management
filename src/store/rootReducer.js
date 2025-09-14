@@ -8,6 +8,7 @@ import tableManagerReducer from '@/sagas/tableManager/tableManagerSlice'
 import categoriesReducer from '@/sagas/categories/categoriesSlice'
 import guestOrderReducer from '@/sagas/guestOrder/guestOrderSlice'
 import guestDishReducer from '@/sagas/guestDish/guestDishSlice'
+import orderManagerReducer from '@/sagas/orderManager/orderManagerSlice'
 
 const rootReducer = combineReducers({
   appMessage: appMessageReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   categories: categoriesReducer,
   guestOrder: guestOrderReducer,
   guestDish: guestDishReducer,
+  orderManager: orderManagerReducer,
 })
 
 export default rootReducer
