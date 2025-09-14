@@ -9,8 +9,16 @@ import useMenuManagement from '@/hooks/useMenuManagement'
 
 const useMenuPage = () => {
   const dispatch = useDispatch()
-  const { menuList, loading, actionLoading, pagination, filters, deleteMenu } =
-    useMenuManagement()
+  const {
+    menuList,
+    listDish,
+    cart,
+    loading,
+    actionLoading,
+    pagination,
+    filters,
+    deleteMenu,
+  } = useMenuManagement()
 
   const [modalState, setModalState] = useState({ open: false, record: null })
   const openModal = (record = null) => setModalState({ open: true, record })
@@ -47,7 +55,7 @@ const useMenuPage = () => {
     }
   }
 
-  const handleTableChange = (newPagination) => {
+  const handlePageChange = (newPagination) => {
     fetchMenuList({
       ...filters,
       page: newPagination.page,
@@ -57,11 +65,13 @@ const useMenuPage = () => {
 
   const handleResetFilters = () => {
     formikSearch.resetForm()
-    fetchMenuList({ params: {} })
+    fetchMenuList({})
   }
 
   return {
     menuList,
+    listDish,
+    cart,
     loading,
     actionLoading,
     pagination,
@@ -75,7 +85,7 @@ const useMenuPage = () => {
 
     formikSearch,
     handleFilter,
-    handleTableChange,
+    handlePageChange,
     handleResetFilters,
   }
 }

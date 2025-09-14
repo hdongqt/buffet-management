@@ -27,7 +27,7 @@ function* fetchMenuListSaga(action) {
     const { dishes, pagination } = yield call(MENUS_API.getList, params)
     yield put(fetchMenuListSuccess({ dishes, pagination }))
   } catch (error) {
-    const errorMessage = getErrorMessage(error, 'Không lấy được danh sách menu')
+    const errorMessage = getErrorMessage(error)
     yield put(fetchMenuListFailure(errorMessage))
     yield put(showMessage.error(errorMessage))
   }
@@ -39,10 +39,7 @@ function* getMenuSaga(action) {
     const { dish } = yield call(MENUS_API.getById, id)
     yield put(getMenuSuccess(dish))
   } catch (error) {
-    const errorMessage = getErrorMessage(
-      error,
-      'Không lấy được thông tin món ăn'
-    )
+    const errorMessage = getErrorMessage(error)
     yield put(getMenuFailure(errorMessage))
     yield put(showMessage.error(errorMessage))
   }
@@ -58,7 +55,7 @@ function* createMenuSaga(action) {
       yield call(callback)
     }
   } catch (error) {
-    const errorMessage = getErrorMessage(error, 'Thêm mới món ăn thất bại')
+    const errorMessage = getErrorMessage(error)
     yield put(postMenuFailure(errorMessage))
     yield put(showMessage.error(errorMessage))
   }
@@ -75,7 +72,7 @@ function* updateMenuSaga(action) {
       yield call(callback)
     }
   } catch (error) {
-    const errorMessage = getErrorMessage(error, 'Cập nhật món ăn thất bại')
+    const errorMessage = getErrorMessage(error)
     yield put(putMenuFailure(errorMessage))
     yield put(showMessage.error(errorMessage))
   }
@@ -91,7 +88,7 @@ function* deleteMenuSaga(action) {
       yield call(callback)
     }
   } catch (error) {
-    const errorMessage = getErrorMessage(error, 'Xóa món ăn thất bại')
+    const errorMessage = getErrorMessage(error)
     yield put(deleteMenuFailure(errorMessage))
     yield put(showMessage.error(errorMessage))
   }

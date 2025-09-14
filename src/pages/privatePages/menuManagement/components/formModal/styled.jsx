@@ -23,7 +23,6 @@ const ImagePanel = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: calc(100vh - 200px);
   padding-right: 4px;
 `
 

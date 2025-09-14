@@ -14,7 +14,6 @@ import {
 import {
   DeleteOutlined,
   EditOutlined,
-  PauseCircleOutlined,
   PlusOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
@@ -54,7 +53,7 @@ const MenuManagement = () => {
 
     formikSearch,
     handleFilter,
-    handleTableChange,
+    handlePageChange,
     handleResetFilters,
 
     fetchMenuList,
@@ -127,7 +126,7 @@ const MenuManagement = () => {
               onClick={() => openModal(record)}
             />
           </Tooltip>
-          <Tooltip title='Tạm dừng hoạt động'>
+          <Tooltip title='Xóa món ăn'>
             <Popconfirm
               title='Xóa món ăn'
               description='Bạn có chắc chắn muốn xóa món ăn này?'
@@ -135,7 +134,7 @@ const MenuManagement = () => {
               okText='Xóa'
               cancelText='Hủy'
             >
-              <CustomButton danger icon={<PauseCircleOutlined />} />
+              <CustomButton danger icon={<DeleteOutlined />} />
             </Popconfirm>
           </Tooltip>
         </Space>
@@ -275,7 +274,7 @@ const MenuManagement = () => {
         size='large'
         tableLayout='fixed'
         onPaginationChange={({ page, limit }) => {
-          handleTableChange({ page: page, limit: limit })
+          handlePageChange({ page: page, limit: limit })
         }}
         pagination={pagination}
       />
