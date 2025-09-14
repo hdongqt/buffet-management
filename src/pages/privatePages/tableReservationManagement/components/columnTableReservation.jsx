@@ -1,17 +1,10 @@
-import { Tag, Flex } from 'antd'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Tooltip, Tag } from 'antd'
+import { EditOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 
 import { CustomButton } from '@/components/common/ui'
-
-const ActionButtons = ({ record, onEdit }) => (
-  <Flex gap={8}>
-    <CustomButton icon={<EditOutlined />} onClick={() => onEdit?.(record)} />
-    <CustomButton danger icon={<DeleteOutlined />} />
-  </Flex>
-)
 
 const getStatusColor = (status) => {
   switch (status) {
@@ -61,7 +54,15 @@ const columnTableReservation = ({ onEdit }) => [
     title: 'Hành động',
     key: 'action',
     render: (_, record) => {
-      return <ActionButtons record={record} onEdit={onEdit} />
+      return (
+        <Tooltip title='Chỉnh sửa'>
+          <CustomButton
+            icon={<EditOutlined />}
+            loading={record.actionLoading}
+            onClick={() => onEdit?.(record)}
+          />
+        </Tooltip>
+      )
     },
   },
 ]

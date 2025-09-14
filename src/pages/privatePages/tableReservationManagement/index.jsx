@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Form, Col, Row, Flex, Typography } from 'antd'
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { useSelector } from 'react-redux'
 
 import LIST_OPTIONS_STATUS from '@/constants/listOptionStatus'
 
@@ -20,10 +19,6 @@ import {
 } from '@/components/common/ui'
 
 export default function TableReservationManagement() {
-  const { reservationList, loading, pagination, availableTables } = useSelector(
-    (state) => state.reservation
-  )
-
   const {
     handlePaginationChange,
     handleResetFilters,
@@ -36,6 +31,11 @@ export default function TableReservationManagement() {
     showModal,
     handleEdit,
     onCloseModal,
+    pagination,
+    availableTables,
+    actionLoading,
+    loading,
+    reservationList,
   } = useReservationFormAdmin()
 
   useEffect(() => {
@@ -132,6 +132,7 @@ export default function TableReservationManagement() {
       <TableCustom
         columns={columnTableReservation({
           onEdit: handleEdit,
+          actionLoading,
         })}
         dataSource={reservationList}
         loading={loading}
