@@ -1,3 +1,4 @@
+import { label } from 'framer-motion/client'
 import { RESTAURANT_TABLE_STATUS } from './status'
 
 // restaurant table
@@ -71,11 +72,31 @@ const ORDER_STATUS_TAGS = {
   pending: { color: 'yellow', label: 'Chờ xử lý' },
   confirmed: { color: 'green', label: 'Đã Xác Nhận' },
   cancelled: { color: 'red', label: 'Đã hủy' },
+  Paid: { color: 'blue', label: 'Đã Thanh Toán' },
 }
 
 const ORDER_SOFT_BY = [
   { value: 'totalPrice', label: 'Tổng tiền' },
   { value: 'createdAt', label: 'Ngày tạo' },
+]
+
+const ORDER_STATUS_UPDATE = [
+  { value: 'confirmed', label: 'Xác Nhận', color: 'green' },
+  { value: 'cancelled', label: 'Hủy', color: 'red' },
+  { value: 'Paid', label: 'Đã Thanh Toán', color: 'blue' },
+]
+
+const DISH_STATUS_TAGS = {
+  pending: { color: 'yellow', label: 'Chờ xử lý' },
+  completed: { color: 'green', label: 'Đã hoàn thành' },
+  cancelled: { color: 'red', label: 'Đã hủy' },
+}
+
+const DISH_STATUS_OPTIONS = [
+  { value: '', label: 'Tất cả' },
+  { value: 'pending', label: 'Chờ xử lý' },
+  { value: 'completed', label: 'Đã hoàn tính' },
+  { value: 'cancelled', label: 'Đã hủy' },
 ]
 
 export {
@@ -89,4 +110,6 @@ export {
   ORDER_STATUS_OPTIONS,
   ORDER_SOFT_BY,
   ORDER_STATUS_TAGS,
+  DISH_STATUS_TAGS,
+  DISH_STATUS_OPTIONS,
 }

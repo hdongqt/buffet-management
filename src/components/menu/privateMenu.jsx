@@ -31,7 +31,7 @@ const MANAGER_MENU = [
   },
   {
     key: MANAGER_ROUTES.ORDERS,
-    label: 'Quản lý Order',
+    label: 'Quản lý đơn món',
     icon: <OrderedListOutlined />,
   },
   {
