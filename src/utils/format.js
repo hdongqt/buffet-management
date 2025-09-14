@@ -13,9 +13,9 @@ const truncateText = (text = '', maxLength = 50) => {
   return text.slice(0, maxLength) + '…'
 }
 
-const getStatusConfig = (status) => ({
-  color: MENU_STATUS_TAGS[status]?.color ?? 'default',
-  label: MENU_STATUS_TAGS[status]?.label ?? status,
+const getStatusConfig = (status, options) => ({
+  color: options[status]?.color ?? 'default',
+  label: options[status]?.label ?? status,
 })
 
 const formatNumber = (val) => {

@@ -15,12 +15,20 @@ const useMenuManagement = () => {
   const fetchMenus = async (params) =>
     await dispatch(fetchMenuListRequest({ params }))
 
-  const deleteMenu = async (id) => {
-    await dispatch(deleteMenuRequest({ id, callback: commonCallback }))
+  const commonCallback = async () => {
+    if (menuList.length === 1 && pagination?.page > 1) {
+      await dispatch(
+        fetchMenuListRequest({
+          params: { ...filters, page: pagination?.page - 1 },
+        })
+      )
+    } else {
+      await dispatch(fetchMenuListRequest({ params: { ...filters } }))
+    }
   }
 
-  const commonCallback = async () => {
-    await dispatch(fetchMenuListRequest({ params: {} }))
+  const deleteMenu = async (id) => {
+    await dispatch(deleteMenuRequest({ id, callback: commonCallback }))
   }
 
   const listCombo = menuList
@@ -31,9 +39,12 @@ const useMenuManagement = () => {
       price: item.price,
     }))
 
+  const listDish = menuList.filter((item) => !item.isCombo)
+
   return {
     menuList,
     listCombo,
+    listDish,
     loading,
     actionLoading,
     pagination,
