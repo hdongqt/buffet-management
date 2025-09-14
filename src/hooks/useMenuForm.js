@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik'
 
 import VALIDATION_MESSAGE from '@/constants/validationMessage'
@@ -11,13 +11,10 @@ import {
 } from '@/sagas/menuManagement/menuSlice'
 
 import useMenuManagement from '@/hooks/useMenuManagement'
-import useCategoriesManagement from '@/hooks/useCategories'
 
 const useMenuForm = ({ initialValues, onClose }) => {
   const dispatch = useDispatch()
-  const { filters } = useSelector((state) => state.menu)
-  const { menuList } = useMenuManagement()
-  const { categoriesList } = useCategoriesManagement()
+  const { menuList, filters } = useMenuManagement()
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -73,23 +70,17 @@ const useMenuForm = ({ initialValues, onClose }) => {
         putMenuRequest({
           id: initialValues?.id,
           values: payload,
-          callback: commonCallback,
+          callback: updateCallback,
         })
       )
     } else {
       await dispatch(
         postMenuRequest({
           values: payload,
-          callback: commonCallback,
+          callback: addCallback,
         })
       )
     }
-  }
-
-  const commonCallback = async () => {
-    await dispatch(fetchMenuListRequest({ params: filters }))
-    formik.resetForm()
-    onClose()
   }
 
   const formik = useFormik({
@@ -105,12 +96,8 @@ const useMenuForm = ({ initialValues, onClose }) => {
     formik.setFieldValue(fieldName, value)
   }
 
-  const categoryItemList = categoriesList.map((item) => ({
-    label: item.name,
-    value: item.id,
-  }))
-
   const isCombo = formik.values.isCombo
+  const selectedComboItems = formik.values.comboItems || []
 
   const foodItemList = menuList
     .filter((item) => !item.isCombo && item.id !== initialValues?.id)
@@ -119,21 +106,29 @@ const useMenuForm = ({ initialValues, onClose }) => {
       value: item.id,
     }))
 
-  const selectedComboItems = formik.values.comboItems || []
-
   const foodMap = (id) => {
     const map = foodItemList?.find((f) => f.value === id)?.label
 
     return map
   }
 
+  const addCallback = async () => {
+    await dispatch(fetchMenuListRequest({ params: { ...filters, page: 1 } }))
+    formik.resetForm()
+    onClose()
+  }
+
+  const updateCallback = async () => {
+    await dispatch(fetchMenuListRequest({ params: { ...filters } }))
+    onClose()
+  }
+
   return {
     formik,
     foodItemList,
-    selectedComboItems,
-    categoryItemList,
-    isCombo,
     foodMap,
+    selectedComboItems,
+    isCombo,
     onChangeFormItem,
   }
 }
