@@ -72,7 +72,7 @@ const ORDER_STATUS_TAGS = {
   pending: { color: 'yellow', label: 'Chờ xử lý' },
   confirmed: { color: 'green', label: 'Đã Xác Nhận' },
   cancelled: { color: 'red', label: 'Đã hủy' },
-  Paid: { color: 'blue', label: 'Đã Thanh Toán' },
+  paid: { color: 'blue', label: 'Đã Thanh Toán' },
 }
 
 const ORDER_SOFT_BY = [
@@ -83,7 +83,7 @@ const ORDER_SOFT_BY = [
 const ORDER_STATUS_UPDATE = [
   { value: 'confirmed', label: 'Xác Nhận', color: 'green' },
   { value: 'cancelled', label: 'Hủy', color: 'red' },
-  { value: 'Paid', label: 'Đã Thanh Toán', color: 'blue' },
+  { value: 'paid', label: 'Đã Thanh Toán', color: 'blue' },
 ]
 
 const DISH_STATUS_TAGS = {
@@ -110,6 +110,7 @@ export {
   ORDER_STATUS_OPTIONS,
   ORDER_SOFT_BY,
   ORDER_STATUS_TAGS,
+  ORDER_STATUS_UPDATE,
   DISH_STATUS_TAGS,
   DISH_STATUS_OPTIONS,
 }
