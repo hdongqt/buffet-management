@@ -16,6 +16,8 @@ const GUEST_ORDER_ROUTES = {
 
 const MANAGER_ROUTES = {
   ROOT: '/manager',
+  TABLES: '/manager/tables',
+  DASHBOARD: '/manager/dashboard',
   MENUS: '/manager/menus',
   RESERVATION: '/manager/reservation',
   CATEGORIES: '/manager/categories',

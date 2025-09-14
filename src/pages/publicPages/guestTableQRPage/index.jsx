@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useDispatch } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { Form, Select, Spin, Grid, Flex } from 'antd'
 
 import logo from '@/assets/images/main/logo.png'
@@ -8,6 +8,8 @@ import { showMessage } from '@/sagas/appMessage/appMessageSlice'
 
 import { FormItemControl } from '@/components/common'
 import { CommonUI } from '@/components/common'
+
+import { SOCKET_EVENT } from '@/constants/status'
 
 import { useSocket } from '@/contexts/socket'
 import useGuestTableQR from '@/hooks/useGuestTableQR'
@@ -49,7 +51,7 @@ const GuestTableQRPage = function () {
       if (data.status === 'confirmed') {
         navigate(GUEST_ORDER_ROUTES.ROOT)
       } else {
-        dispatch(showMessage.error('Đơn hàng bị từ chối'))
+        dispatch(showMessage.error('Vui lòng gọi nhân viên để được hỗ trợ'))
         setIsAlowShowForm(true)
         setIsWaitAccept(false)
       }
@@ -63,17 +65,19 @@ const GuestTableQRPage = function () {
   useEffect(() => {
     if (!order?.id || !socket) return
 
-    socket.emit('join_order', order.id)
+    socket.on('connect', () => {
+      socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
+    })
   }, [order?.id, socket])
 
   // Listen ORDER_CONFIRMED
   useEffect(() => {
     if (!socket) return
 
-    socket.on('ORDER_STATUS_UPDATED', handleConfirmed)
+    socket.on(SOCKET_EVENT.ORDER_STATUS_UPDATED, handleConfirmed)
 
     return () => {
-      socket.off('ORDER_STATUS_UPDATED', handleConfirmed)
+      socket.off(SOCKET_EVENT.ORDER_STATUS_UPDATED, handleConfirmed)
     }
   }, [socket, handleConfirmed])
 

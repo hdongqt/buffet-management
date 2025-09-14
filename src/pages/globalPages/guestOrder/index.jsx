@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons'
 
 import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
+import { SOCKET_EVENT } from '@/constants/status'
 
 import { useSocket } from '@/contexts/socket'
 import useGuestOrder from '@/hooks/useGuestOrder'
@@ -42,7 +43,9 @@ const OrdersPage = () => {
   useEffect(() => {
     if (!order?.id || !socket) return
 
-    socket.emit('join_order', order.id)
+    socket.on('connect', () => {
+      socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
+    })
   }, [order?.id, socket])
 
   const totalCartItem = cart.reduce((total, item) => total + item.quantity, 0)
@@ -51,14 +54,17 @@ const OrdersPage = () => {
   useEffect(() => {
     if (!socket) return
 
-    socket.on('DISH_STATUS_UPDATED', ({ snapshot, isNewPrice, newPrice }) => {
-      if (snapshot) {
-        handleUpdateStatusDish({ snapshot, isNewPrice, newPrice })
+    socket.on(
+      SOCKET_EVENT.DISH_STATUS_UPDATED,
+      ({ snapshot, isNewPrice, newPrice }) => {
+        if (snapshot) {
+          handleUpdateStatusDish({ snapshot, isNewPrice, newPrice })
+        }
       }
-    })
+    )
 
     return () => {
-      socket.off('DISH_STATUS_UPDATED')
+      socket.off(SOCKET_EVENT.DISH_STATUS_UPDATED)
     }
   }, [socket])
 

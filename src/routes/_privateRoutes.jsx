@@ -7,15 +7,15 @@ import { ADMIN_ROUTES, MANAGER_ROUTES } from '../constants/listRoutes'
 import PrivateLayout from '@/layouts/private/PrivateLayout'
 import {
   TableManagement,
-  AdminDashboard,
   MenuManagement,
   TableReservationManagement,
   CategoriesManagement,
   OrderManagement,
+  Dashboard,
 } from '@/pages/privatePages'
 import LazyLoading from '@/components/lazyLoading'
 
-import { checkRouterAccess } from '@/utils/checkRoule'
+import { checkRouterAccess } from '@/utils/checkRole'
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((state) => state.user)
@@ -43,6 +43,10 @@ const managerRoutes = {
   children: [
     {
       index: MANAGER_ROUTES.ROOT,
+      element: <Dashboard />,
+    },
+    {
+      path: MANAGER_ROUTES.TABLES,
       element: <TableManagement />,
     },
     {
@@ -76,7 +80,7 @@ const adminRoutes = {
   children: [
     {
       index: true,
-      element: <AdminDashboard />,
+      element: <Dashboard />,
     },
   ],
 }

@@ -6,11 +6,17 @@ import {
   ReadOutlined,
   TableOutlined,
   UnorderedListOutlined,
+  DashboardOutlined,
 } from '@ant-design/icons'
 
 const MANAGER_MENU = [
   {
     key: MANAGER_ROUTES.ROOT,
+    label: 'Dashboard',
+    icon: <DashboardOutlined />,
+  },
+  {
+    key: MANAGER_ROUTES.TABLES,
     label: 'Quản lý bàn',
     icon: <TableOutlined />,
   },

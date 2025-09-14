@@ -5,33 +5,36 @@
 Dự án **Restaurant Ordering System** giúp quản lý toàn bộ hoạt động đặt món trong nhà hàng buffet:
 
 🔑 Chức năng chính
+
 👤 Khách hàng (Customer)
 
 📅 Đặt bàn online: chọn ngày, giờ, số lượng khách.
 
-📱 Check-in bằng QR: xác nhận bàn khi đến nhà hàng.
-
 🍽️ Đặt món qua điện thoại: quét QR trên bàn → xem menu → đặt món.
 
-👩‍🍳 Quản lý (Manager)
+📝 Theo dõi trạng thái món ăn của đơn hàng
 
-📋 Quản lý order theo bàn: theo dõi order được gửi từ khách.
+🔔 Gọi nhân viên
+
+👩‍🍳 Quản lý (Manager)
 
 🚶 Cập nhật trạng thái order: đang chuẩn bị → đã phục vụ.
 
 📊 Theo dõi bàn: biết bàn nào trống, bàn nào đã đặt.
 
+🍽️ Quản lí món ăn
+
+📅 Quản lí đặt bàn
+
+🗃️ Quản lí danh mục
+
 🪑 Quản lý bàn: CRUD bàn, sinh QR code riêng cho mỗi bàn.
+
+📋 Quản lý order theo bàn: theo dõi order được gửi từ khách.
 
 🧾Thanh toán cho khách
 
-🛠️ Quản trị viên (Admin)
-
-🪑 Quản lý bàn: CRUD bàn, sinh QR code riêng cho mỗi bàn.
-
-🍛 Quản lý menu: thêm/sửa/xóa món ăn, giá, hình ảnh.
-
-📈 Thống kê & báo cáo: doanh thu, số order, món bán chạy.
+🛎️ Nhận thông báo từ khách hàng
 
 ## 🚀 Công nghệ sử dụng
 
@@ -43,6 +46,7 @@ Dự án **Restaurant Ordering System** giúp quản lý toàn bộ hoạt độ
 - 🎭 [Ant design](https://ant.design/) + [Styled Component](https://styled-components.com/docs) – ui & styling
 - ✅ [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup) – form & validation
 - 🎨 [Framer-motion](https://motion.dev/docs/react) – animation
+- 🔨 [Socket.IO](https://socket.io) - Real time
 
 ## 🚀 Cách chạy dự án (cho Developer mới)
 
