@@ -11,6 +11,7 @@ import {
 import { FormItemControl } from '@/components/common'
 import UpdateImage from '@/components/common/updateImage'
 
+import useCategoriesManagement from '@/hooks/useCategories'
 import useMenuManagement from '@/hooks/useMenuManagement'
 import useMenuForm from '@/hooks/useMenuForm'
 
@@ -27,21 +28,18 @@ import {
   SelectedList,
   StyledInputNumber,
 } from '@/pages/privatePages/menuManagement/components/formModal/styled'
-import { useDispatch } from 'react-redux'
-import useCategoriesManagement from '@/hooks/useCategories'
 
 const { useBreakpoint } = Grid
 
 const MenuFormModal = ({ open, onClose, initialValues }) => {
   const { actionLoading } = useMenuManagement()
-  const { fetchCategories } = useCategoriesManagement()
+  const { categoryItemList } = useCategoriesManagement()
   const {
     formik,
     foodItemList,
-    selectedComboItems,
-    categoryItemList,
-    isCombo,
     foodMap,
+    selectedComboItems,
+    isCombo,
     onChangeFormItem,
   } = useMenuForm({
     initialValues,
@@ -57,19 +55,13 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
     }
   }, [open])
 
-  useEffect(() => {
-    if (open) {
-      fetchCategories()
-    }
-  }, [open])
-
   return (
     <StyledModal.Wrap
       title={initialValues ? 'Chỉnh sửa món ăn' : 'Thêm món ăn'}
       open={open}
       onOk={formik.handleSubmit}
       onCancel={onClose}
-      okText='Lưu'
+      okText='Cập nhật'
       confirmLoading={actionLoading}
       width={widthCard}
     >
