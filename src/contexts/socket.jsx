@@ -9,7 +9,11 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     const initSocket = io(import.meta.env.VITE_API_SOCKET, {
       transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
     })
+
     setSocket(initSocket)
 
     return () => {

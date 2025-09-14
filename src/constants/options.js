@@ -1,4 +1,3 @@
-import { label } from 'framer-motion/client'
 import { RESTAURANT_TABLE_STATUS } from './status'
 
 // restaurant table
@@ -99,6 +98,14 @@ const DISH_STATUS_OPTIONS = [
   { value: 'cancelled', label: 'Đã hủy' },
 ]
 
+const NOTIFICATION_TYPE_OPTIONS = [
+  { value: '', label: 'Tất cả', color: '#d9d9d9' },
+  { value: 'new_order', label: 'Khách hàng mới', color: '#1890ff' },
+  { value: 'order_new_dish', label: 'Gọi món', color: '#faad14' },
+  { value: 'payment_request', label: 'Yêu cầu thanh toán', color: '#52c41a' },
+  { value: 'staff_call', label: 'Gọi nhân viên', color: '#ff4d4f' },
+]
+
 export {
   RESTAURANT_TABLE_OPTION,
   RESTAURANT_TABLE_TAG,
@@ -113,4 +120,5 @@ export {
   ORDER_STATUS_UPDATE,
   DISH_STATUS_TAGS,
   DISH_STATUS_OPTIONS,
+  NOTIFICATION_TYPE_OPTIONS,
 }

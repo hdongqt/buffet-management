@@ -10,6 +10,8 @@ import {
   setExtraDishes,
 } from '@/sagas/guestOrder/guestOrderSlice'
 
+import useDebounceCallback from './useDebounceCallback'
+
 const useGuestOrder = () => {
   const dispatch = useDispatch()
   const {
@@ -61,9 +63,11 @@ const useGuestOrder = () => {
     )
   }
 
-  const handleRequestPayment = async () => {
-    await dispatch(callStaffRequest({ orderId: order?.id, note: 'Thanh toán' }))
-  }
+  const handleRequestPayment = useDebounceCallback(async () => {
+    await dispatch(
+      callStaffRequest({ orderId: order?.id, note: 'payment_request' })
+    )
+  }, 1000)
 
   const totalAmount = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0)

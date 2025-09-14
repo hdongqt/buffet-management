@@ -1,4 +1,4 @@
-import AdminDashboard from './adminDashboard'
+import Dashboard from './dashboard'
 import TableManagement from './tableManagement'
 import MenuManagement from './menuManagement'
 import TableReservationManagement from './tableReservationManagement'
@@ -6,7 +6,7 @@ import CategoriesManagement from './categoriesManagement'
 import OrderManagement from './orderManagement'
 
 export {
-  AdminDashboard,
+  Dashboard,
   TableManagement,
   MenuManagement,
   TableReservationManagement,
