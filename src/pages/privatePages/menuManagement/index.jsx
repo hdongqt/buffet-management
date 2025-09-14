@@ -14,7 +14,6 @@ import {
 import {
   DeleteOutlined,
   EditOutlined,
-  PauseCircleOutlined,
   PlusOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
@@ -54,7 +53,7 @@ const MenuManagement = () => {
 
     formikSearch,
     handleFilter,
-    handleTableChange,
+    handlePageChange,
     handleResetFilters,
 
     fetchMenuList,
@@ -275,7 +274,7 @@ const MenuManagement = () => {
         size='large'
         tableLayout='fixed'
         onPaginationChange={({ page, limit }) => {
-          handleTableChange({ page: page, limit: limit })
+          handlePageChange({ page: page, limit: limit })
         }}
         pagination={pagination}
       />
