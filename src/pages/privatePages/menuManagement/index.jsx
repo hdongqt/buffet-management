@@ -126,7 +126,7 @@ const MenuManagement = () => {
               onClick={() => openModal(record)}
             />
           </Tooltip>
-          <Tooltip title='Tạm dừng hoạt động'>
+          <Tooltip title='Xóa món ăn'>
             <Popconfirm
               title='Xóa món ăn'
               description='Bạn có chắc chắn muốn xóa món ăn này?'
@@ -134,7 +134,7 @@ const MenuManagement = () => {
               okText='Xóa'
               cancelText='Hủy'
             >
-              <CustomButton danger icon={<PauseCircleOutlined />} />
+              <CustomButton danger icon={<DeleteOutlined />} />
             </Popconfirm>
           </Tooltip>
         </Space>

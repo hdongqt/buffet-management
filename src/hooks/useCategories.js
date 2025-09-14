@@ -114,9 +114,15 @@ const useCategoriesManagement = () => {
     fetchCategories({ ...filters, page, limit })
   }
 
+  const categoryItemList = categoriesList.map((item) => ({
+    label: item.name,
+    value: item.id,
+  }))
+
   return {
     fetchCategories,
     categoriesList,
+    categoryItemList,
     loading,
     pagination,
     handlePaginationChange,
