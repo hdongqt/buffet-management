@@ -13,9 +13,15 @@ import { useState } from 'react'
 
 export const useReservationFormAdmin = () => {
   const dispatch = useDispatch()
-  const { loading, success, filters } = useSelector(
-    (state) => state.reservation
-  )
+  const {
+    loading,
+    success,
+    filters,
+    pagination,
+    reservationList,
+    actionLoading,
+    availableTables,
+  } = useSelector((state) => state.reservation)
 
   const [editingRecord, setEditingRecord] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -51,8 +57,15 @@ export const useReservationFormAdmin = () => {
   }
 
   const handleResetFilters = () => {
+    const initialValues = {
+      status: '',
+      search: '',
+      reservedAt: null,
+      page: 1,
+      limit: 20,
+    }
     formikSearch.resetForm()
-    fetchReservations()
+    fetchReservations(initialValues)
   }
 
   const formikSearch = useFormik({
@@ -98,5 +111,9 @@ export const useReservationFormAdmin = () => {
     showModal,
     handleEdit,
     onCloseModal,
+    pagination,
+    availableTables,
+    actionLoading,
+    reservationList,
   }
 }
