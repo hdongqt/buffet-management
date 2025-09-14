@@ -7,10 +7,10 @@ import useMenuManagement from '@/hooks/useMenuManagement'
 import useMenuPage from '@/hooks/useMenuPage'
 import useMenuForm from '@/hooks/useMenuForm'
 
-// import useOrderManagement from '@/hooks/useOrderManager'
-// import useOrderFormAction from '@/hooks/useOrderFormAction'
-// import useOrderDish from '@/hooks/useOrderDish'
-// import useOrderDishUpdate from '@/hooks/useOrderDishUpdate'
+import useOrderManagement from '@/hooks/useOrderManager'
+import useOrderFormAction from '@/hooks/useOrderFormAction'
+import useOrderDish from '@/hooks/useOrderDish'
+import useOrderDishUpdate from '@/hooks/useOrderDishUpdate'
 
 export {
   useLogIn,
@@ -20,8 +20,8 @@ export {
   useMenuManagement,
   useMenuPage,
   useMenuForm,
-  // useOrderManagement,
-  // useOrderFormAction,
-  // useOrderDish,
-  // useOrderDishUpdate,
+  useOrderManagement,
+  useOrderFormAction,
+  useOrderDish,
+  useOrderDishUpdate,
 }
