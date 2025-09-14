@@ -1,17 +1,21 @@
-import PrivateLayout from '@/layouts/private/PrivateLayout'
-import { checkRouterAccess } from '@/utils/checkRoule'
 import React, { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
+
 import { ADMIN_ROUTES, MANAGER_ROUTES } from '../constants/listRoutes'
+
+import PrivateLayout from '@/layouts/private/PrivateLayout'
 import {
   TableManagement,
   AdminDashboard,
   MenuManagement,
   TableReservationManagement,
   CategoriesManagement,
+  OrderManagement,
 } from '@/pages/privatePages'
 import LazyLoading from '@/components/lazyLoading'
+
+import { checkRouterAccess } from '@/utils/checkRoule'
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((state) => state.user)
@@ -53,6 +57,10 @@ const managerRoutes = {
       path: MANAGER_ROUTES.CATEGORIES,
       element: <CategoriesManagement />,
     },
+    {
+      path: MANAGER_ROUTES.ORDERS,
+      element: <OrderManagement />,
+    },
   ],
 }
 
@@ -76,4 +84,3 @@ const adminRoutes = {
 const privateRoutes = [managerRoutes, adminRoutes]
 
 export default privateRoutes
-
