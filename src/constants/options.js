@@ -53,6 +53,11 @@ const MENU_SOFT_BY = [
   { value: 'updatedAt', label: 'Ngày cập nhật' },
 ]
 
+const RESTAURANT_TABLE_SORT_BY = [
+  { value: 'tableNumber', label: 'Số bàn' },
+  { value: 'createdAt', label: 'Ngày tạo' },
+]
+
 const ORDER_BY = [
   { value: '', label: 'Mặc định' },
   { value: 'asc', label: 'Tăng dần' },
@@ -121,4 +126,5 @@ export {
   DISH_STATUS_TAGS,
   DISH_STATUS_OPTIONS,
   NOTIFICATION_TYPE_OPTIONS,
+  RESTAURANT_TABLE_SORT_BY,
 }

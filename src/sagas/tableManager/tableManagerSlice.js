@@ -9,6 +9,7 @@ const initialState = {
   pagination: DEFAULT_PAGINATION,
   filters: {
     search: '',
+    sortBy: 'createdAt',
     page: 1,
     limit: 20,
   },

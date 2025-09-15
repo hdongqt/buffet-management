@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { GUEST_ORDER_ROUTES, USER_ROUTES } from '@/constants/listRoutes'
+import { GUEST_ORDER_ROUTES } from '@/constants/listRoutes'
 import GuestOrderLayout from '@/layouts/public/guestOrderLayout'
-import { ProtectedGuestOrderRoute } from '@/components/protectRoute'
+import ProtectedGuestOrderRoute from '@/routes/guards/protectGuestOrder'
 import LazyLoading from '@/components/lazyLoading'
 
 const GuestMenuOrder = React.lazy(() =>
