@@ -25,12 +25,22 @@ import {
   postDishToOrderSuccess,
   postDishToOrderFailure,
   postDishToOrderRequest,
+  getPaymentRequest,
+  getPaymentSuccess,
+  getPaymentFailure,
+  postPaymentRequest,
+  putPaymentRequest,
+  postPaymentSuccess,
+  postPaymentFailure,
+  putPaymentSuccess,
+  putPaymentFailure,
 } from './orderManagerSlice'
 
 import { ORDER_API } from '@/services'
 import { showMessage } from '@/sagas/appMessage/appMessageSlice'
 
 import getErrorMessage from '@/utils/getMessage'
+import PAYMENT_API from '@/services/payment'
 
 function* fetchOrdersSaga(action) {
   try {
@@ -160,6 +170,49 @@ function* postDishToOrderSaga(action) {
   }
 }
 
+function* getPaymentSaga(action) {
+  try {
+    const { id } = action.payload
+    const { payment } = yield call(PAYMENT_API.get, id)
+    yield put(getPaymentSuccess(payment))
+  } catch (error) {
+    const message = getErrorMessage(error)
+    yield put(getPaymentFailure(message))
+    yield put(showMessage.error(message))
+  }
+}
+
+function* postPaymentSaga(action) {
+  try {
+    const { id, values, callback } = action.payload
+    const { payment } = yield call(PAYMENT_API.post, id, values)
+    yield put(postPaymentSuccess(payment))
+    if (typeof callback === 'function') {
+      yield call(callback)
+    }
+  } catch (error) {
+    const message = getErrorMessage(error)
+    yield put(postPaymentFailure(message))
+    yield put(showMessage.error(message))
+  }
+}
+
+function* putPaymentSaga(action) {
+  try {
+    const { id, callback } = action.payload
+    const { payment } = yield call(PAYMENT_API.put, id)
+    yield put(putPaymentSuccess(payment))
+    yield put(showMessage.success('Thanh toán bàn thành công'))
+    if (typeof callback === 'function') {
+      yield call(callback)
+    }
+  } catch (error) {
+    const message = getErrorMessage(error)
+    yield put(putPaymentFailure(message))
+    yield put(showMessage.error(message))
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(fetchOrdersRequest.type, fetchOrdersSaga)
   yield takeEvery(getOrderRequest.type, getOrderSaga)
@@ -169,4 +222,7 @@ export default function* userSaga() {
   yield takeEvery(postCancelOrderRequest.type, postCancelOrderSaga)
   yield takeEvery(putStatusDishRequest.type, putStatusDishSaga)
   yield takeEvery(postDishToOrderRequest.type, postDishToOrderSaga)
+  yield takeEvery(getPaymentRequest.type, getPaymentSaga)
+  yield takeEvery(postPaymentRequest.type, postPaymentSaga)
+  yield takeEvery(putPaymentRequest.type, putPaymentSaga)
 }

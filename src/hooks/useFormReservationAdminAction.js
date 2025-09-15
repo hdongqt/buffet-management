@@ -99,10 +99,10 @@ export const useReservationFormAdminAction = (
           id: editingRecord._id || editingRecord.id,
           values: payload,
           callback: () => {
+            setIsModalOpen(false)
+            formik.resetForm()
             dispatch(getReservationRequest({ params: filters }))
             dispatch(getTableAvailableSuccess([]))
-            formik.resetForm()
-            setIsModalOpen(false)
           },
         })
       )
@@ -111,9 +111,9 @@ export const useReservationFormAdminAction = (
         reservationRequest({
           values: payload,
           callback: () => {
-            dispatch(getReservationRequest({ params: filters }))
-            formik.resetForm()
             setIsModalOpen(false)
+            formik.resetForm()
+            dispatch(getReservationRequest({ params: filters }))
             dispatch(getTableAvailableSuccess([]))
           },
         })

@@ -7,7 +7,7 @@ const initialFilter = {
   sortBy: null,
   order: null,
   page: 1,
-  limit: 10,
+  limit: 20,
 }
 
 const initialState = {

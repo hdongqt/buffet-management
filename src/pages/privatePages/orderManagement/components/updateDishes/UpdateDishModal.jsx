@@ -35,13 +35,17 @@ import {
   StyledSelect,
 } from '@/pages/privatePages/orderManagement/components/updateDishes/styled'
 import useOrderDishes from '@/hooks/useOrderDish'
+import { Spin } from 'antd'
+import { useSocket } from '@/contexts/socket'
+import { SOCKET_EVENT } from '@/constants/status'
 
 const { useBreakpoint } = Grid
 
 const OrderFormModalFood = ({ open, onClose, foodData }) => {
   const screens = useBreakpoint()
-  const widthCard = getWidthCard(screens)
+  const widthCard = getWidthCard(screens, 'modal')
 
+  const socket = useSocket()
   const dispatch = useDispatch()
 
   const { actionLoading, pagination, handlePagination } = useOrderManagement()
@@ -65,6 +69,18 @@ const OrderFormModalFood = ({ open, onClose, foodData }) => {
       dispatch(setCartOrder([]))
     }
   }, [open])
+
+  useEffect(() => {
+    if (!socket) return
+    const handleGetOrder = () => {
+      console.log('ds')
+      dispatch(getOrderRequest({ id: foodData?.id }))
+    }
+    socket.on(SOCKET_EVENT.GUEST_ADD_DISHES, handleGetOrder)
+    return () => {
+      socket.off(SOCKET_EVENT.GUEST_ADD_DISHES, handleGetOrder)
+    }
+  }, [socket])
 
   const columns = [
     {
@@ -187,18 +203,19 @@ const OrderFormModalFood = ({ open, onClose, foodData }) => {
             </Flex>
           </Flex>
           <StyledDivider />
-          {dataFiltered?.length ? (
-            <TableCustom
-              size='middle'
-              columns={columns}
-              dataSource={dataFiltered || []}
-              loading={actionLoading}
-              pagination={pagination}
-              onPaginationChange={handlePagination}
-            />
-          ) : (
-            <Empty description='Không có món nào' />
-          )}
+          <Spin spinning={actionLoading}>
+            {dataFiltered?.length ? (
+              <TableCustom
+                size='middle'
+                columns={columns}
+                dataSource={dataFiltered || []}
+                pagination={pagination}
+                onPaginationChange={handlePagination}
+              />
+            ) : (
+              <Empty description='Không có món nào' />
+            )}
+          </Spin>
         </Flex>
       </Modal>
 

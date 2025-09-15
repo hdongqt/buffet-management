@@ -6,6 +6,7 @@ const initialState = {
   orders: [],
   order: null,
   cart: [],
+  payment: null,
   loading: false,
   actionLoading: false,
   error: null,
@@ -124,8 +125,53 @@ const orderManagerSlice = createSlice({
       state.error = action.payload
     },
 
+    getPaymentRequest: (state) => {
+      state.actionLoading = true
+    },
+    getPaymentSuccess: (state, action) => {
+      state.actionLoading = false
+      state.payment = action.payload
+      state.error = null
+    },
+    getPaymentFailure: (state, action) => {
+      state.actionLoading = false
+      state.error = action.payload
+    },
+
+    postPaymentRequest: (state) => {
+      state.actionLoading = true
+    },
+    postPaymentSuccess: (state, action) => {
+      state.actionLoading = false
+      state.payment = action.payload
+      state.error = null
+    },
+    postPaymentFailure: (state, action) => {
+      state.actionLoading = false
+      state.error = action.payload
+    },
+
+    putPaymentRequest: (state) => {
+      state.actionLoading = true
+    },
+    putPaymentSuccess: (state, action) => {
+      state.actionLoading = false
+      state.payment = action.payload
+      state.error = null
+    },
+    putPaymentFailure: (state, action) => {
+      state.actionLoading = false
+      state.error = action.payload
+    },
+
     setCartOrder: (state, action) => {
       state.cart = action.payload
+    },
+    resetPayment: (state) => {
+      state.payment = null
+    },
+    resetOrder: (state) => {
+      state.order = null
     },
   },
 })
@@ -149,12 +195,26 @@ export const {
   postCancelOrderRequest,
   postCancelOrderSuccess,
   postCancelOrderFailure,
+
   putStatusDishRequest,
   putStatusDishSuccess,
   putStatusDishFailure,
   postDishToOrderRequest,
   postDishToOrderSuccess,
   postDishToOrderFailure,
+
+  getPaymentRequest,
+  getPaymentSuccess,
+  getPaymentFailure,
+  postPaymentRequest,
+  postPaymentSuccess,
+  postPaymentFailure,
+  putPaymentRequest,
+  putPaymentSuccess,
+  putPaymentFailure,
+
   setCartOrder,
+  resetPayment,
+  resetOrder,
 } = orderManagerSlice.actions
 export default orderManagerSlice.reducer

@@ -1,27 +1,61 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
-import { Grid, Descriptions, Table, Tooltip } from 'antd'
+import {
+  Grid,
+  Descriptions,
+  Table,
+  Tooltip,
+  Button,
+  Card,
+  Segmented,
+  Popconfirm,
+  Space,
+  Image,
+  Flex,
+} from 'antd'
 import {
   CheckCircleOutlined,
   DollarOutlined,
   UserOutlined,
+  BankOutlined,
+  MoneyCollectOutlined,
 } from '@ant-design/icons'
 
 import DATE_FORMAT from '@/constants/dateTimeFormat'
-import { ORDER_STATUS_TAGS } from '@/constants/options'
+import { ORDER_STATUS_TAGS, PAYMENT_STATUS_TAGS } from '@/constants/options'
+
+import { getPaymentRequest } from '@/sagas/orderManager/orderManagerSlice'
 
 import { CustomTag } from '@/components/common/ui'
+
+import useOrderPayment from '@/hooks/useOrderPayment'
 
 import { getWidthCard } from '@/utils/getWidthCard'
 import { formatCurrency, getStatusConfig } from '@/utils/format'
 
-import { StyledModal, StyledText, StyledStatus, Dish } from './styled'
+import {
+  StyledModal,
+  StyledText,
+  StyledStatus,
+  Dish,
+  StyledSpace,
+} from './styled'
 
 const { useBreakpoint } = Grid
 
 const OrderDetailModal = ({ open, onClose, orderData }) => {
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens, 'modal')
+
+  const dispatch = useDispatch()
+  const { payment, handleChangeMethod, confirmPayment } = useOrderPayment()
+
+  useEffect(() => {
+    if (orderData) {
+      dispatch(getPaymentRequest({ id: orderData?.id }))
+    }
+  }, [orderData?.id])
 
   if (!orderData) return null
 
@@ -68,11 +102,7 @@ const OrderDetailModal = ({ open, onClose, orderData }) => {
 
   return (
     <StyledModal.Wrap
-      title={
-        <StyledModal.Title align='center' gap={8}>
-          <StyledModal.Title level={4}>Chi tiết đơn hàng</StyledModal.Title>
-        </StyledModal.Title>
-      }
+      title={<StyledModal.Title level={4}>Chi tiết đơn hàng</StyledModal.Title>}
       open={open}
       onCancel={onClose}
       footer={null}
@@ -80,7 +110,7 @@ const OrderDetailModal = ({ open, onClose, orderData }) => {
     >
       <StyledModal.Content vertical>
         <StyledStatus.Container>
-          <StyledStatus.Title strong>
+          <StyledStatus.Title>
             <CheckCircleOutlined />
             Trạng thái đơn hàng:
           </StyledStatus.Title>
@@ -147,6 +177,121 @@ const OrderDetailModal = ({ open, onClose, orderData }) => {
             </Descriptions.Item>
           )}
         </Descriptions>
+
+        <Card
+          size='small'
+          title={
+            <StyledStatus.Title>
+              <CheckCircleOutlined />
+              Thanh toán
+            </StyledStatus.Title>
+          }
+          extra={
+            payment &&
+            payment.status === 'pending' && (
+              <Space>
+                <Popconfirm
+                  title='Xác nhận thanh toán'
+                  description='Bạn chắc chắn muốn xác nhận đơn hàng này đã thanh toán?'
+                  okText='Xác nhận'
+                  cancelText='Hủy'
+                  onConfirm={() => confirmPayment(payment.id)}
+                >
+                  <Button variant='solid' color='green'>
+                    Xác nhận đã thanh toán
+                  </Button>
+                </Popconfirm>
+              </Space>
+            )
+          }
+        >
+          {(!payment || payment.status === 'pending') && (
+            <StyledSpace direction='vertical' size={8}>
+              <div style={{ fontWeight: 500 }}>Chọn phương thức thanh toán</div>
+              <Segmented
+                block
+                value={payment?.method || null}
+                onChange={(val) => handleChangeMethod(orderData.id, val)}
+                options={[
+                  {
+                    label: (
+                      <Space size={6}>
+                        <MoneyCollectOutlined />
+                        Tiền mặt
+                      </Space>
+                    ),
+                    value: 'cash',
+                  },
+                  {
+                    label: (
+                      <Space size={6}>
+                        <BankOutlined />
+                        Chuyển khoản
+                      </Space>
+                    ),
+                    value: 'banking',
+                  },
+                ]}
+              />
+              <Flex align='center' justify='space-between' vertical>
+                {payment && payment.method === 'banking' && (
+                  <Image
+                    src={payment.qrUrl}
+                    alt='qr'
+                    width={400}
+                    height={400}
+                    preview={false}
+                  />
+                )}
+              </Flex>
+            </StyledSpace>
+          )}
+
+          {payment && (
+            <StyledSpace direction='vertical'>
+              <Descriptions bordered size='small' column={screens?.md ? 2 : 1}>
+                <Descriptions.Item label='Phương thức'>
+                  {payment.method === 'cash' ? (
+                    <Space size={6}>
+                      <MoneyCollectOutlined />
+                      Tiền mặt
+                    </Space>
+                  ) : (
+                    <Space size={6}>
+                      <BankOutlined />
+                      Chuyển khoản
+                    </Space>
+                  )}
+                </Descriptions.Item>
+                <Descriptions.Item label='Số tiền'>
+                  <StyledText.Strong>
+                    {formatCurrency(payment.amount)}
+                  </StyledText.Strong>
+                </Descriptions.Item>
+                <Descriptions.Item label='Trạng thái' span={2}>
+                  <CustomTag
+                    style={{ marginTop: 0 }}
+                    color={
+                      getStatusConfig(payment.status, PAYMENT_STATUS_TAGS).color
+                    }
+                  >
+                    {getStatusConfig(payment.status, PAYMENT_STATUS_TAGS).label}
+                  </CustomTag>
+                </Descriptions.Item>
+                <Descriptions.Item label='Ngày tạo'>
+                  {payment.createdAt
+                    ? dayjs(payment.createdAt).format(DATE_FORMAT.DATE_TIME)
+                    : '-'}
+                </Descriptions.Item>
+                <Descriptions.Item label='Cập nhật'>
+                  {payment.updatedAt
+                    ? dayjs(payment.updatedAt).format(DATE_FORMAT.DATE_TIME)
+                    : '-'}
+                </Descriptions.Item>
+              </Descriptions>
+            </StyledSpace>
+          )}
+        </Card>
 
         {orderData.normalDishes?.length > 0 && (
           <>

@@ -19,7 +19,7 @@ const StyledModal = {
   `,
 
   TitleText: styled(Typography.Title)`
-    margin: 0 !important;
+    margin: 0;
   `,
 
   Content: styled(Flex)`

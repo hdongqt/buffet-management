@@ -82,7 +82,6 @@ const ORDER_SOFT_BY = [
 const ORDER_STATUS_UPDATE = [
   { value: 'confirmed', label: 'Xác Nhận', color: 'green' },
   { value: 'cancelled', label: 'Hủy', color: 'red' },
-  { value: 'paid', label: 'Đã Thanh Toán', color: 'blue' },
 ]
 
 const DISH_STATUS_TAGS = {
@@ -96,6 +95,16 @@ const DISH_STATUS_OPTIONS = [
   { value: 'pending', label: 'Chờ xử lý' },
   { value: 'completed', label: 'Đã hoàn tính' },
   { value: 'cancelled', label: 'Đã hủy' },
+]
+
+const PAYMENT_STATUS_TAGS = {
+  pending: { color: 'yellow', label: 'Đang chờ thanh toán' },
+  completed: { color: 'blue', label: 'Đã thanh toán' },
+}
+
+const PAYMENT_METHOD_OPTIONS = [
+  { value: 'banking', label: 'Chuyển khoản' },
+  { value: 'cash', label: 'Tiền mặt' },
 ]
 
 const NOTIFICATION_TYPE_OPTIONS = [
@@ -120,5 +129,7 @@ export {
   ORDER_STATUS_UPDATE,
   DISH_STATUS_TAGS,
   DISH_STATUS_OPTIONS,
+  PAYMENT_STATUS_TAGS,
+  PAYMENT_METHOD_OPTIONS,
   NOTIFICATION_TYPE_OPTIONS,
 }

@@ -17,7 +17,7 @@ const getStatusColor = (status) => {
   }
 }
 
-const columnTableReservation = ({ onEdit }) => [
+const columnTableReservation = ({ onEdit, actionLoading }) => [
   { title: 'Họ và tên', dataIndex: 'fullname', key: 'fullname' },
   { title: 'Số điện thoại', dataIndex: 'phone', key: 'phone' },
   {
@@ -58,6 +58,7 @@ const columnTableReservation = ({ onEdit }) => [
         <Tooltip title='Chỉnh sửa'>
           <CustomButton
             icon={<EditOutlined />}
+            loading={record.actionLoading}
             onClick={() => onEdit?.(record)}
           />
         </Tooltip>

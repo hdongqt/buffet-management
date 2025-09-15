@@ -72,24 +72,6 @@ const About = {
     }
   `,
 
-  Button: styled(Button)`
-    font-size: 20px;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 20px;
-    border-radius: 40px;
-    border: none;
-    background-color: #c00;
-    color: #fff;
-    transition: all 0.3s ease;
-
-    &:hover,
-    &:focus {
-      background: ${colors.mainPrimaryColor} !important;
-      transform: scale(1.05);
-    }
-  `,
-
   Image: styled.img`
     width: 100%;
     height: auto;
@@ -105,4 +87,3 @@ const About = {
 }
 
 export { AboutWrapper, About }
-
