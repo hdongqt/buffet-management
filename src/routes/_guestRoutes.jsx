@@ -18,7 +18,7 @@ const GuestCallStaff = React.lazy(() =>
 )
 
 const guestTableRoutes = {
-  path: USER_ROUTES.GUEST_TABLE,
+  path: GUEST_ORDER_ROUTES.GUEST_TABLE,
   element: (
     <Suspense fallback={<LazyLoading />}>
       <Outlet />

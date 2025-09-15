@@ -5,10 +5,11 @@ const USER_ROUTES = {
   RESERVATION: '/reservation',
   CONTACT: '/contact',
   NEWS: '/news',
-  GUEST_TABLE: '/table/:token',
+  INTRO_QR: '/intro-qr',
 }
 
 const GUEST_ORDER_ROUTES = {
+  GUEST_TABLE: '/table/:token',
   ROOT: '/guest-order',
   ORDER: '/guest-order/order',
   CALL_STAFF: '/guest-order/call-staff',

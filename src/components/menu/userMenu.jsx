@@ -17,6 +17,10 @@ const USER_MENU = [
     name: 'Đặt bàn',
     path: USER_ROUTES.RESERVATION,
   },
+  {
+    name: 'Đặt món QR',
+    path: USER_ROUTES.INTRO_QR,
+  },
 ]
 
 export { USER_MENU }

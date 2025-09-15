@@ -43,6 +43,10 @@ export default function Dashboard() {
     if (!socket) return
 
     socket.on(SOCKET_EVENT.NEW_NOTIFICATION, fetchNotifications)
+
+    return () => {
+      socket.off(SOCKET_EVENT.NEW_NOTIFICATION, fetchNotifications)
+    }
   }, [])
 
   return (
