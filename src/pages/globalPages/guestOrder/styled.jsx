@@ -75,8 +75,6 @@ const GuestOrderStyles = {
   `,
 
   OrderedItem: styled.div`
-    display: flex;
-    gap: 12px;
     padding: 16px;
     border: 1px solid #f0f0f0;
     border-radius: 8px;
@@ -95,6 +93,7 @@ const GuestOrderStyles = {
     border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
+    margin-right: 10px;
 
     .ant-image {
       width: 100%;
@@ -306,6 +305,13 @@ const GuestOrderStyles = {
     &.ant-typography {
       margin: 0 !important;
       color: #1890ff;
+    }
+  `,
+
+  SummaryExtraTitle: styled(Title)`
+    &.ant-typography {
+      margin-top: 24px;
+      margin-bottom: 16px;
     }
   `,
 }

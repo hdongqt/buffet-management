@@ -67,6 +67,8 @@ pnpm dev
 Tạo file .env
 
 VITE_API=<your-api-url>
+VITE_API_SOCKET = <your-api-socket>
+VITE_CLIENT_URL = <your-api-client>
 
 🔀 Git Workflow
 

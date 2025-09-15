@@ -20,8 +20,8 @@ const useLogIn = () => {
   const navigate = useNavigate()
 
   const initialValues = {
-    username: '',
-    password: '',
+    username: 'huudong',
+    password: '123456',
   }
 
   const onChangeFormItem = (name, event) => {

@@ -47,7 +47,7 @@ export default function Dashboard() {
     return () => {
       socket.off(SOCKET_EVENT.NEW_NOTIFICATION, fetchNotifications)
     }
-  }, [])
+  }, [socket])
 
   return (
     <DashboardStyle.Container>
