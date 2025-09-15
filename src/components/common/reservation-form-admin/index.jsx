@@ -70,8 +70,8 @@ export default function ReservationFormAdmin({
       okText={editingRecord ? 'Cập nhật' : 'Xác nhận'}
       okButtonProps={{
         disabled: dayjs(editingRecord?.reservedAt).isBefore(dayjs()),
-        loading: loading,
       }}
+      confirmLoading={loading}
     >
       <Form layout='vertical' onFinish={formik.handleSubmit}>
         <FormItemControl label='Họ và tên' name='fullname' formik={formik}>
