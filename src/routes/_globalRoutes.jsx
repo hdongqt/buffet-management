@@ -11,6 +11,8 @@ const ReservationPage = React.lazy(() =>
   import('@/pages/globalPages/reservationPage')
 )
 
+const IntroQR = React.lazy(() => import('@/pages/globalPages/introQR'))
+
 const globalRoutes = {
   path: '/',
   element: (
@@ -36,6 +38,10 @@ const globalRoutes = {
       path: USER_ROUTES.RESERVATION,
       element: <ReservationPage />,
     },
+    {
+      path: USER_ROUTES.INTRO_QR,
+      element: <IntroQR />,
+    },
   ],
 }
 
@@ -46,4 +52,3 @@ const forbiddenRoutes = {
 
 export { forbiddenRoutes }
 export default globalRoutes
-
