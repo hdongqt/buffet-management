@@ -6,8 +6,6 @@ import {
   callStaffRequest,
   getOrderDetailRequest,
   setCart,
-  setComboDish,
-  setExtraDishes,
 } from '@/sagas/guestOrder/guestOrderSlice'
 
 import useDebounceCallback from './useDebounceCallback'
@@ -45,6 +43,10 @@ const useGuestOrder = () => {
     dispatch(setCart(newCart))
   }
 
+  const getOrderDetail = async () => {
+    await dispatch(getOrderDetailRequest({ id: order?.id }))
+  }
+
   const handleSubmitOrder = async () => {
     const dishes = cart.map((item) => ({
       dishId: item.id,
@@ -57,7 +59,7 @@ const useGuestOrder = () => {
         dishes,
         callback: async () => {
           await dispatch(setCart([]))
-          await dispatch(getOrderDetailRequest({ id: order?.id }))
+          await getOrderDetail()
         },
       })
     )
@@ -72,20 +74,6 @@ const useGuestOrder = () => {
   const totalAmount = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0)
   }, [cart])
-
-  const handleUpdateStatusDish = ({ snapshot, newPrice }) => {
-    const { id, isCombo, status } = snapshot
-    if (isCombo) {
-      dispatch(
-        setComboDish({ newComboDish: { ...comboDish, status }, newPrice })
-      )
-    } else {
-      const newExtraDishes = extraDishes.map((item) =>
-        item.id === id ? { ...item, status } : item
-      )
-      dispatch(setExtraDishes({ newExtraDishes, newPrice }))
-    }
-  }
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -125,9 +113,9 @@ const useGuestOrder = () => {
     handleSubmitOrder,
     handleRequestPayment,
     totalAmount,
-    handleUpdateStatusDish,
     getStatusColor,
     getStatusText,
+    getOrderDetail,
   }
 }
 

@@ -1,4 +1,4 @@
-import { Spin } from 'antd'
+import { Spin, Flex, Empty } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 
 import DishItem from './dishItem'
@@ -43,10 +43,17 @@ const ExtraMenu = () => {
         </ExtraMenuStyles.CategoryWrapper>
       </ExtraMenuStyles.Controls>
 
-      <MenuGrid>
-        {dishesHandler &&
-          dishesHandler.map((dish) => <DishItem dish={dish} key={dish.id} />)}
-      </MenuGrid>
+      {dishesHandler?.length ? (
+        <MenuGrid>
+          {dishesHandler.map((dish) => (
+            <DishItem dish={dish} key={dish.id} />
+          ))}
+        </MenuGrid>
+      ) : (
+        <Flex align='center' justify='center'>
+          <Empty description='Hiện tại hết món cho loại này' />
+        </Flex>
+      )}
     </Spin>
   )
 }

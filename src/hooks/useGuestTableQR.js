@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -13,6 +13,7 @@ import {
   guestCreateOrderRequest,
 } from '@/sagas/guestOrder/guestOrderSlice'
 import { fetchComboDishesRequest } from '@/sagas/guestDish/guestDishSlice'
+import { showMessage } from '@/sagas/appMessage/appMessageSlice'
 
 const useGuestTableQR = () => {
   const [isAlowShowForm, setIsAlowShowForm] = useState(false)
@@ -84,6 +85,19 @@ const useGuestTableQR = () => {
     formik.setFieldValue(name, value)
   }
 
+  const handleConfirmed = useCallback(
+    (data) => {
+      if (data.status === 'confirmed') {
+        navigate(GUEST_ORDER_ROUTES.ROOT)
+      } else {
+        dispatch(showMessage.error('Vui lòng gọi nhân viên để được hỗ trợ'))
+        setIsAlowShowForm(true)
+        setIsWaitAccept(false)
+      }
+    },
+    [dispatch, navigate]
+  )
+
   return {
     dispatch,
     token,
@@ -100,6 +114,7 @@ const useGuestTableQR = () => {
     navigate,
     setIsWaitAccept,
     handleChangeFormData,
+    handleConfirmed,
   }
 }
 

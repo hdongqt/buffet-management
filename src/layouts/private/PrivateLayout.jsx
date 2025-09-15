@@ -24,15 +24,6 @@ function PrivateLayout() {
   const LIST_TITLE = user?.role === ROLES.ADMIN ? ADMIN_MENU : MANAGER_MENU
   const currentPath = LIST_TITLE.find((item) => item.key === pathname)
 
-  const openNotification = ({ title, message }) => {
-    api.info({
-      message: title,
-      description:
-        message?.length > 100 ? message.slice(0, 100) + '...' : message,
-      placement: 'bottomRight',
-    })
-  }
-
   useEffect(() => {
     if (!socket) return
 
@@ -40,12 +31,20 @@ function PrivateLayout() {
       socket.emit(SOCKET_EVENT.JOIN_MANAGER)
     })
 
-    socket.on(SOCKET_EVENT.NEW_NOTIFICATION, (notification) => {
-      openNotification(notification)
-    })
+    const openNotification = ({ title, message }) => {
+      api.info({
+        message: title,
+        description:
+          message?.length > 100 ? message.slice(0, 100) + '...' : message,
+        placement: 'bottomRight',
+      })
+    }
+
+    socket.on(SOCKET_EVENT.NEW_NOTIFICATION, openNotification)
 
     return () => {
       socket.off('connect')
+      socket.off(SOCKET_EVENT.NEW_NOTIFICATION, openNotification)
     }
   }, [socket])
 

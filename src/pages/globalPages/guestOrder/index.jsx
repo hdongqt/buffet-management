@@ -9,6 +9,7 @@ import {
 
 import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
 import { SOCKET_EVENT } from '@/constants/status'
+import DATE_FORMAT from '@/constants/dateTimeFormat'
 
 import { useSocket } from '@/contexts/socket'
 import useGuestOrder from '@/hooks/useGuestOrder'
@@ -17,6 +18,7 @@ import { formatCurrency } from '@/utils/format'
 
 import { GuestOrderStyles } from './styled'
 import { CustomButton } from '@/components/common/ui'
+import dayjs from 'dayjs'
 
 const { Title } = Typography
 
@@ -35,18 +37,16 @@ const OrdersPage = () => {
     handleSubmitOrder,
     handleRequestPayment,
     totalAmount,
-    handleUpdateStatusDish,
     getStatusColor,
     getStatusText,
+    getOrderDetail,
   } = useGuestOrder()
 
-  useEffect(() => {
-    if (!order?.id || !socket) return
+  // useEffect(() => {
+  //   if (!order?.id || !socket) return
 
-    socket.on('connect', () => {
-      socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
-    })
-  }, [order?.id, socket])
+  //   socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
+  // }, [order?.id, socket])
 
   const totalCartItem = cart.reduce((total, item) => total + item.quantity, 0)
 
@@ -54,17 +54,16 @@ const OrdersPage = () => {
   useEffect(() => {
     if (!socket) return
 
-    socket.on(
-      SOCKET_EVENT.DISH_STATUS_UPDATED,
-      ({ snapshot, isNewPrice, newPrice }) => {
-        if (snapshot) {
-          handleUpdateStatusDish({ snapshot, isNewPrice, newPrice })
-        }
+    const handleConfirmDishOrder = ({ snapshot }) => {
+      if (snapshot) {
+        getOrderDetail()
       }
-    )
+    }
+
+    socket.on(SOCKET_EVENT.DISH_STATUS_UPDATED, handleConfirmDishOrder)
 
     return () => {
-      socket.off(SOCKET_EVENT.DISH_STATUS_UPDATED)
+      socket.off(SOCKET_EVENT.DISH_STATUS_UPDATED, handleConfirmDishOrder)
     }
   }, [socket])
 
@@ -200,15 +199,11 @@ const OrdersPage = () => {
                         </GuestOrderStyles.ComboHeader>
 
                         <GuestOrderStyles.ItemStatus>
-                          <GuestOrderStyles.StatusBadge
-                            color={getStatusColor(comboDish.status)}
-                          >
-                            {getStatusText(comboDish.status)}
-                          </GuestOrderStyles.StatusBadge>
                           <GuestOrderStyles.OrderTime>
-                            {new Date(order.combo.createdAt).toLocaleString(
-                              'vi-VN'
-                            )}
+                            {order.combo.createdAt &&
+                              dayjs(order.combo.createdAt).format(
+                                DATE_FORMAT.DATE_TIME
+                              )}
                           </GuestOrderStyles.OrderTime>
                         </GuestOrderStyles.ItemStatus>
                       </GuestOrderStyles.ComboHeaderContainer>
@@ -247,46 +242,51 @@ const OrdersPage = () => {
               {/* Extra Items Section */}
               {extraDishes?.length > 0 && (
                 <>
-                  <Title level={4} style={{ marginTop: 24, marginBottom: 16 }}>
+                  <GuestOrderStyles.SummaryExtraTitle level={4}>
                     Món gọi thêm
-                  </Title>
+                  </GuestOrderStyles.SummaryExtraTitle>
                   <GuestOrderStyles.OrderedItems>
                     {extraDishes.map((item) => (
                       <GuestOrderStyles.OrderedItem key={item.id}>
-                        <GuestOrderStyles.ItemImage>
-                          <Image
-                            src={item.imageUrl || FALLBACK_IMAGES.noImage}
-                            alt={item.name}
-                            preview={false}
-                          />
-                        </GuestOrderStyles.ItemImage>
+                        <Flex justify='space-between' align='center'>
+                          <GuestOrderStyles.ItemImage>
+                            <Image
+                              src={item.imageUrl || FALLBACK_IMAGES.noImage}
+                              alt={item.name}
+                              preview={false}
+                            />
+                          </GuestOrderStyles.ItemImage>
 
-                        <GuestOrderStyles.ItemInfo>
-                          <GuestOrderStyles.ItemName>
-                            {item.name}
-                          </GuestOrderStyles.ItemName>
-                          {item.category && (
-                            <GuestOrderStyles.ItemCategory>
-                              {item.category.name}
-                            </GuestOrderStyles.ItemCategory>
-                          )}
-                          <GuestOrderStyles.ItemPrice>
-                            {formatCurrency(item.price)}
-                          </GuestOrderStyles.ItemPrice>
-                          <GuestOrderStyles.ItemQuantity>
-                            x{item.quantity}
-                          </GuestOrderStyles.ItemQuantity>
-                        </GuestOrderStyles.ItemInfo>
+                          <GuestOrderStyles.ItemInfo>
+                            <GuestOrderStyles.ItemName>
+                              {item.name}
+                            </GuestOrderStyles.ItemName>
+                            {item.category && (
+                              <GuestOrderStyles.ItemCategory>
+                                {item.category.name}
+                              </GuestOrderStyles.ItemCategory>
+                            )}
+                            <GuestOrderStyles.ItemPrice>
+                              {formatCurrency(item.price)}
+                            </GuestOrderStyles.ItemPrice>
+                            <GuestOrderStyles.ItemQuantity>
+                              x{item.quantity}
+                            </GuestOrderStyles.ItemQuantity>
+                          </GuestOrderStyles.ItemInfo>
+                        </Flex>
 
                         <GuestOrderStyles.ItemStatus>
+                          <GuestOrderStyles.OrderTime>
+                            {item?.createdAt &&
+                              dayjs(item.createdAt).format(
+                                DATE_FORMAT.DATE_TIME
+                              )}
+                          </GuestOrderStyles.OrderTime>
                           <GuestOrderStyles.StatusBadge
                             color={getStatusColor(item.status)}
                           >
                             {getStatusText(item.status)}
                           </GuestOrderStyles.StatusBadge>
-                          <GuestOrderStyles.OrderTime>
-                            {new Date(item.createdAt).toLocaleString('vi-VN')}
-                          </GuestOrderStyles.OrderTime>
                         </GuestOrderStyles.ItemStatus>
                       </GuestOrderStyles.OrderedItem>
                     ))}

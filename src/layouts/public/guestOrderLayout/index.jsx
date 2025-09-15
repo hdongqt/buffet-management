@@ -1,32 +1,45 @@
-import { Layout, Badge } from 'antd'
+import { Layout } from 'antd'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { BellOutlined } from '@ant-design/icons'
 
 import logo from '@/assets/images/main/logo.png'
 
 import { GuestOrderLayoutWrapper } from './styled'
 import { GUEST_ORDER_MENU } from '@/components/menu/guestOrderMenu'
+import { useSocket } from '@/contexts/socket'
+import { useEffect } from 'react'
+import { SOCKET_EVENT } from '@/constants/status'
+import { useSelector } from 'react-redux'
 
 const { Header, Content, Footer } = Layout
 
 const GuestOrderLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { order } = useSelector((state) => state.guestOrder)
+
+  const socket = useSocket()
 
   const handleMenuClick = (e) => {
     navigate(e.key)
   }
+
+  useEffect(() => {
+    if (!order?.id || !socket) return
+
+    socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
+
+    const handleRedirect = () => {
+      navigate('/')
+    }
+
+    socket.on(SOCKET_EVENT.ORDER_PAID, handleRedirect)
+  }, [order, socket])
 
   return (
     <GuestOrderLayoutWrapper.Layout>
       <Header>
         <GuestOrderLayoutWrapper.HeaderContent>
           <GuestOrderLayoutWrapper.Logo src={logo} alt='Sakura Buffet' />
-          <GuestOrderLayoutWrapper.HeaderRight>
-            <Badge dot>
-              <BellOutlined className='bell-icon' />
-            </Badge>
-          </GuestOrderLayoutWrapper.HeaderRight>
         </GuestOrderLayoutWrapper.HeaderContent>
       </Header>
 

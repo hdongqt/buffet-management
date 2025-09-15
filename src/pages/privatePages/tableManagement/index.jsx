@@ -70,7 +70,7 @@ export default function TableManagement() {
       title: 'QR Bàn',
       render: (_, record) => (
         <TableStyle.ImageQR
-          src={record.qrURL}
+          src={`${record?.qrURL}?t=${record?.updatedAt}`}
           alt={`QR Bàn ${record?.tableNumber}`}
         />
       ),

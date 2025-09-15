@@ -182,15 +182,15 @@ const ExtraMenuStyles = {
     background: #fff;
 
     &.ant-tag:hover {
-      border-color: #fc1010;
-      color: #fc1010;
-      background: #fff;
+      border-color: var(--ant-main-primary-color);
+      color: #fff;
+      background: var(--ant-main-primary-color);
     }
 
     &.ant-tag-checkable-checked {
-      background: var(--ant-main-primary-color);
-      color: #fff;
       border-color: var(--ant-main-primary-color);
+      color: #fff;
+      background: var(--ant-main-primary-color);
     }
   `,
 }

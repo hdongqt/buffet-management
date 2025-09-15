@@ -1,9 +1,8 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { Form, Select, Spin, Grid, Flex } from 'antd'
 
 import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
 import { GUEST_ORDER_ROUTES } from '@/constants/listRoutes'
-import { showMessage } from '@/sagas/appMessage/appMessageSlice'
 
 import { FormItemControl } from '@/components/common'
 import { CommonUI } from '@/components/common'
@@ -18,17 +17,15 @@ import { getWidthCard } from '@/utils/getWidthCard'
 import { formatCurrency } from '@/utils/format'
 
 import { TableQR } from './styled'
+import { CustomInputNumber } from '@/components/common/ui'
 
 const { CustomButton, CustomInput, CustomSelect } = CommonUI
 const { useBreakpoint } = Grid
 
 const GuestTableQRPage = function () {
   const {
-    dispatch,
     token,
     isAlowShowForm,
-    setIsAlowShowForm,
-    setIsWaitAccept,
     formik,
     loading,
     error,
@@ -37,8 +34,8 @@ const GuestTableQRPage = function () {
     isWaitAccept,
     comboList,
     checkExistingOrder,
-    navigate,
     handleChangeFormData,
+    handleConfirmed,
   } = useGuestTableQR()
 
   const socket = useSocket()
@@ -46,18 +43,6 @@ const GuestTableQRPage = function () {
   const screens = useBreakpoint()
   const widthCard = getWidthCard(screens)
 
-  const handleConfirmed = useCallback(
-    (data) => {
-      if (data.status === 'confirmed') {
-        navigate(GUEST_ORDER_ROUTES.ROOT)
-      } else {
-        dispatch(showMessage.error('Vui lòng gọi nhân viên để được hỗ trợ'))
-        setIsAlowShowForm(true)
-        setIsWaitAccept(false)
-      }
-    },
-    [dispatch, navigate]
-  )
   useEffect(() => {
     checkExistingOrder()
   }, [token])
@@ -65,21 +50,14 @@ const GuestTableQRPage = function () {
   useEffect(() => {
     if (!order?.id || !socket) return
 
-    socket.on('connect', () => {
-      socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
-    })
-  }, [order?.id, socket])
-
-  // Listen ORDER_CONFIRMED
-  useEffect(() => {
-    if (!socket) return
+    socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
 
     socket.on(SOCKET_EVENT.ORDER_STATUS_UPDATED, handleConfirmed)
 
     return () => {
       socket.off(SOCKET_EVENT.ORDER_STATUS_UPDATED, handleConfirmed)
     }
-  }, [socket, handleConfirmed])
+  }, [handleConfirmed, order, socket])
 
   if (isWaitAccept) {
     return (
@@ -124,7 +102,6 @@ const GuestTableQRPage = function () {
               </TableQR.LogoWrapper>
               <Form
                 layout='vertical'
-                name='numPeople'
                 onFinish={formik.handleSubmit}
                 style={{ width: '100%' }}
               >
@@ -133,12 +110,11 @@ const GuestTableQRPage = function () {
                   name='numPeople'
                   formik={formik}
                 >
-                  <CustomInput
-                    type='number'
+                  <CustomInputNumber
                     name='numPeople'
                     value={formik.values.numPeople}
                     onChange={(event) =>
-                      handleChangeFormData('numPeople', event.target.value)
+                      handleChangeFormData('numPeople', event)
                     }
                     min={1}
                     max={30}
