@@ -100,26 +100,60 @@ const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   font-weight: 500;
   font-size: 18px;
-  transition: color 0.3s;
   padding: 8px 17px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ant-white);
-  transition: 0.2s linear;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+
+  /* Light shimmer effect */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
 
   &:hover {
     color: var(--ant-white);
     background-color: var(--ant-main-primary-color);
+
+    &::after {
+      left: 100%;
+    }
   }
+
   &.active {
-    background-color: var(--ant-main-primary-color);
+    color: var(--ant-white);
+    background: var(--ant-main-primary-color);
   }
 
   @media screen and (max-width: ${breakpoints.md}) {
     color: #333;
     padding: 10px 0px;
     font-size: 16px;
+    border-radius: 0;
+
+    &::before {
+      background: var(--ant-main-primary-color);
+    }
+
     &.active {
       color: var(--ant-white);
     }

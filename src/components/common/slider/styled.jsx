@@ -8,6 +8,13 @@ const Slider = {
   Wrapper: styled.div`
     position: relative;
     z-index: 1;
+
+    .slick-slide img {
+      width: 100%;
+      min-height: 1000px;
+      object-fit: cover;
+      height: auto;
+    }
   `,
 
   CenterContent: styled.div`

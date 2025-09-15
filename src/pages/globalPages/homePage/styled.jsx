@@ -37,6 +37,7 @@ const Menu = {
 
   Banner: styled.img`
     object-fit: cover;
+    width: 100%;
 
     @media (max-width: ${breakpoints.md}) {
       max-height: 400px;
