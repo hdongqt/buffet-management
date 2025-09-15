@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
-import { Form, Col, Flex, Row, Popconfirm } from 'antd'
+import { Form, Col, Flex, Row, Popconfirm, Tooltip } from 'antd'
 import {
   DeleteOutlined,
   EditOutlined,
@@ -12,24 +12,29 @@ import DATE_FORMAT from '@/constants/dateTimeFormat'
 
 import { FormItemControl, TableCustom } from '@/components/common'
 import { CustomButton, CustomInput, CustomModal } from '@/components/common/ui'
+
 import useCategoriesManagement from '@/hooks/useCategories'
 
 export default function CategoriesManagement() {
   const ActionButtons = ({ record }) => (
     <Flex gap={8}>
-      <CustomButton
-        icon={<EditOutlined />}
-        onClick={() => handleEditCategory(record)}
-      />
-      <Popconfirm
-        title='Xóa danh mục'
-        description='Bạn có chắc chắn muốn xóa danh mục này?'
-        onConfirm={() => deleteCategory(record.id)}
-        okText='Xóa'
-        cancelText='Hủy'
-      >
-        <CustomButton danger icon={<DeleteOutlined />} />
-      </Popconfirm>
+      <Tooltip title='Chỉnh sửa '>
+        <CustomButton
+          icon={<EditOutlined />}
+          onClick={() => handleEditCategory(record)}
+        />
+      </Tooltip>
+      <Tooltip title='Xóa'>
+        <Popconfirm
+          title='Xóa danh mục'
+          description='Bạn có chắc chắn muốn xóa danh mục này?'
+          onConfirm={() => deleteCategory(record.id)}
+          okText='Xóa'
+          cancelText='Hủy'
+        >
+          <CustomButton danger icon={<DeleteOutlined />} />
+        </Popconfirm>
+      </Tooltip>
     </Flex>
   )
 
@@ -62,6 +67,9 @@ export default function CategoriesManagement() {
     categoriesList,
     fetchCategories,
     pagination,
+    loading,
+    editingRecord,
+    actionLoading,
     handlePaginationChange,
     onSearchChange,
     formikSearch,
@@ -69,7 +77,7 @@ export default function CategoriesManagement() {
     handleSubmit,
     showModal,
     isModalOpen,
-    setIsModalOpen,
+    onCloseModal,
     handleEditCategory,
     deleteCategory,
   } = useCategoriesManagement()
@@ -119,15 +127,17 @@ export default function CategoriesManagement() {
         columns={columnCategoriesTable}
         dataSource={categoriesList}
         pagination={pagination}
+        loading={loading}
         onPaginationChange={handlePaginationChange}
         locale={{ emptyText: 'Không có dữ liệu' }}
       />
 
       <CustomModal
-        title={'Sửa danh mục'}
+        title={editingRecord ? 'Chỉnh sửa danh mục' : 'Thêm danh mục'}
         open={isModalOpen}
         onOk={() => formik.submitForm()}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={onCloseModal}
+        confirmLoading={actionLoading}
         okText='Xác nhận'
       >
         <Form layout='vertical' onFinish={handleSubmit}>

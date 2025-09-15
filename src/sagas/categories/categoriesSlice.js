@@ -5,6 +5,7 @@ const initialState = {
   categories: {},
   categoriesList: [],
   loading: false,
+  actionLoading: false,
   error: null,
   pagination: DEFAULT_PAGINATION,
   filters: {
@@ -20,6 +21,7 @@ const categoriesSlice = createSlice({
   reducers: {
     fetchCategoriesRequest: (state) => {
       state.loading = true
+      state.actionLoading = false
     },
     fetchCategoriesSuccess: (state, action) => {
       const { categoriesList, pagination } = action.payload
@@ -34,38 +36,38 @@ const categoriesSlice = createSlice({
     },
 
     createCategoriesRequest: (state) => {
-      state.loading = true
+      state.actionLoading = true
     },
     createCategoriesSuccess: (state) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = null
     },
     createCategoriesFailure: (state, action) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = action.payload
     },
 
     updateCategoriesRequest: (state) => {
-      state.loading = true
+      state.actionLoading = true
     },
     updateCategoriesSuccess: (state) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = null
     },
     updateCategoriesFailure: (state, action) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = action.payload
     },
 
     deleteCategoriesRequest: (state) => {
-      state.loading = true
+      state.actionLoading = true
     },
     deleteCategoriesSuccess: (state) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = null
     },
     deleteCategoriesFailure: (state, action) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = action.payload
     },
   },
