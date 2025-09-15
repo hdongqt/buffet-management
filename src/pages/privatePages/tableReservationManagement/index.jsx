@@ -124,7 +124,7 @@ export default function TableReservationManagement() {
         open={isModalOpen}
         onCancel={onCloseModal}
         setIsModalOpen={setIsModalOpen}
-        loading={loading}
+        loading={actionLoading}
         editingRecord={editingRecord}
         availableTables={availableTables}
       />
@@ -132,7 +132,6 @@ export default function TableReservationManagement() {
       <TableCustom
         columns={columnTableReservation({
           onEdit: handleEdit,
-          actionLoading,
         })}
         dataSource={reservationList}
         loading={loading}

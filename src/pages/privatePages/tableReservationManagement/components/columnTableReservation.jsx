@@ -58,7 +58,6 @@ const columnTableReservation = ({ onEdit }) => [
         <Tooltip title='Chỉnh sửa'>
           <CustomButton
             icon={<EditOutlined />}
-            loading={record.actionLoading}
             onClick={() => onEdit?.(record)}
           />
         </Tooltip>

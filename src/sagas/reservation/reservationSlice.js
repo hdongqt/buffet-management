@@ -9,6 +9,8 @@ const reservationSlice = createSlice({
     reservationList: [],
     availableTables: [],
     loading: false,
+    actionLoading: false,
+    tableAvailableLoading: false,
     error: null,
     success: false,
     pagination: DEFAULT_PAGINATION,
@@ -23,17 +25,17 @@ const reservationSlice = createSlice({
   reducers: {
     // ==== CREATE ====
     reservationRequest: (state) => {
-      state.loading = true
+      state.actionLoading = true
       state.error = null
       state.success = false
     },
     reservationSuccess: (state, action) => {
-      state.loading = false
+      state.actionLoading = false
       state.reservation = action.payload
       state.success = true
     },
     reservationFailure: (state, action) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = action.payload
       state.success = false
     },
@@ -60,30 +62,30 @@ const reservationSlice = createSlice({
 
     // ==== UPDATE ====
     updateReservationRequest: (state) => {
-      state.loading = true
+      state.actionLoading = true
       state.error = null
     },
     updateReservationSuccess: (state) => {
-      state.loading = false
+      state.actionLoading = false
     },
     updateReservationFailure: (state, action) => {
-      state.loading = false
+      state.actionLoading = false
       state.error = action.payload
     },
 
     // ==== GET TABLE AVAILABLE ====
     getTableAvailableRequest: (state) => {
-      state.loading = true
+      state.tableAvailableLoading = true
       state.error = null
       state.success = false
     },
     getTableAvailableSuccess: (state, action) => {
-      state.loading = false
+      state.tableAvailableLoading = false
       state.success = true
       state.availableTables = action.payload || []
     },
     getTableAvailableFailure: (state, action) => {
-      state.loading = false
+      state.tableAvailableLoading = false
       state.error = action.payload
       state.success = false
     },

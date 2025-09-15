@@ -21,7 +21,7 @@ export const useReservationFormAdminAction = (
   setIsModalOpen
 ) => {
   const dispatch = useDispatch()
-  const { loading, success, filters } = useSelector(
+  const { loading, success, filters, actionLoading } = useSelector(
     (state) => state.reservation
   )
 
@@ -194,6 +194,7 @@ export const useReservationFormAdminAction = (
     formik,
     onChangeFormItem,
     loading,
+    actionLoading,
     success,
     disabledDate,
     handleDateChange,
