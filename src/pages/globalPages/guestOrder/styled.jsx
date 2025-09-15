@@ -182,9 +182,10 @@ const GuestOrderStyles = {
 
   ItemStatus: styled.div`
     display: flex;
-    flex-direction: column;
+    margin-top: 8px;
     gap: 8px;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: space-between;
     min-width: 120px;
   `,
 
@@ -218,13 +219,15 @@ const GuestOrderStyles = {
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   `,
+  ComboHeaderContainer: styled.div`
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 16px;
+  `,
 
   ComboHeader: styled.div`
     display: flex;
     gap: 12px;
-    padding: 16px;
-    background: #fafafa;
-    border-bottom: 1px solid #f0f0f0;
   `,
 
   ComboDishes: styled.div`

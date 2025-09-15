@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { Form, Select, Spin, Grid, Flex } from 'antd'
 
-import logo from '@/assets/images/main/logo.png'
 import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
 import { GUEST_ORDER_ROUTES } from '@/constants/listRoutes'
 import { showMessage } from '@/sagas/appMessage/appMessageSlice'
@@ -10,6 +9,7 @@ import { FormItemControl } from '@/components/common'
 import { CommonUI } from '@/components/common'
 
 import { SOCKET_EVENT } from '@/constants/status'
+import { MAIN_IMAGES } from '@/constants/images/mainUserImage'
 
 import { useSocket } from '@/contexts/socket'
 import useGuestTableQR from '@/hooks/useGuestTableQR'
@@ -86,7 +86,7 @@ const GuestTableQRPage = function () {
       <TableQR.Background>
         <TableQR.Overlay>
           <TableQR.Title level={1}>Chào mừng bạn đến với</TableQR.Title>
-          <TableQR.Logo src={logo} alt='Sakura Buffet' />
+          <TableQR.Logo src={MAIN_IMAGES.logoImage} alt='Sakura Buffet' />
           <TableQR.Text>Chúc quý khách ngon miệng!</TableQR.Text>
           <Spin size='large' />
           <TableQR.WaitingText>
@@ -103,7 +103,7 @@ const GuestTableQRPage = function () {
         {!isAlowShowForm && (
           <TableQR.Overlay>
             <TableQR.Title level={1}>Chào mừng bạn đến với</TableQR.Title>
-            <TableQR.Logo src={logo} alt='Sakura Buffet' />
+            <TableQR.Logo src={MAIN_IMAGES.logoImage} alt='Sakura Buffet' />
             <TableQR.Text>Chúc quý khách ngon miệng!</TableQR.Text>
             {loading && <Spin size='large' />}
             {error && (
@@ -117,7 +117,10 @@ const GuestTableQRPage = function () {
           <>
             <TableQR.Card $width={widthCard}>
               <TableQR.LogoWrapper>
-                <TableQR.Logo src={logo} alt='Sakura Buffet' />
+                <TableQR.Logo
+                  src={MAIN_IMAGES.logoBlackImage}
+                  alt='Sakura Buffet'
+                />
               </TableQR.LogoWrapper>
               <Form
                 layout='vertical'
@@ -170,9 +173,14 @@ const GuestTableQRPage = function () {
                               alt={dish.name}
                               style={{}}
                             />
-                            <span>
-                              {dish.name} - {dish.price}₫
-                            </span>
+                            <TableQR.OptionContainer>
+                              <TableQR.OptionTitle>
+                                {dish.name} - {dish.price}₫
+                              </TableQR.OptionTitle>
+                              <TableQR.OptionDescription>
+                                {dish.description}
+                              </TableQR.OptionDescription>
+                            </TableQR.OptionContainer>
                           </Flex>
                         </Select.Option>
                       ))}
