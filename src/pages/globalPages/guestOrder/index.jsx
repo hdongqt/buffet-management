@@ -174,28 +174,30 @@ const OrdersPage = () => {
                   </Title>
                   <GuestOrderStyles.OrderedItems>
                     <GuestOrderStyles.ComboItem key={order.combo.id}>
-                      <GuestOrderStyles.ComboHeader>
-                        <GuestOrderStyles.ItemImage>
-                          <Image
-                            src={
-                              order.combo.imageUrl || FALLBACK_IMAGES.noImage
-                            }
-                            alt={order.combo.name}
-                            preview={false}
-                          />
-                        </GuestOrderStyles.ItemImage>
+                      <GuestOrderStyles.ComboHeaderContainer>
+                        <GuestOrderStyles.ComboHeader>
+                          <GuestOrderStyles.ItemImage>
+                            <Image
+                              src={
+                                order.combo.imageUrl || FALLBACK_IMAGES.noImage
+                              }
+                              alt={order.combo.name}
+                              preview={false}
+                            />
+                          </GuestOrderStyles.ItemImage>
 
-                        <GuestOrderStyles.ItemInfo>
-                          <GuestOrderStyles.ItemName>
-                            {order.combo.name}
-                          </GuestOrderStyles.ItemName>
-                          <GuestOrderStyles.ItemPrice>
-                            {formatCurrency(order.combo.price)}
-                          </GuestOrderStyles.ItemPrice>
-                          <GuestOrderStyles.ItemQuantity>
-                            x{order.numPeople} người
-                          </GuestOrderStyles.ItemQuantity>
-                        </GuestOrderStyles.ItemInfo>
+                          <GuestOrderStyles.ItemInfo>
+                            <GuestOrderStyles.ItemName>
+                              {order.combo.name}
+                            </GuestOrderStyles.ItemName>
+                            <GuestOrderStyles.ItemPrice>
+                              {formatCurrency(order.combo.price)}
+                            </GuestOrderStyles.ItemPrice>
+                            <GuestOrderStyles.ItemQuantity>
+                              x{order.numPeople} người
+                            </GuestOrderStyles.ItemQuantity>
+                          </GuestOrderStyles.ItemInfo>
+                        </GuestOrderStyles.ComboHeader>
 
                         <GuestOrderStyles.ItemStatus>
                           <GuestOrderStyles.StatusBadge
@@ -209,7 +211,7 @@ const OrdersPage = () => {
                             )}
                           </GuestOrderStyles.OrderTime>
                         </GuestOrderStyles.ItemStatus>
-                      </GuestOrderStyles.ComboHeader>
+                      </GuestOrderStyles.ComboHeaderContainer>
 
                       <GuestOrderStyles.ComboDishes>
                         <GuestOrderStyles.ComboDishesTitle>

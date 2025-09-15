@@ -12,12 +12,13 @@ const GuestOrderLayoutWrapper = {
       top: 0;
       width: 100%;
       z-index: 1000;
+      padding: 0px 8px;
     }
 
     .ant-layout-content {
       margin-top: 64px;
       margin-bottom: 64px;
-      padding: 16px;
+      /* padding: 16px; */
       background: #f5f5f5;
     }
 

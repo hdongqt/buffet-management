@@ -92,10 +92,12 @@ const MenuManagement = () => {
       render: (value) => formatCurrency(value),
     },
     {
-      title: 'Combo',
+      title: 'Loại',
       dataIndex: 'isCombo',
       render: (value) => (
-        <Tag color={value ? 'blue' : 'default'}>{value ? 'Yes' : 'No'}</Tag>
+        <Tag color={value ? 'blue' : 'default'}>
+          {value ? 'Combo' : 'Món lẻ'}
+        </Tag>
       ),
     },
     {

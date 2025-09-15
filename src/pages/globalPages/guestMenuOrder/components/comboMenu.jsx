@@ -27,7 +27,11 @@ const ComboMenu = () => {
       <MenuGrid>
         {dishComboHandler &&
           dishComboHandler.map((dish) => (
-            <DishItem dish={dish} key={'ds' + dish.id} isDishOfCombo={true} />
+            <DishItem
+              dish={dish}
+              key={`dishCombo${dish.id}`}
+              isDishOfCombo={true}
+            />
           ))}
       </MenuGrid>
     </Spin>

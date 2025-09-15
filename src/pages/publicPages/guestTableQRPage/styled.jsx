@@ -37,7 +37,6 @@ const TableQR = {
 
   LogoWrapper: styled.div`
     width: 100%;
-    filter: drop-shadow(1px 0 11px rgba(0, 2, 0, 1.808));
   `,
 
   Logo: styled.img`
@@ -106,10 +105,34 @@ const TableQR = {
   `,
 
   ImageSelect: styled.img`
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border-radius: 4;
+  `,
+
+  OptionContainer: styled.div`
+    margin-top: 16px;
+  `,
+
+  OptionTitle: styled(Title)`
+    &.ant-typography {
+      font-size: 16px;
+      margin: 0;
+    }
+  `,
+  OptionDescription: styled(Text)`
+    &.ant-typography {
+      font-size: 14px;
+      color: #555;
+      margin: 0;
+      white-space: wrap;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   `,
 }
 

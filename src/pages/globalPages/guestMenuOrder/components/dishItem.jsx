@@ -64,7 +64,11 @@ const DishItem = ({ dish, isDishOfCombo }) => {
               {formatCurrency(dish.price)}
             </DishItemStyles.ItemPrice>
           )}
-          <Flex gap={10} align='center'>
+          <DishItemStyles.AddCartContainer
+            $hasQuantity={dish?.quantity > 0}
+            gap={10}
+            align='center'
+          >
             {dish?.quantity > 0 && (
               <>
                 <Button
@@ -89,7 +93,7 @@ const DishItem = ({ dish, isDishOfCombo }) => {
               icon={<PlusOutlined />}
               onClick={() => updateCart(dish, +1)}
             />
-          </Flex>
+          </DishItemStyles.AddCartContainer>
         </DishItemStyles.ItemFooter>
       </DishItemStyles.ItemContent>
     </DishItemStyles.MenuItemCard>

@@ -1,4 +1,5 @@
 import { Tag } from 'antd'
+import { Flex } from 'antd'
 import { Tabs } from 'antd'
 import { Card, Typography } from 'antd'
 import styled from 'styled-components'
@@ -18,7 +19,7 @@ const MenuGrid = styled.div`
 
 const GuestMenuOrderStyles = {
   MenuContainer: styled.div`
-    padding: 0;
+    padding: 0 10px;
   `,
   TagStyle: styled(Tabs)`
     .ant-tabs-tab-btn {
@@ -71,6 +72,13 @@ const DishItemStyles = {
     font-weight: 600;
     margin: 0 0 4px 0;
     color: #333;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 32px;
   `,
 
   ItemDescription: styled.p`
@@ -78,6 +86,13 @@ const DishItemStyles = {
     color: #666;
     margin: 0 0 12px 0;
     line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 38px;
   `,
 
   ItemFooter: styled.div`
@@ -95,6 +110,17 @@ const DishItemStyles = {
       text-decoration: ${({ $oldPrice }) =>
         $oldPrice ? 'line-through' : 'none'};
     }
+  `,
+
+  AddCartContainer: styled(Flex)`
+    background: ${({ $hasQuantity }) =>
+      $hasQuantity ? 'rgb(255, 255, 255)' : 'transparent'};
+    position: absolute;
+    top: 12px;
+    padding: 2px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    right: 12px;
   `,
 
   Quantity: styled.span`
