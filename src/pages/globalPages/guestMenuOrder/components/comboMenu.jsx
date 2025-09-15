@@ -7,7 +7,12 @@ import DishItem from './dishItem'
 import { MenuGrid } from '../styled'
 
 const ComboMenu = () => {
-  const { order, cart, loading } = useSelector((state) => state.guestOrder)
+  const {
+    order,
+    cart,
+    loading: loadingOrder,
+  } = useSelector((state) => state.guestOrder)
+  const { loadingDishes } = useSelector((state) => state.guestDish)
 
   const dishComboHandler = useMemo(() => {
     const listComboDish = order?.combo?.listDish || []
@@ -23,7 +28,7 @@ const ComboMenu = () => {
   }, [order, cart])
 
   return (
-    <Spin size='large' spinning={loading}>
+    <Spin size='large' spinning={loadingOrder && loadingDishes}>
       <MenuGrid>
         {dishComboHandler &&
           dishComboHandler.map((dish) => (

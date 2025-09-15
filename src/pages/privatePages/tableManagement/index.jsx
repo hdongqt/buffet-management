@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import dayjs from 'dayjs'
 import {
   Form,
   Select,
@@ -17,18 +18,26 @@ import {
   PlusOutlined,
   PauseCircleOutlined,
   RetweetOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons'
+
 import {
+  ORDER_BY,
   RESTAURANT_TABLE_OPTION,
+  RESTAURANT_TABLE_SORT_BY,
   RESTAURANT_TABLE_TAG,
 } from '@/constants/options'
 
 import ActionTable from './components/ActionTable'
 import { FormItemControl, TableCustom, CommonUI } from '@/components/common'
+import { CustomSelect } from '@/components/common/ui'
 
-import { TableStyle } from '@/pages/privatePages/tableManagement/styled'
+import DATE_FORMAT from '@/constants/dateTimeFormat'
+import { RESTAURANT_TABLE_STATUS } from '@/constants/status'
 
 import { useTableManager } from '@/hooks'
+
+import { TableStyle } from '@/pages/privatePages/tableManagement/styled'
 
 const { Text } = Typography
 const { CustomInput, CustomButton } = CommonUI
@@ -48,6 +57,7 @@ export default function TableManagement() {
     onChangeFilter,
     onChangePagination,
     getTitleActionStatus,
+    handleResetFilters,
   } = useTableManager()
 
   useEffect(() => {
@@ -80,6 +90,20 @@ export default function TableManagement() {
       render: (_, record) => getTag(record?.status),
     },
     {
+      title: 'Lịch đặt sắp tới',
+      render: (record) => (
+        <Typography.Text type='danger' strong>
+          {record?.nextReservationToday &&
+            dayjs(record.nextReservationToday).format(DATE_FORMAT.DATE_TIME)}
+        </Typography.Text>
+      ),
+    },
+    {
+      title: 'Ngày tạo',
+      dataIndex: 'createdAt',
+      render: (record) => record && dayjs(record).format(DATE_FORMAT.DATE_TIME),
+    },
+    {
       title: 'Hành động',
       fixed: 'right',
       render: (_, record) => (
@@ -94,22 +118,25 @@ export default function TableManagement() {
             />
           </Tooltip>
 
-          <Tooltip title={getTitleActionStatus(record)}>
-            <Popconfirm
-              title={getTitleActionStatus(record)}
-              onConfirm={() => handleChangeStatus(record)}
-            >
-              {record?.status === 'disabled' ? (
-                <CustomButton
-                  color='green'
-                  variant='outlined'
-                  icon={<RetweetOutlined />}
-                />
-              ) : (
-                <CustomButton danger icon={<PauseCircleOutlined />} />
-              )}
-            </Popconfirm>
-          </Tooltip>
+          {(record?.status === RESTAURANT_TABLE_STATUS.AVAILABLE ||
+            record?.status === RESTAURANT_TABLE_STATUS.DISABLED) && (
+            <Tooltip title={getTitleActionStatus(record)}>
+              <Popconfirm
+                title={getTitleActionStatus(record)}
+                onConfirm={() => handleChangeStatus(record)}
+              >
+                {record?.status === 'disabled' ? (
+                  <CustomButton
+                    color='green'
+                    variant='outlined'
+                    icon={<RetweetOutlined />}
+                  />
+                ) : (
+                  <CustomButton danger icon={<PauseCircleOutlined />} />
+                )}
+              </Popconfirm>
+            </Tooltip>
+          )}
         </Space>
       ),
     },
@@ -119,7 +146,7 @@ export default function TableManagement() {
     <div>
       <Form onFinish={formikSearch.handleSubmit} layout='vertical'>
         <Row gutter={16}>
-          <Col xs={24} md={12} lg={6}>
+          <Col xs={24} md={12} lg={4}>
             <FormItemControl
               name='tableNumber'
               label='Số bàn'
@@ -153,8 +180,49 @@ export default function TableManagement() {
               />
             </FormItemControl>
           </Col>
-          <Col lg={14}>
-            <Flex justify='end'>
+          <Col xs={24} md={8} lg={4}>
+            <FormItemControl
+              name='sortBy'
+              formik={formikSearch}
+              label='Sắp xếp'
+              layout='vertical'
+            >
+              <CustomSelect
+                placeholder='Sắp xếp theo'
+                value={formikSearch.values.sortBy}
+                onChange={(val) => onChangeFilter('sortBy', val)}
+                options={RESTAURANT_TABLE_SORT_BY}
+                allowClear
+              />
+            </FormItemControl>
+          </Col>
+          <Col xs={24} md={8} lg={4}>
+            <FormItemControl
+              name='order'
+              formik={formikSearch}
+              label='Thứ tự'
+              layout='vertical'
+            >
+              <CustomSelect
+                placeholder='Thứ tự'
+                value={formikSearch.values.order}
+                onChange={(val) => onChangeFilter('order', val)}
+                options={ORDER_BY}
+                allowClear
+              />
+            </FormItemControl>
+          </Col>
+          <Col lg={8}>
+            <Flex justify='end' gap={8}>
+              <FormItemControl emptyLabel>
+                <CustomButton
+                  onClick={handleResetFilters}
+                  icon={<DeleteOutlined />}
+                  size='large'
+                >
+                  Clear all
+                </CustomButton>
+              </FormItemControl>
               <FormItemControl emptyLabel>
                 <CustomButton
                   type='primary'

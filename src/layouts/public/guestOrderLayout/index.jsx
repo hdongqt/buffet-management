@@ -9,12 +9,16 @@ import { useSocket } from '@/contexts/socket'
 import { useEffect } from 'react'
 import { SOCKET_EVENT } from '@/constants/status'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { getOrderDetailRequest } from '@/sagas/guestOrder/guestOrderSlice'
 
 const { Header, Content, Footer } = Layout
 
 const GuestOrderLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
   const { order } = useSelector((state) => state.guestOrder)
 
   const socket = useSocket()
@@ -32,7 +36,17 @@ const GuestOrderLayout = () => {
       navigate('/')
     }
 
+    const getOrderDetail = async () => {
+      await dispatch(getOrderDetailRequest({ id: order?.id }))
+    }
+
     socket.on(SOCKET_EVENT.ORDER_PAID, handleRedirect)
+    socket.on(SOCKET_EVENT.DISH_STATUS_UPDATED, getOrderDetail)
+
+    return () => {
+      socket.off(SOCKET_EVENT.ORDER_PAID, handleRedirect)
+      socket.off(SOCKET_EVENT.DISH_STATUS_UPDATED, getOrderDetail)
+    }
   }, [order, socket])
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Typography, Divider, Empty, Image, Flex, Spin } from 'antd'
 import {
   MinusOutlined,
@@ -8,10 +8,8 @@ import {
 } from '@ant-design/icons'
 
 import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
-import { SOCKET_EVENT } from '@/constants/status'
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 
-import { useSocket } from '@/contexts/socket'
 import useGuestOrder from '@/hooks/useGuestOrder'
 
 import { formatCurrency } from '@/utils/format'
@@ -23,8 +21,6 @@ import dayjs from 'dayjs'
 const { Title } = Typography
 
 const OrdersPage = () => {
-  const socket = useSocket()
-
   const {
     cart,
     order,
@@ -39,33 +35,9 @@ const OrdersPage = () => {
     totalAmount,
     getStatusColor,
     getStatusText,
-    getOrderDetail,
   } = useGuestOrder()
 
-  // useEffect(() => {
-  //   if (!order?.id || !socket) return
-
-  //   socket.emit(SOCKET_EVENT.JOIN_ORDER, order.id)
-  // }, [order?.id, socket])
-
   const totalCartItem = cart.reduce((total, item) => total + item.quantity, 0)
-
-  // Listen ORDER_CONFIRMED
-  useEffect(() => {
-    if (!socket) return
-
-    const handleConfirmDishOrder = ({ snapshot }) => {
-      if (snapshot) {
-        getOrderDetail()
-      }
-    }
-
-    socket.on(SOCKET_EVENT.DISH_STATUS_UPDATED, handleConfirmDishOrder)
-
-    return () => {
-      socket.off(SOCKET_EVENT.DISH_STATUS_UPDATED, handleConfirmDishOrder)
-    }
-  }, [socket])
 
   return (
     <Spin spinning={loading}>

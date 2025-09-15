@@ -115,7 +115,6 @@ const useGuestOrder = () => {
     totalAmount,
     getStatusColor,
     getStatusText,
-    getOrderDetail,
   }
 }
 

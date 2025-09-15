@@ -21,9 +21,12 @@ const useTableManager = () => {
 
   const formikSearch = useFormik({
     initialValues: {
-      tableNumber: '',
-      status: '',
+      tableNumber: filters.tableNumber || '',
+      status: filters.status || '',
+      sortBy: filters.sortBy || 'createdAt',
+      order: filters.order || '',
     },
+    enableReinitialize: true,
   })
 
   const fetchTables = async (newFilters) => {
@@ -42,6 +45,7 @@ const useTableManager = () => {
       record.status === RESTAURANT_TABLE_STATUS.AVAILABLE
         ? RESTAURANT_TABLE_STATUS.DISABLED
         : RESTAURANT_TABLE_STATUS.AVAILABLE
+    console.log(newStatus)
     dispatch(
       updateStatusTableRequest({
         id: record.id,
@@ -61,6 +65,15 @@ const useTableManager = () => {
     } else {
       fetchTables({ ...filters, [name]: value })
     }
+  }
+
+  const handleResetFilters = () => {
+    formikSearch.resetForm()
+    fetchTables({
+      page: 1,
+      limit: 20,
+      search: '',
+    })
   }
 
   const onChangePagination = (newPagination) => {
@@ -98,6 +111,7 @@ const useTableManager = () => {
     onChangeFilter,
     onChangePagination,
     getTitleActionStatus,
+    handleResetFilters,
   }
 }
 
