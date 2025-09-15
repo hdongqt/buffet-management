@@ -16,24 +16,34 @@ import useDebounceCallback from './useDebounceCallback'
 
 const useCategoriesManagement = () => {
   const dispatch = useDispatch()
-  const { categoriesList, loading, pagination, filters } = useSelector(
-    (state) => state.categories
-  )
+  const { categoriesList, loading, pagination, filters, actionLoading } =
+    useSelector((state) => state.categories)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingRecord, setEditingRecord] = useState(null)
 
-  const fetchCategories = async (params) => {
-    await dispatch(fetchCategoriesRequest({ params }))
+  const fetchCategories = async (newParams) => {
+    await dispatch(fetchCategoriesRequest({ params: newParams || filters }))
   }
 
   const showModal = () => {
     setEditingRecord(null)
     setIsModalOpen(true)
   }
+  const onCloseModal = () => {
+    setIsModalOpen(false)
+    setEditingRecord(null)
+    formik.resetForm()
+  }
 
-  const deleteCategory = async (id) => {
-    await dispatch(deleteCategoriesRequest({ id }))
-    fetchCategories({ params: filters })
+  const deleteCategory = (id) => {
+    dispatch(
+      deleteCategoriesRequest({
+        id,
+        callback: () => {
+          fetchCategories()
+        },
+      })
+    )
   }
 
   const handleEditCategory = (record) => {
@@ -124,6 +134,7 @@ const useCategoriesManagement = () => {
     categoriesList,
     categoryItemList,
     loading,
+    actionLoading,
     pagination,
     handlePaginationChange,
     onSearchChange,
@@ -136,6 +147,7 @@ const useCategoriesManagement = () => {
     handleEditCategory,
     editingRecord,
     deleteCategory,
+    onCloseModal,
   }
 }
 
