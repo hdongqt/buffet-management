@@ -23,7 +23,11 @@ import {
 } from '@ant-design/icons'
 
 import DATE_FORMAT from '@/constants/dateTimeFormat'
-import { ORDER_STATUS_TAGS, PAYMENT_STATUS_TAGS } from '@/constants/options'
+import {
+  DISH_STATUS_TAGS,
+  ORDER_STATUS_TAGS,
+  PAYMENT_STATUS_TAGS,
+} from '@/constants/options'
 
 import { getPaymentRequest } from '@/sagas/orderManager/orderManagerSlice'
 
@@ -94,7 +98,7 @@ const OrderDetailModal = ({ open, onClose, orderData }) => {
       dataIndex: 'status',
       key: 'status',
       render: (val) => {
-        const { color, label } = getStatusConfig(val, ORDER_STATUS_TAGS)
+        const { color, label } = getStatusConfig(val, DISH_STATUS_TAGS)
         return <CustomTag color={color}>{label}</CustomTag>
       },
     },

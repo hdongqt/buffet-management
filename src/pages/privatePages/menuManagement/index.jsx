@@ -64,8 +64,8 @@ const MenuManagement = () => {
   const { fetchCategories, categoryItemList } = useCategoriesManagement()
 
   useEffect(() => {
-    fetchMenuList()
-    fetchCategories()
+    fetchMenuList({ page: 1, limit: 20 })
+    fetchCategories({ page: 1, limit: -1 })
   }, [])
 
   const columns = [

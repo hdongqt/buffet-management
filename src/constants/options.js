@@ -83,8 +83,8 @@ const ORDER_SOFT_BY = [
 ]
 
 const ORDER_STATUS_UPDATE = [
-  { value: 'confirmed', label: 'Xác Nhận', color: 'green' },
-  { value: 'cancelled', label: 'Hủy', color: 'red' },
+  { key: 'confirmed', label: 'Xác Nhận', color: 'green' },
+  { key: 'cancelled', label: 'Hủy', color: 'red' },
 ]
 
 const DISH_STATUS_TAGS = {
