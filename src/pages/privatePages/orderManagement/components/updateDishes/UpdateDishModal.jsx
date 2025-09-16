@@ -11,6 +11,7 @@ import {
   Empty,
   Tooltip,
   Input,
+  Spin,
 } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
@@ -26,6 +27,7 @@ import { TableCustom } from '@/components/common'
 import { CustomTag } from '@/components/common/ui'
 
 import { useOrderManagement } from '@/hooks'
+import useOrderDishes from '@/hooks/useOrderDish'
 
 import { getWidthCard } from '@/utils/getWidthCard'
 import { formatCurrency, getStatusConfig } from '@/utils/format'
@@ -34,13 +36,12 @@ import {
   StyledDivider,
   StyledSelect,
 } from '@/pages/privatePages/orderManagement/components/updateDishes/styled'
-import useOrderDishes from '@/hooks/useOrderDish'
 
 const { useBreakpoint } = Grid
 
 const OrderFormModalFood = ({ open, onClose, foodData }) => {
   const screens = useBreakpoint()
-  const widthCard = getWidthCard(screens)
+  const widthCard = getWidthCard(screens, 'modal')
 
   const dispatch = useDispatch()
 
@@ -187,18 +188,19 @@ const OrderFormModalFood = ({ open, onClose, foodData }) => {
             </Flex>
           </Flex>
           <StyledDivider />
-          {dataFiltered?.length ? (
-            <TableCustom
-              size='middle'
-              columns={columns}
-              dataSource={dataFiltered || []}
-              loading={actionLoading}
-              pagination={pagination}
-              onPaginationChange={handlePagination}
-            />
-          ) : (
-            <Empty description='Không có món nào' />
-          )}
+          <Spin spinning={actionLoading}>
+            {dataFiltered?.length ? (
+              <TableCustom
+                size='middle'
+                columns={columns}
+                dataSource={dataFiltered || []}
+                pagination={pagination}
+                onPaginationChange={handlePagination}
+              />
+            ) : (
+              <Empty description='Không có món nào' />
+            )}
+          </Spin>
         </Flex>
       </Modal>
 

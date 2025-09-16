@@ -1,6 +1,16 @@
 import { useEffect } from 'react'
 import dayjs from 'dayjs'
-import { Col, Form, Row, Flex, Typography, Space, Tooltip, Popover } from 'antd'
+import {
+  Col,
+  Form,
+  Row,
+  Flex,
+  Typography,
+  Space,
+  Tooltip,
+  Popover,
+  Dropdown,
+} from 'antd'
 import {
   DeleteOutlined,
   PlusOutlined,
@@ -15,6 +25,9 @@ import {
   ORDER_STATUS_UPDATE,
 } from '@/constants/options'
 import DATE_FORMAT from '@/constants/dateTimeFormat'
+import { SOCKET_EVENT } from '@/constants/status'
+
+import { useSocket } from '@/contexts/socket'
 
 import OrderFormModal from '@/pages/privatePages/orderManagement/components/orderForm/OrderFormModal'
 import OrderDetailModal from '@/pages/privatePages/orderManagement/components/detail/OrderDetailModal'
@@ -33,7 +46,6 @@ import useOrderManagement from '@/hooks/useOrderManager'
 import { formatCurrency, getStatusConfig } from '@/utils/format'
 
 import { StyledText } from '@/pages/privatePages/orderManagement/styled'
-import { Dropdown } from 'antd'
 
 const OrderManagement = () => {
   const {
@@ -128,29 +140,30 @@ const OrderManagement = () => {
             </Tooltip>
 
             {record.status === 'pending' && (
-              <Popover
-                placement='topRight'
-                title={''}
-                content={
-                  <Flex vertical gap={8}>
-                    {ORDER_STATUS_UPDATE.map(({ color, label, value }) => (
-                      <CustomButton
-                        color={color}
-                        variant='outlined'
-                        onClick={() => {
-                          handleChangeStatus(record.id, value)
-                        }}
-                        loading={actionLoading}
-                      >
-                        {label}
-                      </CustomButton>
-                    ))}
-                  </Flex>
-                }
-                trigger={'click'}
-              >
-                <CustomButton icon={<RetweetOutlined />} />
-              </Popover>
+              <Tooltip title='Cập nhật trạng thái'>
+                <Popover
+                  placement='topRight'
+                  title={''}
+                  content={
+                    <Flex vertical gap={8}>
+                      {ORDER_STATUS_UPDATE.map(({ color, label, value }) => (
+                        <CustomButton
+                          color={color}
+                          variant='outlined'
+                          onClick={() => {
+                            handleChangeStatus(record.id, value)
+                          }}
+                        >
+                          {label}
+                        </CustomButton>
+                      ))}
+                    </Flex>
+                  }
+                  trigger={'click'}
+                >
+                  <CustomButton icon={<RetweetOutlined />} />
+                </Popover>
+              </Tooltip>
             )}
 
             {record.status === 'confirmed' && (
@@ -164,9 +177,17 @@ const OrderManagement = () => {
     },
   ]
 
+  const socket = useSocket()
+
   useEffect(() => {
     fetchOrders()
   }, [])
+
+  useEffect(() => {
+    if (!socket) return
+
+    socket.on(SOCKET_EVENT.NEW_NOTIFICATION, fetchOrders)
+  }, [socket])
 
   return (
     <div>

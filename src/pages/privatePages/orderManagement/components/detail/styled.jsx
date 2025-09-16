@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { Modal, Typography, Flex, Divider } from 'antd'
+import { Modal, Typography, Flex } from 'antd'
+import { Space } from 'antd'
 
 const StyledModal = {
   Wrap: styled(Modal)`
@@ -21,13 +22,17 @@ const StyledModal = {
   `,
 
   TitleText: styled(Typography.Title)`
-    margin: 0 !important;
+    margin: 0;
   `,
 
   Content: styled(Flex)`
-    gap: 16px;
+    gap: 24px;
   `,
 }
+
+const StyledSpace = styled(Space)`
+  width: 100%;
+`
 
 const StyledStatus = {
   Container: styled.div`
@@ -102,7 +107,7 @@ const Dish = {
 
   Footer: styled.div`
     display: grid;
-    grid-template-columns: 56px 1fr 60px 140px;
+    grid-template-columns: 56px 1fr;
     gap: 12px;
     align-items: center;
     padding-top: 10px;
@@ -115,4 +120,4 @@ const Dish = {
   `,
 }
 
-export { StyledModal, StyledText, StyledStatus, Dish }
+export { StyledModal, StyledSpace, StyledText, StyledStatus, Dish }
