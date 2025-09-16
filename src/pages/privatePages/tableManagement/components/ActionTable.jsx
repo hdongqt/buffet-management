@@ -91,7 +91,7 @@ const ActionTable = ({ editingTable, isModalOpen, setIsModalOpen }) => {
                 <FormItemControl label='QR Bàn'>
                   <Flex justify='center'>
                     <TableStyle.ImageQR
-                      src={editingTable?.qrURL}
+                      src={`${editingTable?.qrURL}?t=${editingTable?.updatedAt}`}
                       alt='QR Code'
                     />
                   </Flex>
