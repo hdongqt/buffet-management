@@ -38,8 +38,8 @@ import { formatCurrency } from '@/utils/format'
 
 const AddDishesModal = ({ open, onClose }) => {
   const { formikSearch, handleFilter, handlePageChange } = useMenuPage()
-  const { listDish, loading, pagination } = useMenuManagement()
-  const { fetchCategories, categoryItemList } = useCategoriesManagement()
+  const { menuList, loading, pagination } = useMenuManagement()
+  const { categoryItemList } = useCategoriesManagement()
   const { order, cart, actionLoading } = useOrderManagement()
 
   const {
@@ -53,7 +53,6 @@ const AddDishesModal = ({ open, onClose }) => {
 
   useEffect(() => {
     if (open) {
-      fetchCategories()
       setNewCart(cart || [])
     }
   }, [open])
@@ -115,11 +114,11 @@ const AddDishesModal = ({ open, onClose }) => {
           </FormItemControl>
 
           <div>
-            {listDish?.length ? (
+            {menuList?.length ? (
               <>
                 <List
                   loading={loading}
-                  dataSource={listDish || []}
+                  dataSource={menuList || []}
                   renderItem={(item) => (
                     <List.Item
                       actions={[

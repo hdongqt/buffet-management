@@ -121,6 +121,19 @@ const useOrderManagement = () => {
 
   const hasFilterOrder = getHasFilters(formikSearch.values, ['page', 'limit'])
 
+  const checkOrdered = (record) =>
+    record?.normalDishes?.some((item) => item?.status === 'completed') ?? false
+
+  const canUpdateStatus = (record) => {
+    checkOrdered(record)
+    if (!record) return false
+    const excludedStatuses = ['paid', 'cancelled']
+    return (
+      (checkOrdered(record) === false || record.status === 'pending') &&
+      !excludedStatuses.includes(record.status)
+    )
+  }
+
   return {
     orders,
     order,
@@ -135,6 +148,8 @@ const useOrderManagement = () => {
 
     fetchOrders,
     handleChangeStatus,
+    checkOrdered,
+    canUpdateStatus,
 
     openModal,
     modalState,
@@ -154,4 +169,3 @@ const useOrderManagement = () => {
 }
 
 export default useOrderManagement
-

@@ -26,7 +26,7 @@ import AddDishesModal from '../addDishes/AddDishModal'
 import { TableCustom } from '@/components/common'
 import { CustomTag } from '@/components/common/ui'
 
-import { useOrderManagement } from '@/hooks'
+import { useMenuManagement, useOrderManagement } from '@/hooks'
 import useOrderDishes from '@/hooks/useOrderDish'
 
 import { getWidthCard } from '@/utils/getWidthCard'
@@ -36,6 +36,7 @@ import {
   StyledDivider,
   StyledSelect,
 } from '@/pages/privatePages/orderManagement/components/updateDishes/styled'
+import useCategoriesManagement from '@/hooks/useCategories'
 
 const { useBreakpoint } = Grid
 
@@ -46,6 +47,8 @@ const OrderFormModalFood = ({ open, onClose, foodData }) => {
   const dispatch = useDispatch()
 
   const { actionLoading, pagination, handlePagination } = useOrderManagement()
+  const { fetchMenus } = useMenuManagement()
+  const { fetchCategories } = useCategoriesManagement()
 
   const {
     searchValue,
@@ -62,6 +65,8 @@ const OrderFormModalFood = ({ open, onClose, foodData }) => {
   useEffect(() => {
     if (open) {
       setFilterStatus()
+      fetchCategories({ page: 1, limit: -1 })
+      fetchMenus({ page: 1, limit: -1, isCombo: false })
       dispatch(getOrderRequest({ id: foodData?.id }))
       dispatch(setCartOrder([]))
     }

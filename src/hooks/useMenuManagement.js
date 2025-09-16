@@ -31,13 +31,11 @@ const useMenuManagement = () => {
     await dispatch(deleteMenuRequest({ id, callback: commonCallback }))
   }
 
-  const listCombo = menuList
-    .filter((item) => item.isCombo)
-    .map((item) => ({
-      label: item.name,
-      value: item.id,
-      price: item.price,
-    }))
+  const listCombo = menuList.map((item) => ({
+    label: item.name,
+    value: item.id,
+    price: item.price,
+  }))
 
   const listDish = menuList.filter((item) => !item.isCombo)
 
