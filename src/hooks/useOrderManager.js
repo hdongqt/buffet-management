@@ -11,6 +11,7 @@ import {
 } from '@/sagas/orderManager/orderManagerSlice'
 
 import useDebounceCallback from '@/hooks/useDebounceCallback'
+import { getHasFilters } from '@/utils/getHasFilter'
 
 const useOrderManagement = () => {
   const dispatch = useDispatch()
@@ -118,6 +119,8 @@ const useOrderManagement = () => {
     await dispatch(fetchOrdersRequest({ params: {} }))
   }
 
+  const hasFilterOrder = getHasFilters(formikSearch.values, ['page', 'limit'])
+
   return {
     orders,
     order,
@@ -146,7 +149,9 @@ const useOrderManagement = () => {
     handleChangeFilter,
     handleResetFilters,
     handlePagination,
+    hasFilterOrder,
   }
 }
 
 export default useOrderManagement
+

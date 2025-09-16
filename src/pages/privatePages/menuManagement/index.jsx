@@ -58,6 +58,7 @@ const MenuManagement = () => {
 
     fetchMenuList,
     deleteMenu,
+    hasFilterMenu,
   } = useMenuPage()
 
   const { fetchCategories, categoryItemList } = useCategoriesManagement()
@@ -255,13 +256,15 @@ const MenuManagement = () => {
             </Col>
             <Col xs={24} md={8} lg={4}>
               <Flex justify='end'>
-                <CustomButton
-                  onClick={handleResetFilters}
-                  icon={<DeleteOutlined />}
-                  size='large'
-                >
-                  Xóa bộ lọc
-                </CustomButton>
+                {hasFilterMenu && (
+                  <CustomButton
+                    onClick={handleResetFilters}
+                    icon={<DeleteOutlined />}
+                    size='large'
+                  >
+                    Xóa bộ lọc
+                  </CustomButton>
+                )}
               </Flex>
             </Col>
           </Row>
@@ -291,3 +294,4 @@ const MenuManagement = () => {
 }
 
 export default MenuManagement
+

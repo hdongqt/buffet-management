@@ -6,6 +6,7 @@ import { fetchMenuListRequest } from '@/sagas/menuManagement/menuSlice'
 
 import useDebounceCallback from '@/hooks/useDebounceCallback'
 import useMenuManagement from '@/hooks/useMenuManagement'
+import { getHasFilters } from '@/utils/getHasFilter'
 
 const useMenuPage = () => {
   const dispatch = useDispatch()
@@ -68,6 +69,8 @@ const useMenuPage = () => {
     fetchMenuList({})
   }
 
+  const hasFilterMenu = getHasFilters(formikSearch.values, ['page', 'limit'])
+
   return {
     menuList,
     listDish,
@@ -87,7 +90,9 @@ const useMenuPage = () => {
     handleFilter,
     handlePageChange,
     handleResetFilters,
+    hasFilterMenu,
   }
 }
 
 export default useMenuPage
+
