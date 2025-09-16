@@ -77,7 +77,7 @@ const ORDER_API = {
   postDish: async (data) => {
     try {
       const { orderId, dishes } = data
-      const res = await instance.post(`/guest/${orderId}/add-dish`, { dishes })
+      const res = await instance.post(`/orders/${orderId}/add-dish`, { dishes })
       return res.data
     } catch (error) {
       throw error

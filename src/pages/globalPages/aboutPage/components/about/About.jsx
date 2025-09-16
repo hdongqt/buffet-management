@@ -16,7 +16,6 @@ const MotionWrapper = motion(AboutWrapper)
 const MotionTitle = motion(About.Title)
 const MotionSubtitle = motion(About.Subtitle)
 const MotionDesc = motion(About.Desc)
-const MotionButton = motion(About.Button)
 const MotionImage = motion(About.Image)
 
 const AboutSection = () => {
@@ -92,4 +91,3 @@ const AboutSection = () => {
 }
 
 export default AboutSection
-

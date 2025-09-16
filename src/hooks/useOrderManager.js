@@ -6,6 +6,8 @@ import {
   fetchOrdersRequest,
   postCancelOrderRequest,
   postConfirmOrderRequest,
+  resetOrder,
+  resetPayment,
 } from '@/sagas/orderManager/orderManagerSlice'
 
 import useDebounceCallback from '@/hooks/useDebounceCallback'
@@ -13,8 +15,16 @@ import useDebounceCallback from '@/hooks/useDebounceCallback'
 const useOrderManagement = () => {
   const dispatch = useDispatch()
 
-  const { orders, order, cart, loading, actionLoading, pagination, filters } =
-    useSelector((state) => state.orderManager)
+  const {
+    orders,
+    order,
+    payment,
+    cart,
+    loading,
+    actionLoading,
+    pagination,
+    filters,
+  } = useSelector((state) => state.orderManager)
 
   const formikSearch = useFormik({
     initialValues: {
@@ -83,15 +93,17 @@ const useOrderManagement = () => {
   const openModalFood = (record = null) => {
     setModalFoodState({ open: true, record })
   }
-  const closeModalFood = () => {
+  const closeModalFood = async () => {
     setModalFoodState({ open: false, record: null })
+    await dispatch(resetOrder())
   }
 
   const openDetailModal = (record) => {
     setDetailModalState({ open: true, record })
   }
-  const closeDetailModal = () => {
+  const closeDetailModal = async () => {
     setDetailModalState({ open: false, record: null })
+    await dispatch(resetPayment())
   }
 
   const handleChangeStatus = async (id, status) => {
@@ -109,6 +121,7 @@ const useOrderManagement = () => {
   return {
     orders,
     order,
+    payment,
     cart,
     loading,
     actionLoading,

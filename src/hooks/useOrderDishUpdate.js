@@ -1,6 +1,7 @@
 import { addDishToOrderRequest } from '@/sagas/guestOrder/guestOrderSlice'
 import {
   getOrderRequest,
+  postDishToOrderRequest,
   setCartOrder,
 } from '@/sagas/orderManager/orderManagerSlice'
 import { useEffect, useState } from 'react'
@@ -19,7 +20,7 @@ const useOrderDishUpdate = (onClose) => {
     }))
 
     dispatch(
-      addDishToOrderRequest({ orderId, dishes, callback: commonCallback })
+      postDishToOrderRequest({ orderId, dishes, callback: commonCallback })
     )
   }
   const [newCart, setNewCart] = useState([])
