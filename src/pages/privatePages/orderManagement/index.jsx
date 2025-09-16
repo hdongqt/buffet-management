@@ -71,6 +71,7 @@ const OrderManagement = () => {
     handleChangeFilter,
     handleResetFilters,
     handlePagination,
+    hasFilterOrder,
   } = useOrderManagement()
 
   const columns = [
@@ -229,13 +230,15 @@ const OrderManagement = () => {
           </Col>
           <Col xs={24} md={12} lg={6}>
             <Flex justify='end' gap={8}>
-              <CustomButton
-                onClick={handleResetFilters}
-                icon={<DeleteOutlined />}
-                size='large'
-              >
-                Xóa bộ lọc
-              </CustomButton>
+              {hasFilterOrder && (
+                <CustomButton
+                  onClick={handleResetFilters}
+                  icon={<DeleteOutlined />}
+                  size='large'
+                >
+                  Xóa bộ lọc
+                </CustomButton>
+              )}
               <CustomButton
                 type='primary'
                 icon={<PlusOutlined />}
@@ -279,3 +282,4 @@ const OrderManagement = () => {
 }
 
 export default OrderManagement
+

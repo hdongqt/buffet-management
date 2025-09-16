@@ -10,6 +10,7 @@ import {
 } from '@/sagas/reservation/reservationSlice'
 import useDebounceCallback from '@/hooks/useDebounceCallback'
 import { useState } from 'react'
+import { getHasFilters } from '@/utils/getHasFilter'
 
 export const useReservationFormAdmin = () => {
   const dispatch = useDispatch()
@@ -96,6 +97,8 @@ export const useReservationFormAdmin = () => {
     }
   }
 
+  const hasFilter = getHasFilters(formikSearch.values, ['page', 'limit'])
+
   return {
     loading,
     success,
@@ -115,5 +118,6 @@ export const useReservationFormAdmin = () => {
     availableTables,
     actionLoading,
     reservationList,
+    hasFilter,
   }
 }

@@ -36,6 +36,7 @@ export default function TableReservationManagement() {
     actionLoading,
     loading,
     reservationList,
+    hasFilter,
   } = useReservationFormAdmin()
 
   useEffect(() => {
@@ -96,15 +97,17 @@ export default function TableReservationManagement() {
           </Col>
           <Col xs={24} md={12} lg={8}>
             <Flex justify='end' gap={8}>
-              <FormItemControl emptyLabel>
-                <CustomButton
-                  size='large'
-                  icon={<DeleteOutlined />}
-                  onClick={handleResetFilters}
-                >
-                  Xóa bộ lọc
-                </CustomButton>
-              </FormItemControl>
+              {hasFilter && (
+                <FormItemControl emptyLabel>
+                  <CustomButton
+                    size='large'
+                    icon={<DeleteOutlined />}
+                    onClick={handleResetFilters}
+                  >
+                    Xóa bộ lọc
+                  </CustomButton>
+                </FormItemControl>
+              )}
               <FormItemControl emptyLabel>
                 <CustomButton
                   type='primary'

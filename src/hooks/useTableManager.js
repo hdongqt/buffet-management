@@ -9,6 +9,7 @@ import {
 import { RESTAURANT_TABLE_STATUS } from '@/constants/status'
 
 import { useDebounceCallback } from '@/hooks'
+import { getHasFilters } from '@/utils/getHasFilter'
 
 const useTableManager = () => {
   const { tables, loading, filters, pagination } = useSelector(
@@ -47,7 +48,6 @@ const useTableManager = () => {
       record.status === RESTAURANT_TABLE_STATUS.AVAILABLE
         ? RESTAURANT_TABLE_STATUS.DISABLED
         : RESTAURANT_TABLE_STATUS.AVAILABLE
-    console.log(newStatus)
     dispatch(
       updateStatusTableRequest({
         id: record.id,
@@ -96,6 +96,10 @@ const useTableManager = () => {
     value: item.id,
   }))
 
+  const hasFilterTable =
+    getHasFilters(formikSearch.values, ['page', 'limit', 'sortBy']) ||
+    formikSearch.values.sortBy !== 'createdAt'
+
   return {
     tables,
     listTableOptions,
@@ -116,7 +120,9 @@ const useTableManager = () => {
     handleResetFilters,
     reservationData,
     setReservationData,
+    hasFilterTable,
   }
 }
 
 export default useTableManager
+

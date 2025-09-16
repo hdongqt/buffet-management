@@ -62,6 +62,7 @@ export default function TableManagement() {
     handleResetFilters,
     reservationData,
     setReservationData,
+    hasFilterTable,
   } = useTableManager()
 
   useEffect(() => {
@@ -230,15 +231,17 @@ export default function TableManagement() {
           </Col>
           <Col lg={8}>
             <Flex justify='end' gap={8}>
-              <FormItemControl emptyLabel>
-                <CustomButton
-                  onClick={handleResetFilters}
-                  icon={<DeleteOutlined />}
-                  size='large'
-                >
-                  Xóa bộ lọc
-                </CustomButton>
-              </FormItemControl>
+              {hasFilterTable && (
+                <FormItemControl emptyLabel>
+                  <CustomButton
+                    onClick={handleResetFilters}
+                    icon={<DeleteOutlined />}
+                    size='large'
+                  >
+                    Xóa bộ lọc
+                  </CustomButton>
+                </FormItemControl>
+              )}
               <FormItemControl emptyLabel>
                 <CustomButton
                   type='primary'
@@ -275,3 +278,4 @@ export default function TableManagement() {
     </div>
   )
 }
+
