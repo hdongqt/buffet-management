@@ -5,6 +5,7 @@ import { Tag, Space, Typography } from 'antd'
 import { CommonUI } from '@/components/common'
 
 import useGuestCallStaff from '@/hooks/useGuestCallStaff'
+import { useDisabledButton } from '@/hooks'
 
 const { CustomButton, CustomTextArea } = CommonUI
 
@@ -17,6 +18,10 @@ const CallStaffPage = () => {
     handleAddSuggestion,
     handleSubmit,
   } = useGuestCallStaff()
+
+  const { disabled: disabledButton, onClick } = useDisabledButton(() => {
+    handleSubmit()
+  })
 
   return (
     <Container>
@@ -46,10 +51,13 @@ const CallStaffPage = () => {
         block
         loading={actionLoading}
         size='large'
-        onClick={handleSubmit}
+        disabled={disabledButton}
+        onClick={onClick}
         style={{ marginTop: 16 }}
       >
-        Gửi yêu cầu
+        {disabledButton
+          ? 'Sakura đến đây, vui lòng đợi tí nhé'
+          : 'Gọi nhân viên'}
       </CustomButton>
     </Container>
   )
