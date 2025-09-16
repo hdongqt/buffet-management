@@ -19,6 +19,7 @@ import {
   PauseCircleOutlined,
   RetweetOutlined,
   DeleteOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons'
 
 import {
@@ -29,6 +30,7 @@ import {
 } from '@/constants/options'
 
 import ActionTable from './components/ActionTable'
+import ReservationToday from './components/ReservationToday'
 import { FormItemControl, TableCustom, CommonUI } from '@/components/common'
 import { CustomSelect } from '@/components/common/ui'
 
@@ -58,6 +60,8 @@ export default function TableManagement() {
     onChangePagination,
     getTitleActionStatus,
     handleResetFilters,
+    reservationData,
+    setReservationData,
   } = useTableManager()
 
   useEffect(() => {
@@ -92,9 +96,11 @@ export default function TableManagement() {
     {
       title: 'Lịch đặt sắp tới',
       render: (record) => (
-        <Typography.Text type='danger' strong>
+        <Typography.Text type='warning' strong>
           {record?.nextReservationToday &&
-            dayjs(record.nextReservationToday).format(DATE_FORMAT.DATE_TIME)}
+            dayjs(record.nextReservationToday.reservedAt).format(
+              DATE_FORMAT.DATE_TIME
+            )}
         </Typography.Text>
       ),
     },
@@ -115,6 +121,16 @@ export default function TableManagement() {
                 setEditingTable(record)
                 setIsModalOpen(true)
               }}
+            />
+          </Tooltip>
+          <Tooltip title='Lịch đặt bàn hôm nay'>
+            <CustomButton
+              icon={<CalendarOutlined />}
+              variant='outlined'
+              color='green'
+              onClick={() =>
+                setReservationData(record?.todayReservations || [])
+              }
             />
           </Tooltip>
 
@@ -254,6 +270,8 @@ export default function TableManagement() {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       />
+
+      <ReservationToday data={reservationData} setData={setReservationData} />
     </div>
   )
 }

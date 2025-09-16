@@ -17,6 +17,8 @@ const useTableManager = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingTable, setEditingTable] = useState(null)
 
+  const [reservationData, setReservationData] = useState(null)
+
   const dispatch = useDispatch()
 
   const formikSearch = useFormik({
@@ -112,6 +114,8 @@ const useTableManager = () => {
     onChangePagination,
     getTitleActionStatus,
     handleResetFilters,
+    reservationData,
+    setReservationData,
   }
 }
 
