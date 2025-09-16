@@ -4,10 +4,10 @@ import { DEFAULT_PAGINATION } from '@/constants/pagination'
 const initialFilter = {
   search: '',
   isCombo: null,
-  sortBy: null,
+  sortBy: 'createdAt',
   order: null,
   page: 1,
-  limit: 10,
+  limit: 20,
 }
 
 const initialState = {

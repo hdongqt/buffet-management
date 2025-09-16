@@ -2,11 +2,11 @@ import { ADMIN_ROUTES, MANAGER_ROUTES } from '@/constants/listRoutes'
 import {
   IdcardOutlined,
   LogoutOutlined,
-  OrderedListOutlined,
   ReadOutlined,
   TableOutlined,
   UnorderedListOutlined,
   DashboardOutlined,
+  ReconciliationOutlined,
 } from '@ant-design/icons'
 
 const MANAGER_MENU = [
@@ -38,7 +38,7 @@ const MANAGER_MENU = [
   {
     key: MANAGER_ROUTES.ORDERS,
     label: 'Quản lý đơn món',
-    icon: <OrderedListOutlined />,
+    icon: <ReconciliationOutlined />,
   },
   {
     type: 'divider',
