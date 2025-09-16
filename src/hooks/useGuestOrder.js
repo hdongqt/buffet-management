@@ -65,11 +65,11 @@ const useGuestOrder = () => {
     )
   }
 
-  const handleRequestPayment = useDebounceCallback(async () => {
+  const handleRequestPayment = async () => {
     await dispatch(
       callStaffRequest({ orderId: order?.id, note: 'payment_request' })
     )
-  }, 1000)
+  }
 
   const totalAmount = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0)

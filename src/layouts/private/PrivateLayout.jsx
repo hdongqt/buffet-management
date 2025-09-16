@@ -1,17 +1,19 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { Typography, Layout, Divider, notification } from 'antd'
+import { Typography, Layout, Divider } from 'antd'
 
 import { ADMIN_MENU, MANAGER_MENU } from '@/components/menu/privateMenu'
-import PrivateHeader from '@/components/privateHeader/index'
-import PrivateSidebar from '@/components/privateSidebar/index'
+import PrivateHeader from '@/components/privateHeader'
+import PrivateSidebar from '@/components/privateSidebar'
 
 import ROLES from '@/constants/roles'
 import { useSocket } from '@/contexts/socket'
+import { SOCKET_EVENT } from '@/constants/status'
+
+import useNotificationQueue from '@/hooks/useNotificationQueue'
 
 import { Private } from './styled'
-import { SOCKET_EVENT } from '@/constants/status'
 
 function PrivateLayout() {
   const { user } = useSelector((state) => state.user)
@@ -19,7 +21,7 @@ function PrivateLayout() {
   const socket = useSocket()
 
   const [collapsed, setCollapsed] = useState(false)
-  const [api, contextHolder] = notification.useNotification()
+  const { pushNotification, contextHolder } = useNotificationQueue()
 
   const LIST_TITLE = user?.role === ROLES.ADMIN ? ADMIN_MENU : MANAGER_MENU
   const currentPath = LIST_TITLE.find((item) => item.key === pathname)
@@ -27,26 +29,26 @@ function PrivateLayout() {
   useEffect(() => {
     if (!socket) return
 
-    socket.on('connect', () => {
+    const handleConnect = () => {
       socket.emit(SOCKET_EVENT.JOIN_MANAGER)
-    })
+    }
 
-    const openNotification = ({ title, message }) => {
-      api.info({
-        message: title,
-        description:
+    const handleShowNotification = ({ title, message }) => {
+      pushNotification({
+        title,
+        message:
           message?.length > 100 ? message.slice(0, 100) + '...' : message,
-        placement: 'bottomRight',
       })
     }
 
-    socket.on(SOCKET_EVENT.NEW_NOTIFICATION, openNotification)
+    socket.on('connect', handleConnect)
+    socket.on(SOCKET_EVENT.NEW_NOTIFICATION, handleShowNotification)
 
     return () => {
-      socket.off('connect')
-      socket.off(SOCKET_EVENT.NEW_NOTIFICATION, openNotification)
+      socket.off('connect', handleConnect)
+      socket.off(SOCKET_EVENT.NEW_NOTIFICATION, handleShowNotification)
     }
-  }, [socket])
+  }, [socket, pushNotification])
 
   return (
     <Private.Layout>
@@ -60,9 +62,10 @@ function PrivateLayout() {
             <Outlet />
           </Private.Content>
         </Layout.Content>
+        {contextHolder}
       </Layout>
-      {contextHolder}
     </Private.Layout>
   )
 }
+
 export default PrivateLayout

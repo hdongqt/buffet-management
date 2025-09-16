@@ -1,4 +1,5 @@
 import React from 'react'
+import dayjs from 'dayjs'
 import { Button, Typography, Divider, Empty, Image, Flex, Spin } from 'antd'
 import {
   MinusOutlined,
@@ -7,16 +8,17 @@ import {
   CreditCardOutlined,
 } from '@ant-design/icons'
 
+import { CustomButton } from '@/components/common/ui'
+
 import { FALLBACK_IMAGES } from '@/constants/images/fallbackImage'
 import DATE_FORMAT from '@/constants/dateTimeFormat'
 
 import useGuestOrder from '@/hooks/useGuestOrder'
+import { useDisabledButton } from '@/hooks'
 
 import { formatCurrency } from '@/utils/format'
 
 import { GuestOrderStyles } from './styled'
-import { CustomButton } from '@/components/common/ui'
-import dayjs from 'dayjs'
 
 const { Title } = Typography
 
@@ -36,6 +38,10 @@ const OrdersPage = () => {
     getStatusColor,
     getStatusText,
   } = useGuestOrder()
+
+  const { disabled: disabledButton, onClick } = useDisabledButton(() => {
+    handleRequestPayment()
+  })
 
   const totalCartItem = cart.reduce((total, item) => total + item.quantity, 0)
 
@@ -285,9 +291,12 @@ const OrdersPage = () => {
                 variant='solid'
                 loading={actionLoading}
                 icon={<CreditCardOutlined />}
-                onClick={handleRequestPayment}
+                disabled={disabledButton}
+                onClick={onClick}
               >
-                Yêu cầu thanh toán
+                {disabledButton
+                  ? 'Sakura đến đây, vui lòng đợi tí nhé'
+                  : 'Yêu cầu thanh toán'}
               </CustomButton>
             </GuestOrderStyles.OrderSummary>
           )}
