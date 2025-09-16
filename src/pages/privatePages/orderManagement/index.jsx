@@ -39,7 +39,6 @@ const OrderManagement = () => {
   const {
     orders,
     loading,
-    actionLoading,
     pagination,
 
     formikSearch,
@@ -214,7 +213,7 @@ const OrderManagement = () => {
                 icon={<DeleteOutlined />}
                 size='large'
               >
-                Clear all
+                Xóa bộ lọc
               </CustomButton>
               <CustomButton
                 type='primary'

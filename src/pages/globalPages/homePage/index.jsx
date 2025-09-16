@@ -19,6 +19,7 @@ import { HomeWrapper, Menu, Introduce, Customer, Blog } from './styled'
 import AboutSection from '../aboutPage/components/about/About'
 import { theme } from '@/constants/theme'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const { animations } = theme
 
@@ -30,6 +31,8 @@ const MotionCustomerSliderRight = motion(Customer.SliderRight)
 const MotionBlog = motion(Blog.Content)
 
 export default function HomePage() {
+  const navigate = useNavigate()
+
   return (
     <HomeWrapper>
       <SliderSection />
@@ -44,7 +47,14 @@ export default function HomePage() {
         <Menu.Title src={HOME_MENU.menuTitleImg} alt='Menu Title' />
         <Menu.Banner src={HOME_MENU.menuBannerImg} alt='Menu Banner' />
         <Menu.Button>
-          <AnimatedButton type='primary' danger shape='round'>
+          <AnimatedButton
+            type='primary'
+            danger
+            shape='round'
+            onClick={() => {
+              navigate('/menu')
+            }}
+          >
             XEM CHI TIẾT
           </AnimatedButton>
         </Menu.Button>
@@ -148,4 +158,3 @@ export default function HomePage() {
     </HomeWrapper>
   )
 }
-

@@ -236,7 +236,7 @@ export default function TableManagement() {
                   icon={<DeleteOutlined />}
                   size='large'
                 >
-                  Clear all
+                  Xóa bộ lọc
                 </CustomButton>
               </FormItemControl>
               <FormItemControl emptyLabel>

@@ -69,7 +69,7 @@ const MenuManagement = () => {
 
   const columns = [
     {
-      title: 'Name',
+      title: 'Tên món ăn',
       dataIndex: 'name',
       render: (text) => (
         <StyledText ellipsis={{ tooltip: text }}>
@@ -78,7 +78,7 @@ const MenuManagement = () => {
       ),
     },
     {
-      title: 'Description',
+      title: 'Mô tả',
       dataIndex: 'description',
       render: (text = '') => {
         return (
@@ -87,7 +87,7 @@ const MenuManagement = () => {
       },
     },
     {
-      title: 'Price',
+      title: 'Giá',
       dataIndex: 'price',
       render: (value) => formatCurrency(value),
     },
@@ -101,7 +101,7 @@ const MenuManagement = () => {
       ),
     },
     {
-      title: 'Status',
+      title: 'Trạng thái',
       dataIndex: 'status',
       render: (val) => {
         const { color, label } = getStatusConfig(val, MENU_STATUS_TAGS)
@@ -109,7 +109,7 @@ const MenuManagement = () => {
       },
     },
     {
-      title: 'Created',
+      title: 'Ngày tạo',
       dataIndex: 'createdAt',
       render: (value) =>
         dayjs(value).format(DATE_FORMAT.DATE_TIME) || (
@@ -117,7 +117,7 @@ const MenuManagement = () => {
         ),
     },
     {
-      title: 'Action',
+      title: 'Hành động',
       key: 'action',
       fixed: 'right',
       render: (_, record) => (
@@ -212,7 +212,7 @@ const MenuManagement = () => {
               >
                 <CustomSelect
                   placeholder='Combo'
-                  value={formikSearch.values.isCombo}
+                  value={formikSearch.values.isCombo || null}
                   onChange={(val) => {
                     handleFilter('isCombo', val)
                   }}
@@ -230,7 +230,7 @@ const MenuManagement = () => {
               >
                 <CustomSelect
                   placeholder='Sắp xếp theo'
-                  value={formikSearch.values.sortBy}
+                  value={formikSearch.values.sortBy || 'createdAt'}
                   onChange={(val) => handleFilter('sortBy', val)}
                   options={MENU_SOFT_BY}
                   allowClear
@@ -246,7 +246,7 @@ const MenuManagement = () => {
               >
                 <CustomSelect
                   placeholder='Thứ tự'
-                  value={formikSearch.values.order}
+                  value={formikSearch.values.order || null}
                   onChange={(val) => handleFilter('order', val)}
                   options={ORDER_BY}
                   allowClear
@@ -260,7 +260,7 @@ const MenuManagement = () => {
                   icon={<DeleteOutlined />}
                   size='large'
                 >
-                  Clear all
+                  Xóa bộ lọc
                 </CustomButton>
               </Flex>
             </Col>

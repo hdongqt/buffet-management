@@ -102,7 +102,7 @@ export default function TableReservationManagement() {
                   icon={<DeleteOutlined />}
                   onClick={handleResetFilters}
                 >
-                  Clear all
+                  Xóa bộ lọc
                 </CustomButton>
               </FormItemControl>
               <FormItemControl emptyLabel>

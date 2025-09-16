@@ -61,7 +61,7 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
       open={open}
       onOk={formik.handleSubmit}
       onCancel={onClose}
-      okText='Cập nhật'
+      okText={initialValues ? 'Cập nhật' : 'Xác nhận'}
       confirmLoading={actionLoading}
       width={widthCard}
     >

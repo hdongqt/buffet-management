@@ -40,13 +40,11 @@ const MENU_STATUS_TAGS = {
 }
 
 const MENU_COMBO_OPTIONS = [
-  { value: '', label: 'Mặc định' },
   { value: 'true', label: 'Combo' },
   { value: 'false', label: 'Món lẻ' },
 ]
 
 const MENU_SOFT_BY = [
-  { value: '', label: 'Mặc định' },
   { value: 'name', label: 'Tên' },
   { value: 'price', label: 'Giá' },
   { value: 'createdAt', label: 'Ngày tạo' },
