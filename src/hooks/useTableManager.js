@@ -47,7 +47,6 @@ const useTableManager = () => {
       record.status === RESTAURANT_TABLE_STATUS.AVAILABLE
         ? RESTAURANT_TABLE_STATUS.DISABLED
         : RESTAURANT_TABLE_STATUS.AVAILABLE
-    console.log(newStatus)
     dispatch(
       updateStatusTableRequest({
         id: record.id,

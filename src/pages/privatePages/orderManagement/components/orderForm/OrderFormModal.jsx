@@ -16,14 +16,17 @@ import { getWidthCard } from '@/utils/getWidthCard'
 import { formatCurrency } from '@/utils/format'
 
 import { StyledModal, FormSpace, StyledSection, StyledPrice } from './styled'
+import { useDispatch } from 'react-redux'
+import { getTableAvailableRequest } from '@/sagas/reservation/reservationSlice'
+import dayjs from 'dayjs'
+import DATE_FORMAT from '@/constants/dateTimeFormat'
 
 const { useBreakpoint } = Grid
 
 const OrderFormModal = ({ open, onClose, initialValues }) => {
-  const { fetchTables } = useTableManager()
   const { fetchMenus } = useMenuManagement()
   const { actionLoading } = useOrderManagement()
-
+  const dispatch = useDispatch()
   const {
     formik,
     listOptionTable,
@@ -42,13 +45,19 @@ const OrderFormModal = ({ open, onClose, initialValues }) => {
 
   useEffect(() => {
     if (!open) formik.resetForm()
+    if (open) {
+      fetchMenus({ page: 1, limit: -1, isCombo: true })
+      !initialValues &&
+        dispatch(
+          getTableAvailableRequest({
+            dateBooking: dayjs().format(DATE_FORMAT.FULL_DATE),
+            timeBooking: dayjs().format(DATE_FORMAT.TIME),
+            numPeople: 1,
+          })
+        )
+    }
   }, [open])
-
-  useEffect(() => {
-    fetchTables()
-    fetchMenus()
-  }, [])
-
+  console.log(listCombo)
   return (
     <StyledModal.Wrap
       title={

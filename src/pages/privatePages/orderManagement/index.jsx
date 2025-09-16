@@ -57,6 +57,8 @@ const OrderManagement = () => {
 
     fetchOrders,
     handleChangeStatus,
+    checkOrdered,
+    canUpdateStatus,
 
     modalState,
     openModal,
@@ -72,6 +74,43 @@ const OrderManagement = () => {
     handleResetFilters,
     handlePagination,
   } = useOrderManagement()
+
+  const confirmed = ORDER_STATUS_UPDATE.find((s) => s.key === 'confirmed')
+  const cancelled = ORDER_STATUS_UPDATE.find((s) => s.key === 'cancelled')
+
+  const getMenuItems = (record) => {
+    if (!checkOrdered(record) && record.status !== confirmed.key) {
+      return ORDER_STATUS_UPDATE.map((status) => ({
+        key: status.key,
+        label: <span style={{ color: status.color }}>{status.label}</span>,
+        onClick: () => handleChangeStatus(record.id, status.key),
+      }))
+    }
+
+    return [
+      {
+        key: cancelled.key,
+        label: (
+          <span style={{ color: cancelled.color }}>{cancelled.label}</span>
+        ),
+        onClick: () => handleChangeStatus(record.id, cancelled.key),
+      },
+    ]
+  }
+
+  const menuPropsForRecord = (record) => ({
+    items: [
+      { label: 'Cập nhật đơn', key: 'openModal' },
+      { label: 'Cập nhật món ăn', key: 'openModalFood' },
+    ],
+    onClick: ({ key }) => {
+      if (key === 'openModal') {
+        openModal(record)
+      } else if (key === 'openModalFood') {
+        openModalFood(record)
+      }
+    },
+  })
 
   const columns = [
     {
@@ -117,19 +156,6 @@ const OrderManagement = () => {
       title: 'Hành động',
       fixed: 'right',
       render: (_, record) => {
-        const menuPropsForRecord = {
-          items: [
-            { label: 'Cập nhật đơn', key: 'openModal' },
-            { label: 'Cập nhật món ăn', key: 'openModalFood' },
-          ],
-          onClick: (e) => {
-            if (e.key === 'openModal') {
-              openModal(record)
-            } else if (e.key === 'openModalFood') {
-              openModalFood(record)
-            }
-          },
-        }
         return (
           <Space>
             <Tooltip title='Xem chi tiết'>
@@ -139,35 +165,23 @@ const OrderManagement = () => {
               />
             </Tooltip>
 
-            {record.status === 'pending' && (
+            {canUpdateStatus(record) && (
               <Tooltip title='Cập nhật trạng thái'>
-                <Popover
-                  placement='topRight'
-                  title={''}
-                  content={
-                    <Flex vertical gap={8}>
-                      {ORDER_STATUS_UPDATE.map(({ color, label, value }) => (
-                        <CustomButton
-                          color={color}
-                          variant='outlined'
-                          onClick={() => {
-                            handleChangeStatus(record.id, value)
-                          }}
-                        >
-                          {label}
-                        </CustomButton>
-                      ))}
-                    </Flex>
-                  }
-                  trigger={'click'}
+                <Dropdown
+                  menu={{ items: getMenuItems(record) }}
+                  trigger={['click']}
+                  placement='bottomRight'
                 >
                   <CustomButton icon={<RetweetOutlined />} />
-                </Popover>
+                </Dropdown>
               </Tooltip>
             )}
 
-            {record.status === 'confirmed' && (
-              <Dropdown menu={menuPropsForRecord} placement='bottomRight'>
+            {record.status === confirmed.key && (
+              <Dropdown
+                menu={menuPropsForRecord(record)}
+                placement='bottomRight'
+              >
                 <CustomButton icon={<MoreOutlined />} />
               </Dropdown>
             )}

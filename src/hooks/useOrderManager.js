@@ -118,6 +118,19 @@ const useOrderManagement = () => {
     await dispatch(fetchOrdersRequest({ params: {} }))
   }
 
+  const checkOrdered = (record) =>
+    record?.normalDishes?.some((item) => item?.status === 'completed') ?? false
+
+  const canUpdateStatus = (record) => {
+    checkOrdered(record)
+    if (!record) return false
+    const excludedStatuses = ['paid', 'cancelled']
+    return (
+      (checkOrdered(record) === false || record.status === 'pending') &&
+      !excludedStatuses.includes(record.status)
+    )
+  }
+
   return {
     orders,
     order,
@@ -132,6 +145,8 @@ const useOrderManagement = () => {
 
     fetchOrders,
     handleChangeStatus,
+    checkOrdered,
+    canUpdateStatus,
 
     openModal,
     modalState,
