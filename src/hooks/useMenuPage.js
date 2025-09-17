@@ -19,6 +19,7 @@ const useMenuPage = () => {
     pagination,
     filters,
     deleteMenu,
+    fetchDishes,
   } = useMenuManagement()
 
   const [modalState, setModalState] = useState({ open: false, record: null })
@@ -64,6 +65,13 @@ const useMenuPage = () => {
     })
   }
 
+  const handleDishPageChange = (newPagination) => {
+    fetchDishes({
+      page: newPagination.page,
+      limit: newPagination.limit,
+    })
+  }
+
   const handleResetFilters = () => {
     formikSearch.resetForm()
     fetchMenuList({})
@@ -89,10 +97,10 @@ const useMenuPage = () => {
     formikSearch,
     handleFilter,
     handlePageChange,
+    handleDishPageChange,
     handleResetFilters,
     hasFilterMenu,
   }
 }
 
 export default useMenuPage
-

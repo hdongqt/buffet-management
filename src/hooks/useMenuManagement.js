@@ -3,17 +3,31 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchMenuListRequest,
   deleteMenuRequest,
+  fetchDishListRequest,
 } from '@/sagas/menuManagement/menuSlice'
 
 const useMenuManagement = () => {
   const dispatch = useDispatch()
 
-  const { menuList, loading, actionLoading, pagination, filters } = useSelector(
-    (state) => state.menu
-  )
+  const {
+    menuList,
+    dishList,
+    loading,
+    actionLoading,
+    pagination,
+    paginationDish,
+    filters,
+  } = useSelector((state) => state.menu)
 
   const fetchMenus = async (params) =>
     await dispatch(fetchMenuListRequest({ params }))
+
+  const fetchDishes = async (params) =>
+    await dispatch(
+      fetchDishListRequest({
+        params: params ? { ...params } : { page: 1, limit: -1, isCombo: false },
+      })
+    )
 
   const commonCallback = async () => {
     if (menuList.length === 1 && pagination?.page > 1) {
@@ -37,17 +51,17 @@ const useMenuManagement = () => {
     price: item.price,
   }))
 
-  const listDish = menuList.filter((item) => !item.isCombo)
-
   return {
     menuList,
     listCombo,
-    listDish,
+    dishList,
     loading,
     actionLoading,
     pagination,
+    paginationDish,
     filters,
     fetchMenus,
+    fetchDishes,
     deleteMenu,
   }
 }

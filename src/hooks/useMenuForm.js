@@ -11,10 +11,25 @@ import {
 } from '@/sagas/menuManagement/menuSlice'
 
 import useMenuManagement from '@/hooks/useMenuManagement'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 const useMenuForm = ({ initialValues, onClose }) => {
   const dispatch = useDispatch()
-  const { menuList, filters } = useMenuManagement()
+  const { dishList, filters } = useMenuManagement()
+  const [dishOfCombo, setDishOfCombo] = useState([])
+
+  useEffect(() => {
+    if (initialValues?.comboItems?.length) {
+      setDishOfCombo(
+        initialValues?.comboItems?.map((item) => {
+          return { id: item.id, label: item.name }
+        })
+      )
+    } else {
+      setDishOfCombo([])
+    }
+  }, [initialValues])
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -99,18 +114,12 @@ const useMenuForm = ({ initialValues, onClose }) => {
   const isCombo = formik.values.isCombo
   const selectedComboItems = formik.values.comboItems || []
 
-  const foodItemList = menuList
-    .filter((item) => !item.isCombo && item.id !== initialValues?.id)
+  const foodItemList = dishList
+    .filter((item) => item.id !== initialValues?.id)
     .map((item) => ({
       label: item.name,
       value: item.id,
     }))
-
-  const foodMap = (id) => {
-    const map = foodItemList?.find((f) => f.value === id)?.label
-
-    return map
-  }
 
   const addCallback = async () => {
     await dispatch(fetchMenuListRequest({ params: { ...filters, page: 1 } }))
@@ -126,10 +135,11 @@ const useMenuForm = ({ initialValues, onClose }) => {
   return {
     formik,
     foodItemList,
-    foodMap,
     selectedComboItems,
     isCombo,
     onChangeFormItem,
+    dishOfCombo,
+    setDishOfCombo,
   }
 }
 

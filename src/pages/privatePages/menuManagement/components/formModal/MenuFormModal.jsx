@@ -32,14 +32,15 @@ import {
 const { useBreakpoint } = Grid
 
 const MenuFormModal = ({ open, onClose, initialValues }) => {
-  const { actionLoading } = useMenuManagement()
+  const { fetchDishes, actionLoading } = useMenuManagement()
   const { categoryItemList } = useCategoriesManagement()
   const {
     formik,
     foodItemList,
-    foodMap,
     selectedComboItems,
     isCombo,
+    dishOfCombo,
+    setDishOfCombo,
     onChangeFormItem,
   } = useMenuForm({
     initialValues,
@@ -52,6 +53,9 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
   useEffect(() => {
     if (!open) {
       formik.resetForm()
+    }
+    if (open) {
+      fetchDishes()
     }
   }, [open])
 
@@ -72,6 +76,7 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
               <h5>Ảnh món ăn</h5>
             </SectionHeader>
             <UpdateImage
+              open={open}
               name='imageUrl'
               value={formik.values.imageUrl}
               onChange={(url) => onChangeFormItem('imageUrl', url)}
@@ -84,18 +89,17 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
             <Section>
               <SectionHeader>
                 <h5>Món đã chọn trong combo</h5>
-                <p>{selectedComboItems.length} món</p>
+                <p>{dishOfCombo.length} món</p>
               </SectionHeader>
 
-              {selectedComboItems.length === 0 ? (
+              {dishOfCombo.length === 0 ? (
                 <Empty
                   image={Empty.PRESENTED_IMAGE_SIMPLE}
                   description='Chưa chọn món nào'
                 />
               ) : (
                 <SelectedList>
-                  {selectedComboItems.map((id) => {
-                    const label = foodMap(id) || `#${id}`
+                  {dishOfCombo.map(({ id, label }) => {
                     return (
                       <Tag
                         key={id}
@@ -103,6 +107,9 @@ const MenuFormModal = ({ open, onClose, initialValues }) => {
                         closable
                         onClose={(e) => {
                           e.preventDefault()
+                          setDishOfCombo((prev) =>
+                            prev.filter((item) => item.id !== id)
+                          )
                           onChangeFormItem(
                             'comboItems',
                             selectedComboItems.filter((item) => item !== id)
