@@ -59,7 +59,13 @@ export default function ReservationFormAdmin({
     }
   }
 
-  const [, ...listOptionStatus] = LIST_OPTIONS_STATUS
+  let [, ...listOptionStatus] = LIST_OPTIONS_STATUS
+
+  if (!editingRecord) {
+    listOptionStatus = listOptionStatus.filter(
+      (option) => option.value !== 'cancelled'
+    )
+  }
 
   return (
     <CustomModal
@@ -78,6 +84,7 @@ export default function ReservationFormAdmin({
           <CustomInput
             name='fullname'
             placeholder='Nhập tên'
+            disabled={formik.values.status === 'cancelled'}
             value={formik.values.fullname}
             onChange={(e) => onChangeFormItem('fullname', e.target.value)}
             onBlur={formik.handleBlur}
@@ -90,6 +97,7 @@ export default function ReservationFormAdmin({
               <CustomInput
                 name='phone'
                 placeholder='Số điện thoại'
+                disabled={formik.values.status === 'cancelled'}
                 value={formik.values.phone}
                 onChange={(e) => onChangeFormItem('phone', e.target.value)}
                 onBlur={formik.handleBlur}
@@ -101,6 +109,7 @@ export default function ReservationFormAdmin({
               <CustomSelect
                 showSearch
                 placeholder='Số khách'
+                disabled={formik.values.status === 'cancelled'}
                 options={listOptionSeat}
                 value={formik.values.numPeople}
                 onChange={handleNumPeopleChange}
@@ -120,6 +129,7 @@ export default function ReservationFormAdmin({
                 onChange={handleDateChange}
                 onBlur={formik.handleBlur}
                 placeholder='Chọn ngày'
+                disabled={formik.values.status === 'cancelled'}
               />
             </FormItemControl>
           </Col>
@@ -132,6 +142,7 @@ export default function ReservationFormAdmin({
                 onChange={handleTimeChange}
                 onBlur={formik.handleBlur}
                 placeholder='Chọn giờ'
+                disabled={formik.values.status === 'cancelled'}
               />
             </FormItemControl>
           </Col>
@@ -144,6 +155,7 @@ export default function ReservationFormAdmin({
                 name='tableId'
                 options={listOptionTable}
                 value={formik.values.tableId}
+                disabled={formik.values.status === 'cancelled'}
                 onChange={(val) => onChangeFormItem('tableId', val)}
                 notFoundContent='Không có dữ liệu'
               />
