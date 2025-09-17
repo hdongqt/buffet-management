@@ -4,6 +4,9 @@ import {
   fetchMenuListSuccess,
   fetchMenuListFailure,
   fetchMenuListRequest,
+  fetchDishListSuccess,
+  fetchDishListFailure,
+  fetchDishListRequest,
   getMenuSuccess,
   getMenuFailure,
   getMenuRequest,
@@ -29,6 +32,18 @@ function* fetchMenuListSaga(action) {
   } catch (error) {
     const errorMessage = getErrorMessage(error)
     yield put(fetchMenuListFailure(errorMessage))
+    yield put(showMessage.error(errorMessage))
+  }
+}
+
+function* fetchDishListSaga(action) {
+  try {
+    const { params } = action.payload || {}
+    const { dishes, pagination } = yield call(MENUS_API.getList, params)
+    yield put(fetchDishListSuccess({ dishes, pagination }))
+  } catch (error) {
+    const errorMessage = getErrorMessage(error)
+    yield put(fetchDishListFailure(errorMessage))
     yield put(showMessage.error(errorMessage))
   }
 }
@@ -96,6 +111,7 @@ function* deleteMenuSaga(action) {
 
 export default function* menuSaga() {
   yield takeLatest(fetchMenuListRequest.type, fetchMenuListSaga)
+  yield takeLatest(fetchDishListRequest.type, fetchDishListSaga)
   yield takeLatest(getMenuRequest.type, getMenuSaga)
   yield takeLatest(postMenuRequest.type, createMenuSaga)
   yield takeLatest(putMenuRequest.type, updateMenuSaga)

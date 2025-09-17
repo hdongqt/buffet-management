@@ -16,10 +16,12 @@ import {
   StyledSpin,
   StyledUploadOutlined,
 } from '@/components/common/updateImage/styled'
+import { useEffect } from 'react'
 
 const { Text } = Typography
 
 const UpdateImage = ({
+  open,
   name = 'imageUrl',
   value,
   onChange,
@@ -30,11 +32,24 @@ const UpdateImage = ({
   const dispatch = useDispatch()
 
   const [uploading, setUploading] = useState(false)
+  const [imageLoading, setImageLoading] = useState(false)
   const [preview, setPreview] = useState(null)
   const inputRef = useRef(null)
 
   const accept = 'image/png,image/jpeg,image/jpg,image/webp'
   const hasImage = Boolean(value)
+
+  useEffect(() => {
+    if (value) setImageLoading(true)
+  }, [value])
+
+  useEffect(() => {
+    if (!open) {
+      setPreview(null)
+      setUploading(false)
+      if (inputRef.current) inputRef.current.value = ''
+    }
+  }, [open])
 
   const handleChange = (newValue) => {
     if (onChange) {
@@ -116,11 +131,15 @@ const UpdateImage = ({
   return (
     <StyledSpace direction='vertical' size={8}>
       <PreviewState.Wrap>
-        <StyledSpin spinning={uploading} tip='Đang tải ảnh...'>
+        <StyledSpin spinning={uploading || imageLoading} tip='Đang tải ảnh...'>
           {hasImage ? (
             <Image
-              src={preview || value}
-              onLoad={() => setUploading(false)}
+              key={value}
+              src={uploading && preview ? preview : value}
+              onLoad={() => {
+                setUploading(false)
+                setImageLoading(false)
+              }}
               preview={{ mask: 'Xem ảnh' }}
             />
           ) : (

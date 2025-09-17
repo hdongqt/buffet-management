@@ -12,11 +12,13 @@ const initialFilter = {
 
 const initialState = {
   menuList: [],
+  dishList: [],
   menu: null,
   loading: false,
   actionLoading: false,
   error: null,
   pagination: DEFAULT_PAGINATION,
+  paginationDish: DEFAULT_PAGINATION,
   filters: initialFilter,
 }
 
@@ -35,6 +37,21 @@ const menuSlice = createSlice({
       state.pagination = action.payload.pagination
     },
     fetchMenuListFailure: (state, action) => {
+      state.loading = false
+      state.error = action.payload
+    },
+
+    fetchDishListRequest: (state, action) => {
+      state.loading = true
+      state.filters = action.payload?.params || state.filters
+      state.error = null
+    },
+    fetchDishListSuccess: (state, action) => {
+      state.loading = false
+      state.dishList = action.payload.dishes
+      state.paginationDish = action.payload.pagination
+    },
+    fetchDishListFailure: (state, action) => {
       state.loading = false
       state.error = action.payload
     },
@@ -94,6 +111,9 @@ export const {
   fetchMenuListRequest,
   fetchMenuListSuccess,
   fetchMenuListFailure,
+  fetchDishListRequest,
+  fetchDishListSuccess,
+  fetchDishListFailure,
   getMenuRequest,
   getMenuSuccess,
   getMenuFailure,

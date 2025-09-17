@@ -37,8 +37,8 @@ import useCategoriesManagement from '@/hooks/useCategories'
 import { formatCurrency } from '@/utils/format'
 
 const AddDishesModal = ({ open, onClose }) => {
-  const { formikSearch, handleFilter, handlePageChange } = useMenuPage()
-  const { menuList, loading, pagination } = useMenuManagement()
+  const { formikSearch, handleFilter, handleDishPageChange } = useMenuPage()
+  const { fetchDishes, loading, dishList, paginationDish } = useMenuManagement()
   const { categoryItemList } = useCategoriesManagement()
   const { order, cart, actionLoading } = useOrderManagement()
 
@@ -54,6 +54,7 @@ const AddDishesModal = ({ open, onClose }) => {
   useEffect(() => {
     if (open) {
       setNewCart(cart || [])
+      fetchDishes()
     }
   }, [open])
 
@@ -114,11 +115,11 @@ const AddDishesModal = ({ open, onClose }) => {
           </FormItemControl>
 
           <div>
-            {menuList?.length ? (
+            {dishList?.length ? (
               <>
                 <List
                   loading={loading}
-                  dataSource={menuList || []}
+                  dataSource={dishList || []}
                   renderItem={(item) => (
                     <List.Item
                       actions={[
@@ -143,13 +144,16 @@ const AddDishesModal = ({ open, onClose }) => {
                 />
                 <Pagination
                   align='end'
-                  current={pagination.page}
-                  pageSize={pagination.pageSize}
-                  total={pagination.total}
+                  current={paginationDish.page}
+                  pageSize={paginationDish.pageSize}
+                  total={paginationDish.total}
                   showSizeChanger
                   pageSizeOptions={['20', '30', '40']}
-                  onShowSizeChange={(page, limit) =>
-                    handlePageChange({ page, limit })
+                  onChange={(page, pageSize) =>
+                    handleDishPageChange({ page, limit: pageSize })
+                  }
+                  onShowSizeChange={(page, pageSize) =>
+                    handleDishPageChange({ page, limit: pageSize })
                   }
                 />
               </>
