@@ -65,6 +65,7 @@ export const useReservationFormAdminAction = (
       .min(1, VALIDATION_MESSAGE.MIN_PEOPLE(1))
       .required(VALIDATION_MESSAGE.REQUIRED('Số khách')),
     tableId: Yup.string().required(VALIDATION_MESSAGE.REQUIRED('Bàn')),
+    status: Yup.string().required(VALIDATION_MESSAGE.REQUIRED('Trạng thái')),
   })
 
   const initialValues = {
@@ -128,8 +129,19 @@ export const useReservationFormAdminAction = (
     onSubmit: handleSubmit,
   })
 
+  const handleCancelReservation = () => {
+    formik.resetForm()
+  }
+
   const onChangeFormItem = (field, value) => {
-    formik.setFieldValue(field, value)
+    if (field === 'status' && value === 'cancelled') {
+      const noteValue = formik.values.note
+      handleCancelReservation()
+      formik.setFieldValue(field, value)
+      formik.setFieldValue('note', noteValue)
+    } else {
+      formik.setFieldValue(field, value)
+    }
   }
 
   const disabledDate = (current) => {
