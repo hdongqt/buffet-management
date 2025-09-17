@@ -84,7 +84,7 @@ export default function ReservationFormAdmin({
           <CustomInput
             name='fullname'
             placeholder='Nhập tên'
-            disabled={formik.values.status === 'cancelled'}
+            readOnly={formik.values.status === 'cancelled'}
             value={formik.values.fullname}
             onChange={(e) => onChangeFormItem('fullname', e.target.value)}
             onBlur={formik.handleBlur}
@@ -97,7 +97,7 @@ export default function ReservationFormAdmin({
               <CustomInput
                 name='phone'
                 placeholder='Số điện thoại'
-                disabled={formik.values.status === 'cancelled'}
+                readOnly={formik.values.status === 'cancelled'}
                 value={formik.values.phone}
                 onChange={(e) => onChangeFormItem('phone', e.target.value)}
                 onBlur={formik.handleBlur}
@@ -167,6 +167,7 @@ export default function ReservationFormAdmin({
                 name='status'
                 options={listOptionStatus}
                 value={formik.values.status}
+                disabled={dayjs(editingRecord?.reservedAt).isBefore(dayjs())}
                 onChange={(val) => onChangeFormItem('status', val)}
               />
             </FormItemControl>
@@ -177,6 +178,7 @@ export default function ReservationFormAdmin({
           <CustomTextArea
             name='note'
             placeholder='Nhập ghi chú (nếu có)'
+            readOnly={dayjs(editingRecord?.reservedAt).isBefore(dayjs())}
             value={formik.values.note}
             onChange={(e) => onChangeFormItem('note', e.target.value)}
           />

@@ -64,7 +64,11 @@ export const useReservationFormAdminAction = (
       .nullable()
       .min(1, VALIDATION_MESSAGE.MIN_PEOPLE(1))
       .required(VALIDATION_MESSAGE.REQUIRED('Số khách')),
-    tableId: Yup.string().required(VALIDATION_MESSAGE.REQUIRED('Bàn')),
+    tableId: Yup.string().when('status', {
+      is: (val) => val !== 'canceled',
+      then: (schema) => schema.required(VALIDATION_MESSAGE.REQUIRED('Bàn')),
+      otherwise: (schema) => schema.nullable().notRequired(),
+    }),
     status: Yup.string().required(VALIDATION_MESSAGE.REQUIRED('Trạng thái')),
   })
 
