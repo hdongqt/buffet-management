@@ -6,7 +6,7 @@ import bgMenu from '@/assets/images/menu/menu/Background.jpg'
 
 import regulations from '@/assets/images/menu/menu/comboA/quy-dinh-su-dung-mon.jpg'
 import prices from '@/assets/images/menu/menu/comboA/gia-ve-buffet.jpg'
-import buffetCombo from '@/assets/images/menu/menu/comboA/buffet-299K.png'
+import buffetCombo from '@/assets/images/menu/menu/comboA/buffet-299K.jpg'
 import dessert from '@/assets/images/menu/menu/comboA/trang-mieng.jpg'
 import food from '@/assets/images/menu/menu/comboA/com-my-sup.jpg'
 import hotpot from '@/assets/images/menu/menu/comboA/lau-lon.jpg'
