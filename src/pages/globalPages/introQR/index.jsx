@@ -8,7 +8,7 @@ import { featureHero } from './featureHero'
 import { theme } from '@/constants/theme'
 import { MAIN_IMAGES } from '@/constants/images/mainUserImage'
 
-import { IntroQRStyles } from './styled'
+import { IntroQRStyles, StyledMotion } from './styled'
 
 const { animations } = theme
 
@@ -69,7 +69,7 @@ const IntroQR = () => {
             {featureHero &&
               featureHero.map((feature, index) => (
                 <Col xs={24} sm={12} lg={6} key={`${feature.title}-${index}`}>
-                  <motion.div
+                  <StyledMotion
                     variants={animations.fadeUpVariants}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
@@ -85,7 +85,7 @@ const IntroQR = () => {
                         </IntroQRStyles.FeatureDescription>
                       </IntroQRStyles.FeatureIconWrapper>
                     </IntroQRStyles.FeatureCard>
-                  </motion.div>
+                  </StyledMotion>
                 </Col>
               ))}
           </Row>
@@ -99,7 +99,7 @@ const IntroQR = () => {
           <Row gutter={[24, 24]}>
             {steps.map((step, index) => (
               <Col xs={24} sm={12} lg={6} key={`${step.title}-${index}`}>
-                <motion.div
+                <StyledMotion
                   variants={animations.fadeUpVariants}
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
@@ -115,7 +115,7 @@ const IntroQR = () => {
                       {step.description}
                     </IntroQRStyles.StepDescription>
                   </IntroQRStyles.StepCard>
-                </motion.div>
+                </StyledMotion>
               </Col>
             ))}
           </Row>
