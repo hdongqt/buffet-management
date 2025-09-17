@@ -139,12 +139,7 @@ const useOrderFormAction = ({ initialValues, onClose }) => {
         formik.setFieldValue('tableId', null)
       }
 
-      if (
-        (!initialValues &&
-          field === 'numPeople' &&
-          value > getCapacity(selectedTable?.capacity)) ||
-        value < getCapacity(selectedTable?.capacity)
-      ) {
+      if (!initialValues) {
         handleGetTableAvailable(value)
       }
     },

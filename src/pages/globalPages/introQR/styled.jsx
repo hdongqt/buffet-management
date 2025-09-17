@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Card, Typography } from 'antd'
+import { motion } from 'framer-motion'
 
 const { Title, Paragraph, Text } = Typography
 
@@ -114,4 +115,8 @@ const IntroQRStyles = {
   `,
 }
 
-export { IntroQRStyles }
+const StyledMotion = styled(motion.div)`
+  height: 100%;
+`
+
+export { IntroQRStyles, StyledMotion }
