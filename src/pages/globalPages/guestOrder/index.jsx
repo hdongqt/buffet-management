@@ -39,9 +39,11 @@ const OrdersPage = () => {
     getStatusText,
   } = useGuestOrder()
 
-  const { disabled: disabledButton, onClick } = useDisabledButton(() => {
-    handleRequestPayment()
-  })
+  const { disabled: disabledButton, onClick } = useDisabledButton(
+    handleRequestPayment,
+    15000,
+    'guestOrderDisabled'
+  )
 
   const totalCartItem = cart.reduce((total, item) => total + item.quantity, 0)
 
@@ -190,27 +192,29 @@ const OrdersPage = () => {
                         <GuestOrderStyles.ComboDishesTitle>
                           Bao gồm:
                         </GuestOrderStyles.ComboDishesTitle>
-                        {comboDish.listDish?.map((dish) => (
-                          <GuestOrderStyles.ComboDishItem key={dish.id}>
-                            <GuestOrderStyles.ComboDishImage>
-                              <Image
-                                src={dish.imageUrl || FALLBACK_IMAGES.noImage}
-                                alt={dish.name}
-                                preview={false}
-                              />
-                            </GuestOrderStyles.ComboDishImage>
-                            <GuestOrderStyles.ComboDishInfo>
-                              <GuestOrderStyles.ComboDishName>
-                                {dish.name}
-                              </GuestOrderStyles.ComboDishName>
-                              {dish.category && (
-                                <GuestOrderStyles.ItemCategory>
-                                  {dish.category.name}
-                                </GuestOrderStyles.ItemCategory>
-                              )}
-                            </GuestOrderStyles.ComboDishInfo>
-                          </GuestOrderStyles.ComboDishItem>
-                        ))}
+                        <GuestOrderStyles.ComboDishesContainer>
+                          {comboDish.listDish?.map((dish) => (
+                            <GuestOrderStyles.ComboDishItem key={dish.id}>
+                              <GuestOrderStyles.ComboDishImage>
+                                <Image
+                                  src={dish.imageUrl || FALLBACK_IMAGES.noImage}
+                                  alt={dish.name}
+                                  preview={false}
+                                />
+                              </GuestOrderStyles.ComboDishImage>
+                              <GuestOrderStyles.ComboDishInfo>
+                                <GuestOrderStyles.ComboDishName>
+                                  {dish.name}
+                                </GuestOrderStyles.ComboDishName>
+                                {dish.category && (
+                                  <GuestOrderStyles.ItemCategory>
+                                    {dish.category.name}
+                                  </GuestOrderStyles.ItemCategory>
+                                )}
+                              </GuestOrderStyles.ComboDishInfo>
+                            </GuestOrderStyles.ComboDishItem>
+                          ))}
+                        </GuestOrderStyles.ComboDishesContainer>
                       </GuestOrderStyles.ComboDishes>
                     </GuestOrderStyles.ComboItem>
                   </GuestOrderStyles.OrderedItems>
