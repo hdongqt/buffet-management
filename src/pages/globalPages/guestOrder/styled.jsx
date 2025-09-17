@@ -234,6 +234,11 @@ const GuestOrderStyles = {
     background: #fff;
   `,
 
+  ComboDishesContainer: styled.div`
+    max-height: 300px;
+    overflow-y: auto;
+  `,
+
   ComboDishesTitle: styled.h5`
     font-size: 14px;
     font-weight: 600;

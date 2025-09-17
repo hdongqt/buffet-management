@@ -47,7 +47,7 @@ export default function TableReservationManagement() {
     <div>
       <Form onFinish={formikSearch.handleSubmit} layout='vertical'>
         <Row gutter={16}>
-          <Col xs={24} md={12} lg={8}>
+          <Col xs={24} md={12} lg={6}>
             <FormItemControl
               name='search'
               label='Tìm kiếm'
@@ -61,6 +61,20 @@ export default function TableReservationManagement() {
                 allowClear
                 onChange={(event) =>
                   onChangeFilter('search', event.target.value)
+                }
+              />
+            </FormItemControl>
+          </Col>
+          <Col xs={24} md={12} lg={3}>
+            <FormItemControl name='search' label='Số bàn' formik={formikSearch}>
+              <CustomInput
+                name='tableNumber'
+                placeholder='Tìm bàn...'
+                size='large'
+                value={formikSearch.values.tableNumber}
+                allowClear
+                onChange={(event) =>
+                  onChangeFilter('tableNumber', event.target.value)
                 }
               />
             </FormItemControl>
@@ -95,7 +109,7 @@ export default function TableReservationManagement() {
               />
             </FormItemControl>
           </Col>
-          <Col xs={24} md={12} lg={8}>
+          <Col xs={24} md={12} lg={7}>
             <Flex justify='end' gap={8}>
               {hasFilter && (
                 <FormItemControl emptyLabel>
@@ -115,7 +129,7 @@ export default function TableReservationManagement() {
                   icon={<PlusOutlined />}
                   onClick={showModal}
                 >
-                  Thêm đặt bàn
+                  Thêm
                 </CustomButton>
               </FormItemControl>
             </Flex>

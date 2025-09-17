@@ -52,7 +52,7 @@ export default function Dashboard() {
   return (
     <DashboardStyle.Container>
       <Row gutter={[16, 16]}>
-        <Col xs={24} sm={12} md={6}>
+        <Col xs={24} sm={12} md={12} lg={6}>
           <DashboardStyle.StatsCard $color='#1890ff'>
             <Statistic
               title='Thông báo'
@@ -61,16 +61,16 @@ export default function Dashboard() {
             />
           </DashboardStyle.StatsCard>
         </Col>
-        <Col xs={24} sm={12} md={6}>
+        <Col xs={24} sm={12} md={12} lg={6}>
           <DashboardStyle.StatsCard $color='#ff944d'>
             <Statistic
-              title='Khách hàng mới'
+              title='Khách mới'
               value={stats.newOrder}
               prefix={<UserOutlined />}
             />
           </DashboardStyle.StatsCard>
         </Col>
-        <Col xs={24} sm={12} md={6}>
+        <Col xs={24} sm={12} md={12} lg={6}>
           <DashboardStyle.StatsCard $color='#52c41a'>
             <Statistic
               title='Gọi thanh toán'
@@ -79,7 +79,7 @@ export default function Dashboard() {
             />
           </DashboardStyle.StatsCard>
         </Col>
-        <Col xs={24} sm={12} md={6}>
+        <Col xs={24} sm={12} md={12} lg={6}>
           <DashboardStyle.StatsCard $color='#ff4d4f'>
             <Statistic
               title='Gọi nhân viên'

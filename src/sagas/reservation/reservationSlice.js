@@ -17,6 +17,7 @@ const reservationSlice = createSlice({
     filters: {
       status: '',
       search: '',
+      tableNumber: undefined,
       reservedAt: null,
       page: 1,
       limit: 20,

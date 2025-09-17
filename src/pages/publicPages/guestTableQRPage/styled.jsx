@@ -31,8 +31,8 @@ const TableQR = {
 
   Overlay: styled.div`
     background-color: rgba(23, 22, 22, 0.877);
-    padding: 40px 60px;
-    border-radius: 16px;
+    padding: 20px 70px;
+    border-radius: 2px;
   `,
 
   LogoWrapper: styled.div`
@@ -78,10 +78,10 @@ const TableQR = {
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 40px 100px;
+      padding: 40px 30px;
 
       @media screen and (max-width: ${breakpoints.md}) {
-        padding: 20px 50px;
+        padding: 20px 24px;
       }
     }
   `,
@@ -105,20 +105,25 @@ const TableQR = {
   `,
 
   ImageSelect: styled.img`
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
     border-radius: 4;
   `,
 
   OptionContainer: styled.div`
-    margin-top: 16px;
+    /* margin-top: 16px; */
   `,
 
   OptionTitle: styled(Title)`
     &.ant-typography {
       font-size: 16px;
       margin: 0;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   `,
   OptionDescription: styled(Text)`

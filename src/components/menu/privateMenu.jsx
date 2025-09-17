@@ -22,7 +22,7 @@ const MANAGER_MENU = [
   },
   {
     key: MANAGER_ROUTES.MENUS,
-    label: 'Quản lý món',
+    label: 'Quản lý thực đơn',
     icon: <ReadOutlined />,
   },
   {
@@ -37,7 +37,7 @@ const MANAGER_MENU = [
   },
   {
     key: MANAGER_ROUTES.ORDERS,
-    label: 'Quản lý đơn món',
+    label: 'Quản lý đặt món',
     icon: <ReconciliationOutlined />,
   },
   {

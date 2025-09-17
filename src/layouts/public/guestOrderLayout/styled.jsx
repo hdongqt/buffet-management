@@ -42,7 +42,7 @@ const GuestOrderLayoutWrapper = {
   `,
 
   Logo: styled.img`
-    width: 160px;
+    width: 120px;
     display: flex;
     align-items: center;
   `,

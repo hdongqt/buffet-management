@@ -19,9 +19,11 @@ const CallStaffPage = () => {
     handleSubmit,
   } = useGuestCallStaff()
 
-  const { disabled: disabledButton, onClick } = useDisabledButton(() => {
-    handleSubmit()
-  })
+  const { disabled: disabledButton, onClick } = useDisabledButton(
+    handleSubmit,
+    20000,
+    'guestCallStaffDisabled'
+  )
 
   return (
     <Container>
