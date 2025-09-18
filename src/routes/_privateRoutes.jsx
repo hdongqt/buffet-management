@@ -13,6 +13,7 @@ import {
 } from '@/pages/privatePages'
 import LazyLoading from '@/components/lazyLoading'
 import ProtectedPrivateRoute from '@/routes/guards/protectPrivateRoute'
+import ReportManagement from '@/pages/privatePages/reportManagement'
 
 const managerRoutes = {
   path: MANAGER_ROUTES.ROOT,
@@ -47,6 +48,10 @@ const managerRoutes = {
     {
       path: MANAGER_ROUTES.ORDERS,
       element: <OrderManagement />,
+    },
+    {
+      path: MANAGER_ROUTES.REPORTS,
+      element: <ReportManagement />,
     },
   ],
 }

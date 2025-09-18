@@ -13,6 +13,7 @@ import useOrderDish from '@/hooks/useOrderDish'
 import useOrderDishUpdate from '@/hooks/useOrderDishUpdate'
 import useDisabledButton from '@/hooks/useDisabledButton'
 import useNotificationQueue from './useNotificationQueue'
+import useReportManager from './useReportManager'
 
 export {
   useLogIn,
@@ -28,4 +29,5 @@ export {
   useOrderDishUpdate,
   useDisabledButton,
   useNotificationQueue,
+  useReportManager,
 }

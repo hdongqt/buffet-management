@@ -9,6 +9,7 @@ import guestOrderSaga from '@/sagas/guestOrder/guestOrderSaga'
 import guestDishSaga from '@/sagas/guestDish/guestDishSaga'
 import orderManagerSaga from '@/sagas/orderManager/orderManagerSaga'
 import notificationSaga from '@/sagas/notifications/notificationSaga'
+import reportManagerSaga from '@/sagas/reportManager/reportManagerSaga'
 
 // Root saga
 function* rootSaga() {
@@ -23,6 +24,7 @@ function* rootSaga() {
     guestDishSaga(),
     orderManagerSaga(),
     notificationSaga(),
+    reportManagerSaga(),
   ])
 }
 

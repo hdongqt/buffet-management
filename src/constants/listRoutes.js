@@ -23,6 +23,7 @@ const MANAGER_ROUTES = {
   RESERVATION: '/manager/reservation',
   CATEGORIES: '/manager/categories',
   ORDERS: '/manager/orders',
+  REPORTS: '/manager/reports',
 }
 
 const ADMIN_ROUTES = {
