@@ -6,8 +6,11 @@ import carousel4 from '@/assets/images/about/customer-in-restaurant-4.webp'
 import carousel5 from '@/assets/images/about/customer-in-restaurant-5.webp'
 
 import about from '@/assets/images/about/about.png'
+import aboutLow from '@/assets/images/about/about-low.png'
+
 import bgAbout from '@/assets/images/about/Background-about.jpg'
 import banner from '@/assets/images/about/Banner.jpg'
+import bannerLow from '@/assets/images/about/Banner-low.jpg'
 
 const CAROUSELS = {
   labelCustomer,
@@ -19,9 +22,15 @@ const CAROUSELS = {
 }
 
 const ABOUT_IMAGES = {
-  about,
+  about: {
+    high: about,
+    low: aboutLow,
+  },
   bgAbout,
-  banner,
+  banner: {
+    high: banner,
+    low: bannerLow,
+  },
 }
 
 export { ABOUT_IMAGES, CAROUSELS }

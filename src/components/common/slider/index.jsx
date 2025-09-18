@@ -5,6 +5,7 @@ import { AnimatedButton } from '@/components/common/'
 import { USER_ROUTES } from '@/constants/listRoutes'
 import { theme } from '@/constants/theme'
 import { motion } from 'framer-motion'
+import ProgressiveImage from '@/components/common/ProgressiveImage'
 
 const { animations } = theme
 
@@ -21,7 +22,11 @@ export default function SliderSection() {
       <Carousel autoplay autoplaySpeed={3000}>
         {Object.values(HOME_SLIDER).map((img, i) => (
           <div key={i}>
-            <img src={img} alt={`Banner Slider ${i + 1}`} />
+            <ProgressiveImage
+              src={img.high}
+              placeholder={img.low}
+              alt={`Banner Slider ${i + 1}`}
+            />
           </div>
         ))}
       </Carousel>

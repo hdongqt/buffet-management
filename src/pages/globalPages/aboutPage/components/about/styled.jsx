@@ -1,9 +1,12 @@
 import styled from 'styled-components'
-import { ABOUT_IMAGES } from '@/constants/images/aboutUserImage'
-import { Button, Flex } from 'antd'
-import { theme } from '@/constants/theme'
+import { Flex } from 'antd'
 
-const { breakpoints, colors } = theme
+import ProgressiveImage from '@/components/common/ProgressiveImage'
+
+import { theme } from '@/constants/theme'
+import { ABOUT_IMAGES } from '@/constants/images/aboutUserImage'
+
+const { breakpoints } = theme
 
 const AboutWrapper = styled.section`
   position: relative;
@@ -72,7 +75,7 @@ const About = {
     }
   `,
 
-  Image: styled.img`
+  Image: styled(ProgressiveImage)`
     width: 100%;
     height: auto;
     object-fit: cover;
