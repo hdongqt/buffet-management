@@ -80,7 +80,8 @@ const AboutSection = () => {
 
         <Col xs={24} lg={12}>
           <MotionImage
-            src={ABOUT_IMAGES.about}
+            src={ABOUT_IMAGES.about.high}
+            placeholder={ABOUT_IMAGES.about.low}
             alt='Sakura Buffet'
             variants={animations.fadeLeftRight}
           />

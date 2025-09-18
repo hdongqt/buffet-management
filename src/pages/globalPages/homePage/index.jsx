@@ -45,7 +45,11 @@ export default function HomePage() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <Menu.Title src={HOME_MENU.menuTitleImg} alt='Menu Title' />
-        <Menu.Banner src={HOME_MENU.menuBannerImg} alt='Menu Banner' />
+        <Menu.Banner
+          src={HOME_MENU.menuBannerImg.high}
+          placeholder={HOME_MENU.menuBannerImg.low}
+          alt='Menu Banner'
+        />
         <Menu.Button>
           <AnimatedButton
             type='primary'

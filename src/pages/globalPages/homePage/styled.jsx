@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+
+import ProgressiveImage from '@/components/common/ProgressiveImage'
+
 import { HOME_BACKGROUND } from '@/constants/images/homeUserImage'
 import { theme } from '@/constants/theme'
 
@@ -23,6 +26,7 @@ const Menu = {
     left: 50%;
     transform: translateX(-50%);
     max-width: 300px;
+    z-index: 3;
 
     @media (max-width: ${breakpoints.md}) {
       max-width: 200px;
@@ -35,7 +39,7 @@ const Menu = {
     }
   `,
 
-  Banner: styled.img`
+  Banner: styled(ProgressiveImage)`
     object-fit: cover;
     width: 100%;
 

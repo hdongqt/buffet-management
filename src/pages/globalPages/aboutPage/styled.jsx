@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
+import ProgressiveImage from '@/components/common/ProgressiveImage'
+
 import { theme } from '@/constants/theme'
+
 const { breakpoints } = theme
 
 const Container = styled.div`
@@ -17,7 +20,7 @@ const Banner = {
     }
   `,
 
-  Image: styled.img`
+  Image: styled(ProgressiveImage)`
     width: 100%;
     height: 100%;
     object-fit: cover;

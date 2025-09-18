@@ -1,6 +1,9 @@
 import homeSlider01 from '@/assets/images/home/slider/banner-01.jpg'
+import homeSlider01Low from '@/assets/images/home/slider/banner-01-low.jpg'
 import homeSlider02 from '@/assets/images/home/slider/banner-02.jpg'
+import homeSlider02Low from '@/assets/images/home/slider/banner-02-low.jpg'
 import homeSlider03 from '@/assets/images/home/slider/banner-03.jpg'
+import homeSlider03Low from '@/assets/images/home/slider/banner-03-low.jpg'
 
 import backgroundHome from '@/assets/images/home/common/background.jpg'
 import backgroundHome02 from '@/assets/images/home/common/background-02.jpg'
@@ -9,6 +12,7 @@ import discountBanner from '@/assets/images/home/discount/discount-01.jpg'
 
 import menuTitleImg from '@/assets/images/home/menu/menu-title.png'
 import menuBannerImg from '@/assets/images/home/menu/menu-banner.jpg'
+import menuBannerImgLow from '@/assets/images/home/menu/menu-banner-low.jpg'
 
 import customerLogoImg from '@/assets/images/home/customer/customer-logo.png'
 import bannerCarousel01 from '@/assets/images/home/customer/customer-slider-01.jpg'
@@ -37,13 +41,25 @@ const HOME_PRICE = {
 
 const HOME_MENU = {
   menuTitleImg,
-  menuBannerImg,
+  menuBannerImg: {
+    high: menuBannerImg,
+    low: menuBannerImgLow,
+  },
 }
 
 const HOME_SLIDER = {
-  homeSlider01,
-  homeSlider02,
-  homeSlider03,
+  homeSlider01: {
+    high: homeSlider01,
+    low: homeSlider01Low,
+  },
+  homeSlider02: {
+    high: homeSlider02,
+    low: homeSlider02Low,
+  },
+  homeSlider03: {
+    high: homeSlider03,
+    low: homeSlider03Low,
+  },
 }
 
 const HOME_BACKGROUND = {

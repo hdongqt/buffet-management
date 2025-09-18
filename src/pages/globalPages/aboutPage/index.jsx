@@ -8,7 +8,8 @@ const AboutPage = () => {
     <Container>
       <Banner.Section>
         <Banner.Image
-          src={ABOUT_IMAGES.banner}
+          src={ABOUT_IMAGES.banner.high}
+          placeholder={ABOUT_IMAGES.banner.low}
           alt='Banner Introduce about My Restaurant'
         />
       </Banner.Section>
