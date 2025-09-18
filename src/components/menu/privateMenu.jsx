@@ -7,6 +7,7 @@ import {
   UnorderedListOutlined,
   DashboardOutlined,
   ReconciliationOutlined,
+  PieChartOutlined,
 } from '@ant-design/icons'
 
 const MANAGER_MENU = [
@@ -39,6 +40,11 @@ const MANAGER_MENU = [
     key: MANAGER_ROUTES.ORDERS,
     label: 'Quản lý đặt món',
     icon: <ReconciliationOutlined />,
+  },
+  {
+    key: MANAGER_ROUTES.REPORTS,
+    label: 'Báo cáo & thống kê',
+    icon: <PieChartOutlined />,
   },
   {
     type: 'divider',

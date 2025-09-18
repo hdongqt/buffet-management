@@ -10,6 +10,7 @@ import guestOrderReducer from '@/sagas/guestOrder/guestOrderSlice'
 import guestDishReducer from '@/sagas/guestDish/guestDishSlice'
 import orderManagerReducer from '@/sagas/orderManager/orderManagerSlice'
 import notificationReducer from '@/sagas/notifications/notificationSlice'
+import reportManagerReducer from '@/sagas/reportManager/reportManagerSlice'
 
 const rootReducer = combineReducers({
   appMessage: appMessageReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   guestDish: guestDishReducer,
   orderManager: orderManagerReducer,
   notifications: notificationReducer,
+  reportManager: reportManagerReducer,
 })
 
 export default rootReducer

@@ -47,6 +47,7 @@ Dự án **Restaurant Ordering System** giúp quản lý toàn bộ hoạt độ
 - ✅ [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup) – form & validation
 - 🎨 [Framer-motion](https://motion.dev/docs/react) – animation
 - 🔨 [Socket.IO](https://socket.io) - Real time
+- 📌 [Recharts](https://recharts.org/) - Report charting
 
 ## 🚀 Cách chạy dự án (cho Developer mới)
 
