@@ -14,9 +14,12 @@ import {
   Legend,
 } from 'recharts'
 import dayjs from 'dayjs'
+
 import {
   AppstoreOutlined,
+  CalendarOutlined,
   DeleteOutlined,
+  FieldTimeOutlined,
   HeatMapOutlined,
 } from '@ant-design/icons'
 
@@ -25,6 +28,8 @@ import { CommonUI } from '@/components/common'
 
 import { useReportManager } from '@/hooks'
 import ReportStyled from './styled'
+import { Flex } from 'antd'
+import { Segmented } from 'antd'
 
 const { CustomButton, CustomDatePicker } = CommonUI
 const COLORS = ['#ff4d4f', '#1890ff']
@@ -42,6 +47,7 @@ const ReportManager = () => {
     getReports,
     handleResetFilters,
     paymentData,
+    handleQuickFilter,
   } = useReportManager()
 
   useEffect(() => {
@@ -62,8 +68,8 @@ const ReportManager = () => {
   return (
     <ReportStyled.Wrapper>
       <Form onFinish={formik.handleSubmit} layout='vertical'>
-        <Row gutter={16}>
-          <Col xs={24} md={8} lg={6}>
+        <Row gutter={16} wrap>
+          <Col xs={24} md={6} lg={5} xl={5}>
             <FormItemControl
               name='startDate'
               label='Ngày bắt đầu'
@@ -72,11 +78,12 @@ const ReportManager = () => {
               <CustomDatePicker
                 placeholder='Ngày bắt đầu'
                 value={startDate ? dayjs(startDate) : null}
+                allowClear={false}
                 onChange={(value) => onChangeDate(value, 'startDate')}
               />
             </FormItemControl>
           </Col>
-          <Col xs={24} md={8} lg={6}>
+          <Col xs={24} md={6} lg={5} xl={5}>
             <FormItemControl
               name='endDate'
               label='Ngày kết thúc'
@@ -85,20 +92,45 @@ const ReportManager = () => {
               <CustomDatePicker
                 placeholder='Ngày kết thúc'
                 value={endDate ? dayjs(endDate) : null}
+                allowClear={false}
                 onChange={(value) => onChangeDate(value, 'endDate')}
               />
             </FormItemControl>
           </Col>
-          <Col xs={24} md={8} lg={6}>
-            <FormItemControl emptyLabel>
-              <CustomButton
-                onClick={handleResetFilters}
-                icon={<DeleteOutlined />}
+          <Col xs={24} md={10} lg={8} xl={6}>
+            <FormItemControl label={'Lọc theo'} name='filterBy'>
+              <Segmented
+                options={[
+                  {
+                    label: 'Hôm nay',
+                    value: 'today',
+                    icon: <FieldTimeOutlined />,
+                  },
+                  {
+                    label: 'Tháng này',
+                    value: 'thisMonth',
+                    icon: <CalendarOutlined />,
+                  },
+                ]}
+                value={formik.values.filterBy}
+                onChange={handleQuickFilter}
                 size='large'
-              >
-                Xóa bộ lọc
-              </CustomButton>
+                block
+              />
             </FormItemControl>
+          </Col>
+          <Col xs={24} md={24} lg={4} xl={8}>
+            <Flex justify='end'>
+              <FormItemControl emptyLabel>
+                <CustomButton
+                  onClick={handleResetFilters}
+                  icon={<DeleteOutlined />}
+                  size='large'
+                >
+                  Xóa bộ lọc
+                </CustomButton>
+              </FormItemControl>
+            </Flex>
           </Col>
         </Row>
       </Form>
@@ -137,7 +169,7 @@ const ReportManager = () => {
           </Col>
         </ReportStyled.RowSection>
 
-        <ReportStyled.RowSection gutter={16}>
+        <ReportStyled.RowSection gutter={[16, 16]}>
           <Col xs={24} md={24} lg={12}>
             <ReportStyled.Card>
               <ReportStyled.SectionTitle level={4}>
@@ -152,6 +184,7 @@ const ReportManager = () => {
                   <Line
                     type='monotone'
                     dataKey='total'
+                    name='Tổng'
                     label='Tổng doanh thu'
                     stroke='#1890ff'
                     strokeWidth={2}
@@ -165,7 +198,7 @@ const ReportManager = () => {
           <Col xs={24} md={24} lg={12}>
             <ReportStyled.Card>
               <ReportStyled.SectionTitle level={4}>
-                Tổng thanh toán theo phương thức
+                Doanh thu theo phương thức
               </ReportStyled.SectionTitle>
               <ResponsiveContainer width='100%' height={200}>
                 <PieChart>
@@ -177,14 +210,16 @@ const ReportManager = () => {
                     label
                   >
                     {paymentData &&
-                      paymentData.map((entry, index) => (
+                      paymentData.map((_, index) => (
                         <Cell
                           key={`cell-${index}`}
                           fill={COLORS[index % COLORS.length]}
                         />
                       ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip
+                    formatter={(value) => `${value.toLocaleString()} VND`}
+                  />
                   <Legend
                     verticalAlign='bottom'
                     align='center'

@@ -1,12 +1,15 @@
-import { getReportRequest } from '@/sagas/reportManager/reportManagerSlice'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import dayjs from 'dayjs'
-import * as Yup from 'yup'
 import { useFormik } from 'formik'
 
-import { useState } from 'react'
+import { getReportRequest } from '@/sagas/reportManager/reportManagerSlice'
+
 import DATE_FORMAT from '@/constants/dateTimeFormat'
+import { PAYMENT_METHOD_OPTIONS } from '@/constants/options'
+
+const DATE_START_MONTH = dayjs().startOf('month').format(DATE_FORMAT.FULL_DATE)
+const TODAY = dayjs().format(DATE_FORMAT.FULL_DATE)
 
 const useReportManager = () => {
   const dispatch = useDispatch()
@@ -17,13 +20,11 @@ const useReportManager = () => {
 
   const formik = useFormik({
     initialValues: {
-      startDate: dayjs().format(DATE_FORMAT.FULL_DATE),
-      endDate: dayjs().format(DATE_FORMAT.FULL_DATE),
+      startDate: filters.startDate || DATE_START_MONTH,
+      endDate: filters.endDate || TODAY,
+      filterBy: filters.filterBy || 'thisMonth',
     },
-    validationSchema: Yup.object({
-      startDate: Yup.date().required('Ngày bắt đầu là bắt buộc'),
-      endDate: Yup.date().required('Ngày kết thúc là bắt buộc'),
-    }),
+    enableReinitialize: true,
   })
 
   const getReports = () => {
@@ -32,6 +33,7 @@ const useReportManager = () => {
         params: {
           startDate: formik.values.startDate,
           endDate: formik.values.endDate,
+          filterBy: formik.values.filterBy,
         },
       })
     )
@@ -41,23 +43,46 @@ const useReportManager = () => {
     const dateString = dayjs(value).format(DATE_FORMAT.FULL_DATE)
     if (type === 'endDate') {
       dispatch(
-        getReportRequest({ params: { ...filters, endDate: dateString } })
+        getReportRequest({
+          params: { ...filters, endDate: dateString, filterBy: 'all' },
+        })
       )
     } else {
       dispatch(
-        getReportRequest({ params: { ...filters, startDate: dateString } })
+        getReportRequest({
+          params: { ...filters, startDate: dateString, filterBy: 'all' },
+        })
       )
     }
   }
 
   const handleResetFilters = () => {
-    formik.resetForm()
     dispatch(
       getReportRequest({
         params: {
-          startDate: dayjs().format('YYYY-MM-DD'),
-          endDate: dayjs().format('YYYY-MM-DD'),
+          startDate: DATE_START_MONTH,
+          endDate: TODAY,
         },
+        callback: () => formik.resetForm(),
+      })
+    )
+  }
+
+  const handleQuickFilter = async (type) => {
+    let startDate, endDate
+    if (type === 'today') {
+      startDate = TODAY
+      endDate = TODAY
+    }
+
+    if (type === 'thisMonth') {
+      startDate = DATE_START_MONTH
+      endDate = TODAY
+    }
+
+    await dispatch(
+      getReportRequest({
+        params: { startDate, endDate, filterBy: type },
       })
     )
   }
@@ -65,7 +90,9 @@ const useReportManager = () => {
   const paymentData =
     reports &&
     Object.entries(reports.payments).map(([method]) => ({
-      name: method === 'cash' ? 'Tiền mặt' : 'Chuyển khoản',
+      name:
+        PAYMENT_METHOD_OPTIONS.find((item) => item.value === method)?.label ||
+        '',
       value: reports.payments[method].total,
     }))
 
@@ -81,6 +108,7 @@ const useReportManager = () => {
     getReports,
     handleResetFilters,
     paymentData,
+    handleQuickFilter,
   }
 }
 

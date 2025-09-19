@@ -10,9 +10,17 @@ import REPORT_API from '@/services/report'
 
 function* handleGetReportManager(action) {
   try {
-    const { params } = action.payload
-    const { reports } = yield call(REPORT_API.get, params)
+    const { params, callback } = action.payload
+    const { startDate, endDate } = params
+    const { reports } = yield call(REPORT_API.get, {
+      startDate,
+      endDate,
+    })
+
     yield put(getReportSuccess(reports))
+    if (typeof callback === 'function') {
+      yield call(callback)
+    }
   } catch (error) {
     const errorMessage = getErrorMessage(error)
     yield put(getReportFailure(errorMessage))

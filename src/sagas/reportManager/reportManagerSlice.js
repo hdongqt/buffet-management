@@ -9,6 +9,7 @@ const reportManagerSlice = createSlice({
     filters: {
       startDate: null,
       endDate: null,
+      filterBy: 'thisMonth',
     },
   },
   reducers: {
