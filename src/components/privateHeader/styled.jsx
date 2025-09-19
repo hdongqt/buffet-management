@@ -1,4 +1,4 @@
-import { Layout, Flex, Avatar, Typography } from 'antd'
+import { Layout, Flex, Avatar, Typography, Button } from 'antd'
 import styled from 'styled-components'
 
 const HeaderStyle = styled(Layout.Header)`
@@ -40,4 +40,26 @@ const ProfileAvatarStyle = styled(Avatar)`
   min-width: 48px;
 `
 
-export { HeaderStyle, UserTextStyle, FlexFullStyle, ProfileAvatarStyle }
+const ButtonCollapseStyle = styled(Button)`
+  z-index: 1000;
+  ${({ $isFixed, $isCollapsed }) =>
+    $isFixed
+      ? `
+        position: fixed;
+        top: 14px;
+        left: ${$isCollapsed ? '10px' : '250px'};
+      `
+      : `
+        position: relative;
+        top: auto;
+        left: auto;
+      `}
+`
+
+export {
+  HeaderStyle,
+  UserTextStyle,
+  FlexFullStyle,
+  ProfileAvatarStyle,
+  ButtonCollapseStyle,
+}

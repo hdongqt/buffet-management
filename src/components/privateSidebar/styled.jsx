@@ -5,6 +5,12 @@ const SideBarStyle = styled(Layout.Sider)`
   background: #fff;
   display: flex;
   flex-direction: column;
+  position: ${(props) => (props.$isFixed ? 'fixed' : 'relative')};
+  top: 0;
+  left: 0;
+  height: ${(props) => (props.$isFixed ? '100vh' : 'auto')};
+  z-index: 1000;
+  overflow: auto;
 `
 
 const SideBarLogoStyle = styled.div`
