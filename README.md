@@ -90,13 +90,3 @@ Hotfix: hotfix/<mã-lỗi>
 3. Pull Request (PR)
 
 - Tạo PR từ branch → develop
-
-4. Note
-
-- Review chéo trước khi merge từ các thành viên khác trong team và người hướng dẫn
-
-- Không merge trực tiếp vào develop
-
-- Tạo message commit, tên branch rõ ràng
-
-- Không push log
